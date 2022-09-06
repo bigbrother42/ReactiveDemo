@@ -18,9 +18,23 @@
         </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>
-        <Button Width="100" Height="20"
-                Content="{Binding Button1Name.Value}"
-                Command="{Binding OpenWindow1Command}"/>
+    <Grid Margin="20,20,0,0">
+        <WrapPanel>
+            <Button Width="100" Height="20"
+                    Content="{Binding Button1Name.Value}"
+                    Command="{Binding OpenWindow1Command}"/>
+
+            <Button Width="100" Height="20"
+                    Content="ReactiveX-Zip"
+                    Command="{Binding ReactiveXZipCommand}"/>
+
+            <Button Width="100" Height="20"
+                    Content="ReactiveX-Sample"
+                    Command="{Binding ReactiveXSampleCommand}"/>
+
+            <Button Width="100" Height="20"
+                    Content="ReactiveX-Merge"
+                    Command="{Binding ReactiveXMergeCommand}"/>
+        </WrapPanel>
     </Grid>
 </Window>

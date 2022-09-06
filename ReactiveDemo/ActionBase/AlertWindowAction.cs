@@ -1,10 +1,12 @@
 ﻿namespace ReactiveDemo.ActionBase
 {
     using System;
+    using System.ComponentModel;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Interactivity;
     using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+    using ViewModels;
 
     public class AlertWindowAction : TriggerAction<FrameworkElement>
     {
@@ -58,6 +60,19 @@
                         }
 
                         win.Closed += WinOnClosed;
+                    }
+
+                    if (win.DataContext is ViewModelBase viewModelBase)
+                    {
+                        viewModelBase.FinishInteraction = () =>
+                        {
+                            win.Close();
+                        };
+
+                        win.Closing += (sender, eventArgs) =>
+                        {
+                            viewModelBase.Dispose();
+                        };
                     }
 
                     win.WindowState = WindowState.Normal;

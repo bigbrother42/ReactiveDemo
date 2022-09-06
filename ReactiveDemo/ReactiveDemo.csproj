@@ -121,8 +121,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ActionBase\AlertWindowAction.cs" />
+    <Compile Include="Events\ReactiveDemoEvents.cs" />
     <Compile Include="Models\ReactiveDemoModel.cs" />
     <Compile Include="ViewModels\ReactiveDemoViewModel.cs" />
+    <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Window1ViewModel.cs" />
     <Compile Include="Views\ReactiveDemoView.xaml.cs">
       <DependentUpon>ReactiveDemoView.xaml</DependentUpon>
