@@ -55,7 +55,7 @@
             base.RegisterProperties();
 
             Button1Name = new ReactiveProperty<string>().AddTo(DisposablePool);
-            Button1Name.Value = "Window1";
+            Button1Name.Value = "SampleView";
         }
 
         protected override void RegisterCommands()

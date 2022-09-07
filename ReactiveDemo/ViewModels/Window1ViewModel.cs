@@ -1,6 +1,7 @@
 ﻿namespace ReactiveDemo.ViewModels
 {
     using Events;
+    using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
     using Reactive.Bindings;
     using Reactive.Bindings.Extensions;
 
@@ -9,6 +10,14 @@
         #region ReactiveCommand
 
         public ReactiveCommand CloseWindowCommand { get; set; }
+
+        public ReactiveCommand AdornerSampleCommand { get; set; }
+
+        #endregion
+
+        #region Requests
+
+        public InteractionRequest<Notification> AdornerSampleRequest { get; set; } = new InteractionRequest<Notification>();
 
         #endregion
 
@@ -25,6 +34,9 @@
 
             CloseWindowCommand = new ReactiveCommand().AddTo(DisposablePool);
             CloseWindowCommand.Subscribe(CloseWindow).AddTo(DisposablePool);
+
+            AdornerSampleCommand = new ReactiveCommand().AddTo(DisposablePool);
+            AdornerSampleCommand.Subscribe(AdornerSample).AddTo(DisposablePool);
         }
 
         #region Functions
@@ -32,6 +44,11 @@
         private void CloseWindow()
         {
             FinishInteractionCommand.Execute();
+        }
+
+        private void AdornerSample()
+        {
+            AdornerSampleRequest.Raise(new Notification());
         }
 
         #endregion

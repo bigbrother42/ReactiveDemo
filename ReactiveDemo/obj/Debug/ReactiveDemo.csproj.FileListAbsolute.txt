@@ -314,3 +314,5 @@ C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Reactive
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo.csproj.CopyComplete
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo.exe
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo.pdb
+C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Adorner\AdornerSampleView.g.cs
+C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Adorner\AdornerSampleView.baml
