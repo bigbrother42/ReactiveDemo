@@ -295,9 +295,9 @@ C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\bin\Debug\System.W
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\bin\Debug\Unity.Abstractions.pdb
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\bin\Debug\Unity.Container.pdb
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\bin\Debug\Unity.ServiceLocation.pdb
-C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo.csprojAssemblyReference.cache
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo.exe.config
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\MainWindow.g.cs
+C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Adorner\AdornerSampleView.g.cs
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\ReactiveDemoView.g.cs
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Window1View.g.cs
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\App.g.cs
@@ -305,6 +305,7 @@ C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Generate
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo_MarkupCompile.cache
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo_MarkupCompile.lref
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\MainWindow.baml
+C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Adorner\AdornerSampleView.baml
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\ReactiveDemoView.baml
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Window1View.baml
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo.g.resources
@@ -314,5 +315,6 @@ C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Reactive
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo.csproj.CopyComplete
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo.exe
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo.pdb
-C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Adorner\AdornerSampleView.g.cs
-C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Adorner\AdornerSampleView.baml
+C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Visual\VisualView.g.cs
+C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Visual\VisualView.baml
+C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo.csprojAssemblyReference.cache

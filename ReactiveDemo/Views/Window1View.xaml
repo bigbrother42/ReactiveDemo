@@ -19,6 +19,12 @@
                 Owner="{Binding ElementName=SampleView}"
                 WindowName="ReactiveDemo.Views.Adorner.AdornerSampleView" />
         </interactionRequest:InteractionRequestTrigger>
+
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding VisualSampleRequest}">
+            <actionBase:AlertWindowAction
+                Owner="{Binding ElementName=SampleView}"
+                WindowName="ReactiveDemo.Views.Visual.VisualView" />
+        </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
     <Grid Margin="20,20,0,0">
@@ -30,6 +36,10 @@
             <Button Width="100" Height="20"
                     Content="Adorner Sample"
                     Command="{Binding AdornerSampleCommand}"/>
+
+            <Button Width="100" Height="20"
+                    Content="Visual Sample"
+                    Command="{Binding VisualSampleCommand}"/>
         </WrapPanel>
     </Grid>
 </Window>

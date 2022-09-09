@@ -1,0 +1,30 @@
+﻿<Window x:Class="ReactiveDemo.Views.Visual.VisualView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReactiveDemo.Views.Visual"
+        xmlns:mvvm="http://prismlibrary.com/"
+        mc:Ignorable="d"
+        x:Name="VisuaSamlpelView"
+        mvvm:ViewModelLocator.AutoWireViewModel="True"
+        Title="VisualView" Height="450" Width="800">
+
+    <Grid>
+        <StackPanel>
+            <ComboBox Name="ComboBox1" Width="200" Height="50"
+                      VirtualizingStackPanel.ScrollUnit="Pixel"
+                      ItemsSource="{Binding ComboBoxCollection}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel></VirtualizingStackPanel>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </StackPanel>
+
+        <ComboBox Name="ComboBox2" Width="200" Height="50"
+                  ItemsSource="{Binding ComboBoxCollection}">
+        </ComboBox>
+    </Grid>
+</Window>

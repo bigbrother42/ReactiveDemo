@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\App.xaml
-41177777319
+5-2030212442
 
-16-1873571213
+18-2022793270
 1392123757469
-MainWindow.xaml;Views\Adorner\AdornerSampleView.xaml;Views\ReactiveDemoView.xaml;Views\Window1View.xaml;
+MainWindow.xaml;Views\Adorner\AdornerSampleView.xaml;Views\ReactiveDemoView.xaml;Views\Visual\VisualView.xaml;Views\Window1View.xaml;
 
 False
 

@@ -13,11 +13,15 @@
 
         public ReactiveCommand AdornerSampleCommand { get; set; }
 
+        public ReactiveCommand VisualSampleCommand { get; set; }
+
         #endregion
 
         #region Requests
 
         public InteractionRequest<Notification> AdornerSampleRequest { get; set; } = new InteractionRequest<Notification>();
+
+        public InteractionRequest<Notification> VisualSampleRequest { get; set; } = new InteractionRequest<Notification>();
 
         #endregion
 
@@ -37,6 +41,9 @@
 
             AdornerSampleCommand = new ReactiveCommand().AddTo(DisposablePool);
             AdornerSampleCommand.Subscribe(AdornerSample).AddTo(DisposablePool);
+
+            VisualSampleCommand = new ReactiveCommand().AddTo(DisposablePool);
+            VisualSampleCommand.Subscribe(VisualSample).AddTo(DisposablePool);
         }
 
         #region Functions
@@ -49,6 +56,11 @@
         private void AdornerSample()
         {
             AdornerSampleRequest.Raise(new Notification());
+        }
+
+        private void VisualSample()
+        {
+            VisualSampleRequest.Raise(new Notification());
         }
 
         #endregion
