@@ -15,6 +15,10 @@
 
         public ReactiveCommand VisualSampleCommand { get; set; }
 
+        public ReactiveCommand ObserverSampleCommand { get; set; }
+
+        public ReactiveCommand BindingSampleCommand { get; set; }
+
         #endregion
 
         #region Requests
@@ -22,6 +26,10 @@
         public InteractionRequest<Notification> AdornerSampleRequest { get; set; } = new InteractionRequest<Notification>();
 
         public InteractionRequest<Notification> VisualSampleRequest { get; set; } = new InteractionRequest<Notification>();
+
+        public InteractionRequest<Notification> ObserverSampleRequest { get; set; } = new InteractionRequest<Notification>();
+
+        public InteractionRequest<Notification> BindingSampleRequest { get; set; } = new InteractionRequest<Notification>();
 
         #endregion
 
@@ -44,6 +52,12 @@
 
             VisualSampleCommand = new ReactiveCommand().AddTo(DisposablePool);
             VisualSampleCommand.Subscribe(VisualSample).AddTo(DisposablePool);
+
+            ObserverSampleCommand = new ReactiveCommand().AddTo(DisposablePool);
+            ObserverSampleCommand.Subscribe(ObserverSample).AddTo(DisposablePool);
+
+            BindingSampleCommand = new ReactiveCommand().AddTo(DisposablePool);
+            BindingSampleCommand.Subscribe(BindingSample).AddTo(DisposablePool);
         }
 
         #region Functions
@@ -61,6 +75,16 @@
         private void VisualSample()
         {
             VisualSampleRequest.Raise(new Notification());
+        }
+
+        private void ObserverSample()
+        {
+            ObserverSampleRequest.Raise(new Notification());
+        }
+
+        private void BindingSample()
+        {
+            BindingSampleRequest.Raise(new Notification());
         }
 
         #endregion

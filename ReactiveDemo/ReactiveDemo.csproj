@@ -124,6 +124,8 @@
     <Compile Include="Events\ReactiveDemoEvents.cs" />
     <Compile Include="Models\ReactiveDemoModel.cs" />
     <Compile Include="Common\AdornerEffect.cs" />
+    <Compile Include="ViewModels\Binding\BindingViewModel.cs" />
+    <Compile Include="ViewModels\Observer\ObserverViewModel.cs" />
     <Compile Include="ViewModels\ReactiveDemoViewModel.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Visual\VisualViewModel.cs" />
@@ -131,6 +133,12 @@
     <Compile Include="ViewModels\Adorner\AdornerSampleViewModel.cs" />
     <Compile Include="Views\Adorner\AdornerSampleView.xaml.cs">
       <DependentUpon>AdornerSampleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Binding\BindingView.xaml.cs">
+      <DependentUpon>BindingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Observer\ObserverView.xaml.cs">
+      <DependentUpon>ObserverView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ReactiveDemoView.xaml.cs">
       <DependentUpon>ReactiveDemoView.xaml</DependentUpon>
@@ -156,6 +164,14 @@
     <Page Include="Views\Adorner\AdornerSampleView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Binding\BindingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Observer\ObserverView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ReactiveDemoView.xaml">
       <SubType>Designer</SubType>

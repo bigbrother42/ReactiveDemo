@@ -86,6 +86,9 @@
             base.InitData();
 
             _reactiveDemoModel = new ReactiveDemoModel();
+
+            var str = "1234";
+            var sub = str.Substring(0, 3);
         }
 
         #region Functions
