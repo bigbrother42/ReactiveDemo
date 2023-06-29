@@ -317,8 +317,8 @@ C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Reactive
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo.pdb
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Visual\VisualView.g.cs
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Visual\VisualView.baml
+C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo.csproj.AssemblyReference.cache
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Observer\ObserverView.g.cs
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Observer\ObserverView.baml
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Binding\BindingView.g.cs
 C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\Views\Binding\BindingView.baml
-C:\gitlab-repository\Local Projects\ReactiveDemo\ReactiveDemo\obj\Debug\ReactiveDemo.csprojAssemblyReference.cache
