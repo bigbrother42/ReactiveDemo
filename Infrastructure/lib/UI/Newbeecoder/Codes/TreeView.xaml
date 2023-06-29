@@ -1,0 +1,51 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid x:Key="树状图">
+        <ContentControl Tag="Remark">
+            <TextBlock Text="TreeView树状图。" />
+        </ContentControl>
+        <ContentControl Tag="Code">
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="普通树状图" Margin="5" />
+                    <NbTreeView Style="{DynamicResource DefaultTreeViewStyle}" Margin="5" Width="150">
+                        <NbTreeViewItem Style="{DynamicResource DefaultTreeViewItemStyle}" Header="选项一" IsSelected="True">
+                            <NbTreeViewItem Style="{DynamicResource DefaultTreeViewItemStyle}" Header="子项1" />
+                            <NbTreeViewItem Style="{DynamicResource DefaultTreeViewItemStyle}" Header="子项2" />
+                            <NbTreeViewItem Style="{DynamicResource DefaultTreeViewItemStyle}" Header="子项3" />
+                        </NbTreeViewItem>
+                        <NbTreeViewItem Style="{DynamicResource DefaultTreeViewItemStyle}" Header="选项二">
+                            <NbTreeViewItem Style="{DynamicResource DefaultTreeViewItemStyle}" Header="子项1" />
+                            <NbTreeViewItem Style="{DynamicResource DefaultTreeViewItemStyle}" Header="子项2" />
+                            <NbTreeViewItem Style="{DynamicResource DefaultTreeViewItemStyle}" Header="子项3" />
+                            <NbTreeViewItem Style="{DynamicResource DefaultTreeViewItemStyle}" Header="子项4" />
+                            <NbTreeViewItem Style="{DynamicResource DefaultTreeViewItemStyle}" Header="子项5" />
+                        </NbTreeViewItem>
+                        <NbTreeViewItem Style="{DynamicResource DefaultTreeViewItemStyle}" Header="选项二" />
+                    </NbTreeView>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="文件树状图" Margin="5" />
+                    <NbTreeView Style="{DynamicResource FolderTreeViewStyle}" Margin="5" Width="150">
+                        <NbTreeViewItem Style="{DynamicResource FolderTreeViewItemStyle}" Header="选项一" IsSelected="True">
+                            <NbTreeViewItem Style="{DynamicResource FolderTreeViewItemStyle}" Header="子项1" />
+                            <NbTreeViewItem Style="{DynamicResource FolderTreeViewItemStyle}" Header="子项2" />
+                            <NbTreeViewItem Style="{DynamicResource FolderTreeViewItemStyle}" Header="子项3" />
+                        </NbTreeViewItem>
+                        <NbTreeViewItem Style="{DynamicResource FolderTreeViewItemStyle}" Header="选项二">
+                            <NbTreeViewItem Style="{DynamicResource FolderTreeViewItemStyle}" Header="子项1" />
+                            <NbTreeViewItem Style="{DynamicResource FolderTreeViewItemStyle}" Header="子项2" />
+                            <NbTreeViewItem Style="{DynamicResource FolderTreeViewItemStyle}" Header="子项3" />
+                            <NbTreeViewItem Style="{DynamicResource FolderTreeViewItemStyle}" Header="子项4" />
+                            <NbTreeViewItem Style="{DynamicResource FolderTreeViewItemStyle}" Header="子项5" />
+                        </NbTreeViewItem>
+                        <NbTreeViewItem Style="{DynamicResource FolderTreeViewItemStyle}" Header="选项二" />
+                    </NbTreeView>
+                </StackPanel>
+            </WrapPanel>
+        </ContentControl>
+        <ContentControl Tag="Doc">
+        </ContentControl>
+    </Grid>
+</ResourceDictionary>

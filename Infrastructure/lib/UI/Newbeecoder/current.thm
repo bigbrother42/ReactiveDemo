@@ -1,0 +1,12 @@
+Prop=Color
+Assembly=Newbeecoder.UI
+Type=Newbeecoder.UI.DefaultColor
+Data={"Name":"默认","Base1":"#FFFFFFFF","Base2":"#FF000000","Brand1":"#FF409EFF","Brand2":"sc#1, 0.5256347, 0.6709572, 1","Brand3":"sc#0.99999994, 0.810254, 0.868382931, 1.00000012","Success1":"#FF67C23A","Success2":"sc#1, 0.5678167, 0.769739747, 0.5211557","Success3":"sc#0.99999994, 0.827126741, 0.907896, 0.8084624","Warning1":"#FFE6A23C","Warning2":"sc#1, 0.895648956, 0.6806534, 0.5225931","Warning3":"sc#0.99999994, 0.9582597, 0.8722614, 0.8090373","Danger1":"#FFF56C6C","Danger2":"sc#1, 0.9565493, 0.5749799, 0.5749799","Danger3":"sc#0.99999994, 0.9826198, 0.829992056, 0.829992056","Info1":"#FF909399","Info2":"sc#1, 0.639447153, 0.645885348, 0.6592734","Info3":"sc#0.99999994, 0.855778933, 0.8583542, 0.86370945","Text1":"#FF303133","Text2":"#FF606266","Text3":"#FF909399","Text4":"#FFC0C4CC","Border1":"#FFCFCFCF","Border2":"#FFDBDBDB","Border3":"#FFE8E8E8","Border4":"#FFF5F5F5","BusyTimeout":3000.0,"IsBusy":false}
+Prop=Font
+Assembly=Newbeecoder.UI
+Type=Newbeecoder.UI.DefaultFont
+Data={"FontFamily":"微软雅黑","PSize":12.0,"PSmallSize":11.0,"PExtraSize":10.0,"H1Size":32.0,"H2Size":24.0,"H3Size":19.0,"H4Size":14.0,"H5Size":13.0,"H6Size":12.0,"PWeight":"Normal","HWeight":"Black","BusyTimeout":3000.0,"IsBusy":false}
+Prop=Size
+Assembly=Newbeecoder.UI
+Type=Newbeecoder.UI.DefaultSize
+Data={"ButtonWidth":80.0,"ButtonHeight":32.0,"SwitchWidth":60.0,"SwitchHeight":24.0,"TabItemHeight":30.0,"TabItemWidth":72.0,"TabItemRadius":"4,4,0,0","WindowRadius":"0,0,0,0","SwitchRadius":"15,15,15,15","CornerRadius":"4,4,4,4","InputHeight":24.0,"WindowShadow":true,"BusyTimeout":3000.0,"IsBusy":false}

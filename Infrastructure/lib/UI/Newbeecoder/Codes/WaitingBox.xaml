@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid x:Key="等待">
+        <ContentControl Tag="Remark">
+            <TextBlock Text="WaitingBox 等待。" />
+        </ContentControl>
+        <ContentControl Tag="Code">
+            <Grid>
+                <NbUIMaskLayer Style="{DynamicResource DefaultWaitingStyle}" Width="80" WaitingBoxBackground="{Binding Path=Color.Brush_Border1, Source={x:Static NbTheme.Current}}"/>
+            </Grid>
+        </ContentControl>
+        <ContentControl Tag="Doc">
+        </ContentControl>
+    </Grid>
+</ResourceDictionary>

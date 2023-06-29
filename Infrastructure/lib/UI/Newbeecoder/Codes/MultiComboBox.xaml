@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid x:Key="多选下拉框">
+        <ContentControl Tag="Remark">
+            <TextBlock Text="多选下拉框控件。" />
+        </ContentControl>
+        <ContentControl Tag="Code">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                <TextBlock Text="可搜索" Margin="5" />
+                <NbMultiComboBox Style="{DynamicResource DefaultMultiComboBoxStyle}" Margin="5" EnabledSearchItems="True" EnabledSearchIgnoreCase="True" ShowClearButton="False">
+                    <NbMultiComboBoxItem Content="橘子" />
+                    <NbMultiComboBoxItem Content="苹果" />
+                    <NbMultiComboBoxItem Content="香蕉" />
+                    <NbMultiComboBoxItem Content="草莓" />
+                    <NbMultiComboBoxItem Content="梨子" />
+                </NbMultiComboBox>
+                <TextBlock Text="带清除按钮" Margin="5" />
+                <NbMultiComboBox Style="{DynamicResource DefaultMultiComboBoxStyle}" Margin="5" EnabledSearchItems="True" EnabledSearchIgnoreCase="True" ShowClearButton="True">
+                    <NbMultiComboBoxItem Content="橘子" />
+                    <NbMultiComboBoxItem Content="苹果" />
+                    <NbMultiComboBoxItem Content="香蕉" IsSelected="True" />
+                    <NbMultiComboBoxItem Content="草莓" />
+                    <NbMultiComboBoxItem Content="梨子" />
+                </NbMultiComboBox>
+                <TextBlock Text="禁用" Margin="5" />
+                <NbMultiComboBox Style="{DynamicResource DefaultMultiComboBoxStyle}" Margin="5" EnabledSearchItems="True" EnabledSearchIgnoreCase="True" ShowClearButton="True" IsEnabled="False">
+                    <NbMultiComboBoxItem Content="橘子" />
+                    <NbMultiComboBoxItem Content="苹果" />
+                    <NbMultiComboBoxItem Content="香蕉" IsSelected="True" />
+                    <NbMultiComboBoxItem Content="草莓" />
+                    <NbMultiComboBoxItem Content="梨子" />
+                </NbMultiComboBox>
+            </StackPanel>
+        </ContentControl>
+        <ContentControl Tag="Doc">
+        </ContentControl>
+    </Grid>
+</ResourceDictionary>

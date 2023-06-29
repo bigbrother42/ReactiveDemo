@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Newbeecoder.UI.Demo">
+    <XmlDataProvider x:Key="Items" XPath="/MockObjects/*" >
+        <x:XData>
+            <MockObjects xmlns="">
+                <MockObject Name="刘明" Type="Msliu" Number="1" />
+                <MockObject Name="高歌" Type="Msgao" Number="2" />
+                <MockObject Name="赵四" Type="Mszhao" Number="3" />
+            </MockObjects>
+        </x:XData>
+    </XmlDataProvider>
+    <Grid x:Key="数据表格">
+        <ContentControl Tag="Remark">
+            <TextBlock Text="数据表格。"/>
+        </ContentControl>
+        <ContentControl Tag="Code">
+            <Grid DataContext="{Binding Source={StaticResource Items}}">
+                <DataGrid Style="{DynamicResource DefaultDataGridStyle}"
+                          ColumnWidth="*" ItemsSource="{Binding Mode=Default, XPath=/MockObjects/MockObject}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="编号" Binding="{Binding XPath=@Number}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="姓名" Binding="{Binding XPath=@Name}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="简称" Binding="{Binding XPath=@Type}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </ContentControl>
+        <ContentControl Tag="Doc">
+
+        </ContentControl>
+    </Grid>   
+</ResourceDictionary>

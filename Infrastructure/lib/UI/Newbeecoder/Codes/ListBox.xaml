@@ -1,0 +1,76 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid x:Key="列表框">
+        <ContentControl Tag="Remark">
+            <TextBlock Text="列表框样式。" />
+        </ContentControl>
+        <ContentControl Tag="Code">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                    <TextBlock Text="默认" Margin="5" />
+                    <NbListBox Style="{DynamicResource DefaultListBoxStyle}" Width="120" Background="{Binding Path=Color.Brush_Border4, Source={x:Static NbTheme.Current}}">
+                        <NbListBoxItem Style="{DynamicResource DefaultListBoxItemStyle}" Content="功能一" />
+                        <NbListBoxItem Style="{DynamicResource DefaultListBoxItemStyle}" Content="功能二" />
+                        <NbListBoxItem Style="{DynamicResource DefaultListBoxItemStyle}" Content="功能三" />
+                    </NbListBox>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" Width="120" Margin="30,0,0,0">
+                    <TextBlock Text="菜单" Margin="5" />
+                    <NbListBox Style="{DynamicResource MenuListBoxStyle}" Background="{Binding Path=Color.Brush_Border4, Source={x:Static NbTheme.Current}}">
+                        <NbListBoxItem Style="{DynamicResource MenuListBoxItemStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <NbIcon Data="{StaticResource Icon-Button-Fill}" Width="18" Margin="16,0,5,0" Foreground="{Binding Path=Color.Brush_Base2_OP8, Source={x:Static NbTheme.Current}}" />
+                                <TextBlock Text="按钮" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </NbListBoxItem>
+                        <NbListBoxItem Style="{DynamicResource MenuListBoxItemStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <NbIcon Data="{StaticResource Icon-Check-Fill}" Width="18" Margin="16,0,5,0" Foreground="{Binding Path=Color.Brush_Base2_OP8, Source={x:Static NbTheme.Current}}" />
+                                <TextBlock Text="单选框" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </NbListBoxItem>
+                        <NbListBoxItem Style="{DynamicResource MenuListBoxItemStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <NbIcon Data="{StaticResource Icon-Radio-Fill}" Width="18" Margin="16,0,5,0" Foreground="{Binding Path=Color.Brush_Base2_OP8, Source={x:Static NbTheme.Current}}" />
+                                <TextBlock Text="选项框" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </NbListBoxItem>
+                        <NbListBoxItem Style="{DynamicResource MenuListBoxItemStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <NbIcon Data="{StaticResource Icon-ListBox-Fill}" Width="18" Margin="16,0,5,0" Foreground="{Binding Path=Color.Brush_Base2_OP8, Source={x:Static NbTheme.Current}}" />
+                                <TextBlock Text="列表框" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </NbListBoxItem>
+                        <NbListBoxItem Style="{DynamicResource MenuListBoxItemStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <NbIcon Data="{StaticResource Icon-TextBox-Fill}" Width="18" Margin="16,0,5,0" Foreground="{Binding Path=Color.Brush_Base2_OP8, Source={x:Static NbTheme.Current}}" />
+                                <TextBlock Text="输入框" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </NbListBoxItem>
+                        <NbListBoxItem Style="{DynamicResource MenuListBoxItemStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <NbIcon Data="{StaticResource Icon-TabControl-Fill}" Width="18" Margin="16,0,5,0" Foreground="{Binding Path=Color.Brush_Base2_OP8, Source={x:Static NbTheme.Current}}" />
+                                <TextBlock Text="选项框" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </NbListBoxItem>
+                        <NbListBoxItem Style="{DynamicResource MenuListBoxItemStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <NbIcon Data="{StaticResource Icon-DataTable-Fill}" Width="18" Margin="16,0,5,0" Foreground="{Binding Path=Color.Brush_Base2_OP8, Source={x:Static NbTheme.Current}}" />
+                                <TextBlock Text="数据库操作" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </NbListBoxItem>
+                        <NbListBoxItem Style="{DynamicResource MenuListBoxItemStyle}">
+                            <StackPanel Orientation="Horizontal">
+                                <NbIcon Data="{StaticResource Icon-Color-Fill}" Width="18" Margin="16,0,5,0" Foreground="{Binding Path=Color.Brush_Base2_OP8, Source={x:Static NbTheme.Current}}" />
+                                <TextBlock Text="颜色选择器" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </NbListBoxItem>
+                    </NbListBox>
+                </StackPanel>
+            </StackPanel>
+        </ContentControl>
+        <ContentControl Tag="Doc">
+        </ContentControl>
+    </Grid>
+</ResourceDictionary>

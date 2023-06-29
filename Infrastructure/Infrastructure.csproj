@@ -55,6 +55,82 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="lib\UI\Newbeecoder\Codes\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\Carousel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\CheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\ColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\ColorSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\DateTimePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\Expander.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\GroupBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\ListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\MultiComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\NumericUpDown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\ProgressBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\SwitchBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\TabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\TreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="lib\UI\Newbeecoder\Codes\WaitingBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -86,6 +162,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="lib\UI\Newbeecoder\current.thm" />
+    <None Include="lib\UI\Newbeecoder\custom.thm" />
+    <None Include="lib\UI\Newbeecoder\Db\data.db" />
+    <None Include="lib\UI\Newbeecoder\Newbeecoder.UI.Demo.exe.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,6 +173,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="lib\UI\Newbeecoder\BouncyCastle.Crypto.dll" />
+    <Content Include="lib\UI\Newbeecoder\Dapper.dll" />
+    <Content Include="lib\UI\Newbeecoder\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="lib\UI\Newbeecoder\main.sql" />
+    <Content Include="lib\UI\Newbeecoder\Newbeecoder.UI.Data.dll" />
+    <Content Include="lib\UI\Newbeecoder\Newbeecoder.UI.Demo.exe" />
+    <Content Include="lib\UI\Newbeecoder\Newbeecoder.UI.dll" />
+    <Content Include="lib\UI\Newbeecoder\Newbeecoder.UI.Model.dll" />
+    <Content Include="lib\UI\Newbeecoder\Newbeecoder.UI.Npoi.dll" />
+    <Content Include="lib\UI\Newbeecoder\Newtonsoft.Json.dll" />
+    <Content Include="lib\UI\Newbeecoder\NPOI.dll" />
+    <Content Include="lib\UI\Newbeecoder\NPOI.OOXML.dll" />
+    <Content Include="lib\UI\Newbeecoder\NPOI.OpenXml4Net.dll" />
+    <Content Include="lib\UI\Newbeecoder\NPOI.OpenXmlFormats.dll" />
+    <Content Include="lib\UI\Newbeecoder\SQLite.Interop.dll" />
+    <Content Include="lib\UI\Newbeecoder\System.Data.SQLite.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

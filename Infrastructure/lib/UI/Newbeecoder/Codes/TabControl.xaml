@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid x:Key="TabControl">
+        <ContentControl Tag="Remark">
+            <TextBlock Text="TabControl选项卡。"/>
+        </ContentControl>
+        <ContentControl Tag="Code">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="带关闭按钮" Margin="0,10,0,10" />
+                <NbTabControl Style="{DynamicResource DefaultTabControlStyle}" Margin="5" ItemPanelMinHeight="32" BorderThickness="0,1,0,0" ItemPanelMargin="4,0,128,0"  >
+                    <NbTabItem Style="{DynamicResource DefaultTabItemStyle}" Header="选项卡一"/>
+                    <NbTabItem Style="{DynamicResource DefaultTabItemStyle}" Header="选项卡二"/>
+                    <NbTabItem Style="{DynamicResource DefaultTabItemStyle}" Header="选项卡三"/>
+                </NbTabControl>
+                 <TextBlock Text="标准" Margin="0,30,0,10" />
+                 <NbTabControl Style="{DynamicResource NormalTabControlStyle}" Margin="5" ItemPanelMinHeight="32" BorderThickness="0,1,0,0" ItemPanelMargin="4,0,128,0"  >
+                    <NbTabItem Style="{DynamicResource NormalTabItemStyle}" Header="选项卡一"/>
+                    <NbTabItem Style="{DynamicResource NormalTabItemStyle}" Header="选项卡二"/>
+                    <NbTabItem Style="{DynamicResource NormalTabItemStyle}" Header="选项卡三"/>
+                </NbTabControl>
+            </StackPanel>
+        </ContentControl>
+        <ContentControl Tag="Doc">
+
+        </ContentControl>
+    </Grid>
+</ResourceDictionary>

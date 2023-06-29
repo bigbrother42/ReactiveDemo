@@ -1,0 +1,194 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid x:Key="基础按钮">
+        <ContentControl Tag="Remark">
+            <TextBlock Text="基础的按钮。" />
+        </ContentControl>
+        <ContentControl Tag="Code">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <NbButton Style="{DynamicResource NormalButtonStyle}" Margin="5" Content="一般按钮" />
+                    <NbButton Style="{DynamicResource DefaultButtonStyle}" Margin="5" Content="默认按钮" />
+                    <NbButton Style="{DynamicResource SuccessButtonStyle}" Margin="5" Content="成功按钮" />
+                    <NbButton Style="{DynamicResource InfoButtonStyle}" Margin="5" Content="信息按钮" />
+                    <NbButton Style="{DynamicResource WarningButtonStyle}" Margin="5" Content="警告按钮" />
+                    <NbButton Style="{DynamicResource DangerButtonStyle}" Margin="5" Content="危险按钮" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <NbButton Style="{DynamicResource ExNormalButtonStyle}" Margin="5" Content="朴素按钮" />
+                    <NbButton Style="{DynamicResource ExDefaultButtonStyle}" Margin="5" Content="默认按钮" />
+                    <NbButton Style="{DynamicResource ExSuccessButtonStyle}" Margin="5" Content="成功按钮" />
+                    <NbButton Style="{DynamicResource ExInfoButtonStyle}" Margin="5" Content="信息按钮" />
+                    <NbButton Style="{DynamicResource ExWarningButtonStyle}" Margin="5" Content="警告按钮" />
+                    <NbButton Style="{DynamicResource ExDangerButtonStyle}" Margin="5" Content="危险按钮" />
+                </StackPanel>
+            </Grid>
+        </ContentControl>
+        <ContentControl Tag="Doc">
+        </ContentControl>
+    </Grid>
+
+    <Grid x:Key="重复按钮">
+        <ContentControl Tag="Remark">
+            <TextBlock Text="按下按钮可以重复触发点击事件的按钮。" />
+        </ContentControl>
+        <ContentControl Tag="Code">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <NbRepeatButton Style="{DynamicResource NormalRepeatButtonStyle}" Margin="5" Content="一般按钮" />
+                    <NbRepeatButton Style="{DynamicResource DefaultRepeatButtonStyle}" Margin="5" Content="默认按钮" />
+                    <NbRepeatButton Style="{DynamicResource SuccessRepeatButtonStyle}" Margin="5" Content="成功按钮" />
+                    <NbRepeatButton Style="{DynamicResource InfoRepeatButtonStyle}" Margin="5" Content="信息按钮" />
+                    <NbRepeatButton Style="{DynamicResource WarningRepeatButtonStyle}" Margin="5" Content="警告按钮" />
+                    <NbRepeatButton Style="{DynamicResource DangerRepeatButtonStyle}" Margin="5" Content="危险按钮" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <NbRepeatButton Style="{DynamicResource ExNormalRepeatButtonStyle}" Margin="5" Content="朴素按钮" />
+                    <NbRepeatButton Style="{DynamicResource ExDefaultRepeatButtonStyle}" Margin="5" Content="默认按钮" />
+                    <NbRepeatButton Style="{DynamicResource ExSuccessRepeatButtonStyle}" Margin="5" Content="成功按钮" />
+                    <NbRepeatButton Style="{DynamicResource ExInfoRepeatButtonStyle}" Margin="5" Content="信息按钮" />
+                    <NbRepeatButton Style="{DynamicResource ExWarningRepeatButtonStyle}" Margin="5" Content="警告按钮" />
+                    <NbRepeatButton Style="{DynamicResource ExDangerRepeatButtonStyle}" Margin="5" Content="危险按钮" />
+                </StackPanel>
+            </Grid>
+        </ContentControl>
+        <ContentControl Tag="Doc">
+        </ContentControl>
+    </Grid>
+
+    <Grid x:Key="多选按钮">
+        <ContentControl Tag="Remark">
+            <TextBlock Text="带有选中状态的按钮（多选）。" />
+        </ContentControl>
+        <ContentControl Tag="Code">
+            <StackPanel Orientation="Horizontal">
+                <NbToggleButton Style="{DynamicResource NormalToggleButtonStyle}" Margin="5" Content="多选按钮" />
+                <NbToggleButton Style="{DynamicResource DefaultToggleButtonStyle}" Margin="5" Content="默认按钮" />
+                <NbToggleButton Style="{DynamicResource SuccessToggleButtonStyle}" Margin="5" Content="成功按钮" />
+                <NbToggleButton Style="{DynamicResource InfoToggleButtonStyle}" Margin="5" Content="信息按钮" />
+                <NbToggleButton Style="{DynamicResource WarningToggleButtonStyle}" Margin="5" Content="警告按钮" />
+                <NbToggleButton Style="{DynamicResource DangerToggleButtonStyle}" Margin="5" Content="危险按钮" />
+            </StackPanel>
+        </ContentControl>
+        <ContentControl Tag="Doc">
+        </ContentControl>
+    </Grid>
+
+    <Grid x:Key="单选按钮">
+        <ContentControl Tag="Remark">
+            <TextBlock Text="带有选中状态的按钮（单选）。" />
+        </ContentControl>
+        <ContentControl Tag="Code">
+            <StackPanel Orientation="Horizontal">
+                <NbRadioButton Style="{DynamicResource NormalRadioButtonStyle}" Margin="5" Content="单选按钮" />
+                <NbRadioButton Style="{DynamicResource DefaultRadioButtonStyle}" Margin="5" Content="默认按钮" />
+                <NbRadioButton Style="{DynamicResource SuccessRadioButtonStyle}" Margin="5" Content="成功按钮" />
+                <NbRadioButton Style="{DynamicResource InfoRadioButtonStyle}" Margin="5" Content="信息按钮" />
+                <NbRadioButton Style="{DynamicResource WarningRadioButtonStyle}" Margin="5" Content="警告按钮" />
+                <NbRadioButton Style="{DynamicResource DangerRadioButtonStyle}" Margin="5" Content="危险按钮" />
+            </StackPanel>
+        </ContentControl>
+        <ContentControl Tag="Doc">
+        </ContentControl>
+    </Grid>
+
+    <Grid x:Key="样式按钮">
+        <ContentControl Tag="Remark">
+            <TextBlock Text="自定义样式按钮，设计个性化样式风格。" />
+        </ContentControl>
+        <ContentControl Tag="Code">
+            <StackPanel Orientation="Horizontal">
+                <NbButton Style="{DynamicResource NormalButtonStyle}" Height="60" Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <NbIcon Grid.Column="0"
+                                Data="{DynamicResource Icon-App}"
+                                Width="16" Height="16"
+                                Foreground="{Binding Path=Color.Brush_Danger1, Source={x:Static NbTheme.Current}}" />
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Vertical"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="10,0,0,0">
+                            <TextBlock Text="一般按钮"
+                                       Foreground="{Binding Path=Color.Brush_Success1, Source={x:Static NbTheme.Current}}"
+                                       FontSize="{Binding Path=Font.H3Size, Source={x:Static NbTheme.Current}}"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="Newbeecoder.UI控件库"
+                                       Foreground="{Binding Path=Color.Brush_Text4, Source={x:Static NbTheme.Current}}"
+                                       FontSize="{Binding Path=Font.H6Size, Source={x:Static NbTheme.Current}}"
+                                       HorizontalAlignment="Center" />
+                        </StackPanel>
+                        <Border Grid.Column="2"
+                                Margin="10,0,0,0"
+                                Width="5"
+                                BorderThickness="1"
+                                BorderBrush="{Binding Path=Color.Brush_Border1, Source={x:Static NbTheme.Current}}"
+                                Background="{Binding Path=Color.Brush_Border3, Source={x:Static NbTheme.Current}}"
+                                Effect="{Binding Path=Color.Shadow_Border1, Source={x:Static NbTheme.Current}}"
+                                CornerRadius="{Binding Path=Size.CornerRadius, Source={x:Static NbTheme.Current}}">
+                            <Border Background="{Binding Path=Color.Brush_Danger1, Source={x:Static NbTheme.Current}}"
+                                    CornerRadius="{Binding Path=Size.CornerRadius, Source={x:Static NbTheme.Current}}"
+                                    Height="30"
+                                    VerticalAlignment="Bottom" />
+                        </Border>
+                    </Grid>
+                </NbButton>
+                <NbButton Style="{DynamicResource EllipseDefaultButtonStyle}" Margin="5" Content="默认按钮" />
+                <NbButton Style="{DynamicResource WarningButtonStyle}" Height="60" MinWidth="60" Margin="5">
+                    <StackPanel Orientation="Vertical">
+                        <NbIcon Data="{DynamicResource Icon-App}" Width="16" Height="16" />
+                        <TextBlock Text="警告按钮" Margin="0,5,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </NbButton>
+                <NbButton Style="{DynamicResource EllipseDefaultButtonStyle}" MinWidth="40" Margin="5">
+                    <NbIcon Data="{DynamicResource Icon-App}" Width="16" Height="16" />
+                </NbButton>
+                <NbButton Style="{DynamicResource SuccessButtonStyle}" Margin="5">
+                    <StackPanel Orientation="Horizontal">
+                        <NbIcon Data="{DynamicResource Icon-App}" Width="16" Height="16" />
+                        <TextBlock Text="成功按钮" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </NbButton>
+                <NbButton Style="{DynamicResource InfoButtonStyle}" Margin="5">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="信息按钮" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <NbIcon Data="{DynamicResource Icon-App}" Margin="5,0,0,0" Width="16" Height="16" />
+                    </StackPanel>
+                </NbButton>
+                <NbButton Style="{DynamicResource DangerButtonStyle}" Margin="5">
+                    <Grid>
+                        <TextBlock Text="危险按钮" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <NbLabel Style="{DynamicResource DangerLabelStyle}"
+                                 Width="23"
+                                 CornerRadius="23"
+                                 Height="23"
+                                 Content="9"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Top"
+                                 HorizontalContentAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 Margin="-20,-20"
+                                 IsHitTestVisible="False"
+                                 FontSize="{Binding Path=Font.H6Size, Source={x:Static NbTheme.Current}}" />
+                    </Grid>
+                </NbButton>
+            </StackPanel>
+        </ContentControl>
+        <ContentControl Tag="Doc">
+        </ContentControl>
+    </Grid>
+</ResourceDictionary>

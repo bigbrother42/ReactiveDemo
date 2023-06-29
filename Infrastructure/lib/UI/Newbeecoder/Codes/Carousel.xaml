@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid x:Key="跑马灯">
+        <ContentControl Tag="Remark">
+            <TextBlock Text="在有限空间内，循环播放同一类型的图片、文字等内容。" />
+        </ContentControl>
+        <ContentControl Tag="Code">
+            <NbCarousel Height="200" Width="350">
+                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="1" FontSize="20" Background="Red" />
+                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="2" FontSize="20" Background="Orange" />
+                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="3" FontSize="20" Background="Blue" />
+                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="4" FontSize="20" Background="Green" />
+                <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="5" FontSize="20" Background="Violet" />
+            </NbCarousel>
+        </ContentControl>
+        <ContentControl Tag="Doc">
+        </ContentControl>
+    </Grid>
+</ResourceDictionary>
