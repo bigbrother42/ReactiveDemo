@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
 namespace ReactiveDemo.Views.Observer
 {
     /// <summary>
     /// Interaction logic for ObserverView.xaml
     /// </summary>
-    public partial class ObserverView : Window
+    public partial class ObserverView : MetroWindow
     {
         public ObserverView()
         {

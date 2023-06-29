@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
 namespace ReactiveDemo.Views.Binding
 {
     /// <summary>
     /// Interaction logic for BindingView.xaml
     /// </summary>
-    public partial class BindingView : Window
+    public partial class BindingView : MetroWindow
     {
         public BindingView()
         {

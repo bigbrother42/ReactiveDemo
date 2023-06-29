@@ -1,15 +1,16 @@
-﻿<Window x:Class="ReactiveDemo.Views.Observer.ObserverView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ReactiveDemo.Views.Observer"
-        xmlns:mvvm="http://prismlibrary.com/"
-        mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-        mvvm:ViewModelLocator.AutoWireViewModel="True"
-        Title="ObserverView" Height="450" Width="800">
+﻿<mah:MetroWindow x:Class="ReactiveDemo.Views.Observer.ObserverView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:ReactiveDemo.Views.Observer"
+             xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d"
+             WindowStartupLocation="CenterScreen"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             Title="ObserverView" Height="450" Width="800">
     <Grid>
         
     </Grid>
-</Window>
+</mah:MetroWindow>

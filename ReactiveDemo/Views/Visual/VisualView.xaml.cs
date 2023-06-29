@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
 namespace ReactiveDemo.Views.Visual
 {
     /// <summary>
     /// Interaction logic for VisualView.xaml
     /// </summary>
-    public partial class VisualView : Window
+    public partial class VisualView : MetroWindow
     {
         public VisualView()
         {

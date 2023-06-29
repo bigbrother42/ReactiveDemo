@@ -1,14 +1,15 @@
-﻿<Window x:Class="ReactiveDemo.Views.ReactiveDemoView"
-        x:Name="ReactiveDemoWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mvvm="http://prismlibrary.com/"
-        xmlns:prism="http://prismlibrary.com/"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase"
-        xmlns:interactionRequest="http://www.codeplex.com/prism"
-        mvvm:ViewModelLocator.AutoWireViewModel="True"
-        Title="ReactiveDemoView" Height="450" Width="800">
+﻿<mah:MetroWindow x:Class="ReactiveDemo.Views.ReactiveDemoView"
+             x:Name="ReactiveDemoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase"
+             xmlns:interactionRequest="http://www.codeplex.com/prism"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             Title="ReactiveDemoView" Height="450" Width="800">
 
     <i:Interaction.Triggers>
         <interactionRequest:InteractionRequestTrigger SourceObject="{Binding LoginOpenPageRequest}">
@@ -37,4 +38,4 @@
                     Command="{Binding ReactiveXMergeCommand}"/>
         </WrapPanel>
     </Grid>
-</Window>
+</mah:MetroWindow>

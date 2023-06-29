@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
 namespace ReactiveDemo.Views.Adorner
 {
     /// <summary>
     /// Interaction logic for Window1View.xaml
     /// </summary>
-    public partial class AdornerSampleView : Window
+    public partial class AdornerSampleView : MetroWindow
     {
         public AdornerSampleView()
         {
