@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Subjects;
 using System.Threading;
+using ReactiveDemo.Util;
 
 namespace ReactiveDemo.ViewModels.Observer
 {
@@ -33,6 +34,9 @@ namespace ReactiveDemo.ViewModels.Observer
             // https://zhuanlan.zhihu.com/p/486899755
 
             SubjectTest1();
+
+            var strVal = "222";
+            var intVal = strVal.ToInt();
         }
 
         protected override void RegisterCommands()

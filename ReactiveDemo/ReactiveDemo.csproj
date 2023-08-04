@@ -231,6 +231,7 @@
     <Compile Include="Events\ReactiveDemoEvents.cs" />
     <Compile Include="Models\ReactiveDemoModel.cs" />
     <Compile Include="Common\AdornerEffect.cs" />
+    <Compile Include="Util\ConvertUtil.cs" />
     <Compile Include="ViewModels\Binding\BindingViewModel.cs" />
     <Compile Include="ViewModels\Observer\ObserverViewModel.cs" />
     <Compile Include="ViewModels\ReactiveDemoViewModel.cs" />
