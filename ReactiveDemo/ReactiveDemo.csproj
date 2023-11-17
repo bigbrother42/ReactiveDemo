@@ -237,6 +237,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Base\ActionBase\AlertWindowAction.cs" />
+    <Compile Include="Component\CustomerButton.cs" />
+    <Compile Include="Component\SharedResourceDictionary.cs" />
     <Compile Include="Events\ReactiveDemoEvents.cs" />
     <Compile Include="Models\ReactiveDemoModel.cs" />
     <Compile Include="Common\AdornerEffect.cs" />
@@ -289,6 +291,14 @@
     <Page Include="Resources\IconsNonShared.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Style\CustomerButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Adorner\AdornerSampleView.xaml">
       <Generator>MSBuild:Compile</Generator>

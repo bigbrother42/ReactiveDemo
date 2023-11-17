@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:component="clr-namespace:ReactiveDemo.Component">
+
+    <ResourceDictionary.MergedDictionaries>
+        <component:SharedResourceDictionary Source="pack://application:,,,/ReactiveDemo;component/Style/CustomerButton.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

@@ -8,8 +8,11 @@
              xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase"
              xmlns:interactionRequest="http://www.codeplex.com/prism"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:component="clr-namespace:ReactiveDemo.Component"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
-             Title="ReactiveDemoView" Height="450" Width="800">
+             Title="ReactiveDemoView"
+             Height="450"
+             Width="800">
 
     <i:Interaction.Triggers>
         <interactionRequest:InteractionRequestTrigger SourceObject="{Binding LoginOpenPageRequest}">
@@ -27,6 +30,7 @@
 
     <Grid Margin="20,20,0,0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -54,5 +58,12 @@
                     Content="Button_Group_DragDrop_Demo"
                     Command="{Binding ButtonGroupDragDropCommand}"/>
         </WrapPanel>
+
+        <Grid Grid.Row="2" Margin="0,20,0,0">
+            <component:CustomerButton Width="150" Height="30"
+                                      HorizontalAlignment="Left"
+                                      HorizontalContentAlignment="Center"
+                                      Content="TestCustomerButton"/>
+        </Grid>
     </Grid>
 </mah:MetroWindow>
