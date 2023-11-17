@@ -44,6 +44,14 @@
     <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.4.4.0\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="InfragisticsWPF4.DragDrop.v18.1, Version=18.1.20181.82, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Infragistics\InfragisticsWPF4.DragDrop.v18.1.dll</HintPath>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.v18.1, Version=18.1.20181.82, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Infragistics\InfragisticsWPF4.v18.1.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.2.4.9\lib\net46\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -183,6 +191,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Reactive, Version=5.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reactive.5.0.0\lib\netstandard2.0\System.Reactive.dll</HintPath>
     </Reference>
@@ -233,6 +242,7 @@
     <Compile Include="Common\AdornerEffect.cs" />
     <Compile Include="Util\ConvertUtil.cs" />
     <Compile Include="ViewModels\Binding\BindingViewModel.cs" />
+    <Compile Include="ViewModels\Component\ButtonGroupDragDropViewModel.cs" />
     <Compile Include="ViewModels\Observer\ObserverViewModel.cs" />
     <Compile Include="ViewModels\ReactiveDemoViewModel.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
@@ -244,6 +254,9 @@
     </Compile>
     <Compile Include="Views\Binding\BindingView.xaml.cs">
       <DependentUpon>BindingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Component\ButtonGroupDragDropView.xaml.cs">
+      <DependentUpon>ButtonGroupDragDropView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Observer\ObserverView.xaml.cs">
       <DependentUpon>ObserverView.xaml</DependentUpon>
@@ -282,6 +295,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Binding\BindingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Component\ButtonGroupDragDropView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

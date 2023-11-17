@@ -20,6 +20,8 @@
 
         public ReactiveCommand ReactiveXMergeCommand { get; set; }
 
+        public ReactiveCommand ButtonGroupDragDropCommand { get; set; }
+
         #endregion
 
         #region ReactiveProperty
@@ -31,6 +33,8 @@
         #region Requests
 
         public InteractionRequest<Notification> LoginOpenPageRequest { get; set; } = new InteractionRequest<Notification>();
+
+        public InteractionRequest<Notification> ButtonGroupDragDropRequest { get; set; } = new InteractionRequest<Notification>();
 
         #endregion
 
@@ -79,6 +83,12 @@
             // http://introtorx.com/Content/v1.0.10621.0/12_CombiningSequences.html#Merge
             ReactiveXMergeCommand = new ReactiveCommand().AddTo(DisposablePool);
             ReactiveXMergeCommand.Subscribe(ReactiveXMerge).AddTo(DisposablePool);
+
+            ButtonGroupDragDropCommand = new ReactiveCommand().AddTo(DisposablePool);
+            ButtonGroupDragDropCommand.Subscribe(o =>
+            {
+                ButtonGroupDragDropRequest.Raise(new Notification(), notification => {});
+            }).AddTo(DisposablePool);
         }
 
         protected override void InitData()

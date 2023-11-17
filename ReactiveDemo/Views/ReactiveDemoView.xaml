@@ -17,10 +17,21 @@
                 Owner="{Binding ElementName=ReactiveDemoWindow}"
                 WindowName="ReactiveDemo.Views.Window1View" />
         </interactionRequest:InteractionRequestTrigger>
+
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding ButtonGroupDragDropRequest}">
+            <actionBase:AlertWindowAction
+                Owner="{Binding ElementName=ReactiveDemoWindow}"
+                WindowName="ReactiveDemo.Views.Component.ButtonGroupDragDropView" />
+        </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
     <Grid Margin="20,20,0,0">
-        <WrapPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0">
             <Button Width="100" Height="20"
                     Content="{Binding Button1Name.Value}"
                     Command="{Binding OpenWindow1Command}"/>
@@ -36,6 +47,12 @@
             <Button Width="100" Height="20"
                     Content="ReactiveX-Merge"
                     Command="{Binding ReactiveXMergeCommand}"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="1" Margin="0,20,0,0">
+            <Button Height="30"
+                    Content="Button_Group_DragDrop_Demo"
+                    Command="{Binding ButtonGroupDragDropCommand}"/>
         </WrapPanel>
     </Grid>
 </mah:MetroWindow>
