@@ -13,6 +13,8 @@ namespace ReactiveDemo
     using Prism.Events;
     using Prism.Mvvm;
     using Reactive.Bindings;
+    using ReactiveDemo.Constants.Enum;
+    using ReactiveDemo.Schema;
     using Unity;
     using Unity.ServiceLocation;
     using Views;
@@ -36,6 +38,10 @@ namespace ReactiveDemo
             var provider = new UnityServiceLocator(Container);
             ServiceLocator.SetLocatorProvider(() => provider);
             ViewModelLocationProvider.SetDefaultViewModelFactory(x => Container.Resolve(x));
+
+            // change system theme
+            var schema = ThemeSchemaProvider.GetThemeSchema();
+            schema.ChangeSystemTheme(ConfigEnum.SystemTheme.Normal.GetCode());
 
             var window = Container.Resolve<ReactiveDemoView>();
             window.ShowDialog();

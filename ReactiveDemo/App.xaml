@@ -9,14 +9,17 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary x:Name="ThemeDictionarys">
                     <ResourceDictionary.MergedDictionaries>
-                        <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                        <!-- Theme setting -->
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                        <component:SharedResourceDictionary Source="pack://application:,,,/ReactiveDemo;component/Themes/Theme.xaml"/>
+                        <component:SharedResourceDictionary Source="pack://application:,,,/ReactiveDemo;component/Themes/ImageTheme.xaml"/>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
 
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <component:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <component:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <component:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                
                 <component:SharedResourceDictionary Source="pack://application:,,,/ReactiveDemo;component/Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

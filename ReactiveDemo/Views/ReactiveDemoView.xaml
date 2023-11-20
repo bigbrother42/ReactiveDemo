@@ -59,11 +59,16 @@
                     Command="{Binding ButtonGroupDragDropCommand}"/>
         </WrapPanel>
 
-        <Grid Grid.Row="2" Margin="0,20,0,0">
+        <WrapPanel Grid.Row="2" Margin="0,20,0,0">
             <component:CustomerButton Width="150" Height="30"
                                       HorizontalAlignment="Left"
                                       HorizontalContentAlignment="Center"
                                       Content="TestCustomerButton"/>
-        </Grid>
+
+            <Image Width="300" Height="150"
+                   Source="{StaticResource TestImage}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"/>
+        </WrapPanel>
     </Grid>
 </mah:MetroWindow>

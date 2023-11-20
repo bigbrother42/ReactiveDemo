@@ -17,8 +17,7 @@
                     <WrapPanel Grid.Column="0"
                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                        <ContentPresenter Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ContentMargin}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
                     </WrapPanel>
                 </Grid>
@@ -27,8 +26,8 @@
     </ControlTemplate>
 
     <Style TargetType="component:CustomerButton">
-        <Setter Property="Background" Value="Red"/>
-        <Setter Property="Foreground" Value="Blue"/>
+        <Setter Property="Background" Value="{StaticResource Common.Red}"/>
+        <Setter Property="Foreground" Value="{StaticResource Common.Blue}"/>
         <Setter Property="CornerRadius" Value="3"/>
 
         <Setter Property="Template" Value="{StaticResource CustomerButton.Default.Template}"/>
