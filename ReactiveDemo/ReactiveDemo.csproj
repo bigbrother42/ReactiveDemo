@@ -245,6 +245,7 @@
     <Compile Include="Base\ActionBase\InvokeMethodAction.cs" />
     <Compile Include="Base\ActionBase\MethodNotification.cs" />
     <Compile Include="Base\ProfileBase\BaseProfile.cs" />
+    <Compile Include="Behavior\ButtonBehavior\TestButtonBehavior.cs" />
     <Compile Include="Component\CustomerButton.cs" />
     <Compile Include="Component\SharedResourceDictionary.cs" />
     <Compile Include="Configure\AutoMapperConfigure.cs" />

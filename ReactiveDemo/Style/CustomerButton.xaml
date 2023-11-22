@@ -26,7 +26,6 @@
     </ControlTemplate>
 
     <Style TargetType="component:CustomerButton">
-        <Setter Property="Background" Value="{StaticResource Common.Red}"/>
         <Setter Property="Foreground" Value="{StaticResource Common.Blue}"/>
         <Setter Property="CornerRadius" Value="3"/>
 

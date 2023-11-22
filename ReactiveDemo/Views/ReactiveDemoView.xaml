@@ -10,7 +10,8 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:component="clr-namespace:ReactiveDemo.Component"
              xmlns:actionBase1="clr-namespace:ReactiveDemo.Base.ActionBase"
-             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors" xmlns:buttonbehavior="clr-namespace:ReactiveDemo.Behavior.ButtonBehavior"
+                 mvvm:ViewModelLocator.AutoWireViewModel="True"
              WindowStartupLocation="CenterScreen"
              Title="ReactiveDemo"
              Height="450"
@@ -36,6 +37,7 @@
 
     <Grid Margin="20,20,0,0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -86,6 +88,18 @@
             <Button Width="150" Height="30"
                     Content="TestMapper"
                     Command="{Binding TestMapperCommand}"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="4" Margin="0,20,0,0">
+            <component:CustomerButton Width="150" Height="30"
+                                      Background="Red"
+                                      HorizontalAlignment="Left"
+                                      HorizontalContentAlignment="Center"
+                                      Content="TestBehaviorButton">
+                <i:Interaction.Behaviors>
+                    <buttonbehavior:TestButtonBehavior/>
+                </i:Interaction.Behaviors>
+            </component:CustomerButton>
         </WrapPanel>
     </Grid>
 </mah:MetroWindow>
