@@ -81,6 +81,10 @@
             <Button Width="150" Height="30"
                     Content="TestMethodRequest"
                     Command="{Binding TestMethodRequestCommand}"/>
+
+            <Button Width="150" Height="30"
+                    Content="TestMapper"
+                    Command="{Binding TestMapperCommand}"/>
         </WrapPanel>
     </Grid>
 </mah:MetroWindow>

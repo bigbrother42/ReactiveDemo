@@ -2,6 +2,7 @@
 {
     using System;
     using System.Reactive.Disposables;
+    using AutoMapper;
     using Events;
     using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
     using Models;
@@ -24,6 +25,8 @@
         public ReactiveCommand ButtonGroupDragDropCommand { get; set; }
 
         public ReactiveCommand TestMethodRequestCommand { get; set; }
+
+        public ReactiveCommand TestMapperCommand { get; set; }
 
         #endregion
 
@@ -98,6 +101,19 @@
             TestMethodRequestCommand = new ReactiveCommand().AddTo(DisposablePool);
             TestMethodRequestCommand.Subscribe(o => {
                 TestMethodRequest.Raise(new MethodNotification { Parameters = new object[] { "Test" } });
+            }).AddTo(DisposablePool);
+
+            TestMapperCommand = new ReactiveCommand().AddTo(DisposablePool);
+            TestMapperCommand.Subscribe(o => {
+                var sourceModel = new TestMapperModel { 
+                    Code = "1",
+                    Name = "TestModelMapper",
+                    Description = "xxxxxxxxx"
+                };
+
+                var mappedModel = Mapper.Map<TestMapperModel>(sourceModel);
+
+                Console.WriteLine(mappedModel.ToString());
             }).AddTo(DisposablePool);
         }
 

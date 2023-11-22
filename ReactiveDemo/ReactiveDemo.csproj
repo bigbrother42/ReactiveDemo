@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
     </Reference>
@@ -198,6 +201,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -239,14 +243,19 @@
     <Compile Include="Base\ActionBase\AlertWindowAction.cs" />
     <Compile Include="Base\ActionBase\InvokeMethodAction.cs" />
     <Compile Include="Base\ActionBase\MethodNotification.cs" />
+    <Compile Include="Base\ProfileBase\BaseProfile.cs" />
     <Compile Include="Component\CustomerButton.cs" />
     <Compile Include="Component\SharedResourceDictionary.cs" />
+    <Compile Include="Configure\AutoMapperConfigure.cs" />
+    <Compile Include="Configure\IAppConfigure.cs" />
     <Compile Include="Constants\Enum\ComboBoxSourceItem.cs" />
     <Compile Include="Constants\Enum\ConfigEnum.cs" />
     <Compile Include="Constants\Enum\EnumExtension.cs" />
     <Compile Include="Events\ReactiveDemoEvents.cs" />
     <Compile Include="Models\ReactiveDemoModel.cs" />
     <Compile Include="Common\AdornerEffect.cs" />
+    <Compile Include="Models\TestMapperModel.cs" />
+    <Compile Include="ReactiveDemoMapperProfile.cs" />
     <Compile Include="Schema\BaseSchema.cs" />
     <Compile Include="Schema\ISchema.cs" />
     <Compile Include="Schema\NormalSchema.cs" />
