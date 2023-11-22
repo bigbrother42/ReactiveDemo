@@ -1,13 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:component="clr-namespace:ReactiveDemo.Component">
+                    xmlns:component="clr-namespace:ReactiveDemo.Component"
+                    xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
     <ResourceDictionary.MergedDictionaries>
         <component:SharedResourceDictionary Source="pack://application:,,,/ReactiveDemo;component/Themes/Resource/ThemeResource.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <SolidColorBrush x:Key="Common.Red" Color="{StaticResource System.Color.001}" />
-    <SolidColorBrush x:Key="Common.Yellow" Color="{StaticResource System.Color.002}" />
-    <SolidColorBrush x:Key="Common.Blue" Color="{StaticResource System.Color.003}" />
+    <SolidColorBrush x:Key="Common.Red" Color="{StaticResource System.Color.001}" o:Freeze="True"/>
+    <SolidColorBrush x:Key="Common.Yellow" Color="{StaticResource System.Color.002}" o:Freeze="True"/>
+    <SolidColorBrush x:Key="Common.Blue" Color="{StaticResource System.Color.003}" o:Freeze="True"/>
 
-    <SolidColorBrush x:Key="Common.LightGray" Color="{StaticResource System.Color.004}" />
+    <SolidColorBrush x:Key="Common.LightGray" Color="{StaticResource System.Color.004}" o:Freeze="True"/>
 </ResourceDictionary>
