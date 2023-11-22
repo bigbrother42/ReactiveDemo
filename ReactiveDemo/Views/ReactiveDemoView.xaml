@@ -11,7 +11,8 @@
              xmlns:component="clr-namespace:ReactiveDemo.Component"
              xmlns:actionBase1="clr-namespace:ReactiveDemo.Base.ActionBase"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
-             Title="ReactiveDemoView"
+             WindowStartupLocation="CenterScreen"
+             Title="ReactiveDemo"
              Height="450"
              Width="800">
 

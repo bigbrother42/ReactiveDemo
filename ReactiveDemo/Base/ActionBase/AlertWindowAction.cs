@@ -4,6 +4,7 @@
     using System.ComponentModel;
     using System.Reflection;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Interactivity;
     using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
     using ViewModels;
@@ -12,16 +13,22 @@
     {
         public static readonly DependencyProperty OwnerProperty = DependencyProperty.Register(
             "Owner", typeof(DependencyObject), typeof(AlertWindowAction), new PropertyMetadata(null));
-
         public DependencyObject Owner
         {
             get => (DependencyObject)GetValue(OwnerProperty);
             set => SetValue(OwnerProperty, value);
         }
 
+        public static readonly DependencyProperty CloseOwnerProperty = DependencyProperty.Register(
+            "CloseOwner", typeof(bool), typeof(AlertWindowAction), new PropertyMetadata(false));
+        public bool CloseOwner
+        {
+            get => (bool)GetValue(CloseOwnerProperty);
+            set => SetValue(CloseOwnerProperty, value);
+        }
+
         public static readonly DependencyProperty WindowNameProperty = DependencyProperty.Register(
             "WindowName", typeof(string), typeof(AlertWindowAction), new PropertyMetadata(string.Empty));
-
         public string WindowName
         {
             get => (string)GetValue(WindowNameProperty);
@@ -44,41 +51,68 @@
 
                 if (win != null)
                 {
-                    Action callback = null;
-                    if (parameter is InteractionRequestedEventArgs args)
-                    {
-                        callback = args.Callback;
-                    }
-
-                    if (callback != null)
-                    {
-                        void WinOnClosed(object sender, EventArgs e)
-                        {
-                            win.Closed -= WinOnClosed;
-
-                            callback();
-                        }
-
-                        win.Closed += WinOnClosed;
-                    }
-
-                    if (win.DataContext is ViewModelBase viewModelBase)
-                    {
-                        viewModelBase.FinishInteraction = () =>
-                        {
-                            win.Close();
-                        };
-
-                        win.Closing += (sender, eventArgs) =>
-                        {
-                            viewModelBase.Dispose();
-                        };
-                    }
+                    AttachOtherProperties(win, parameter);
 
                     win.WindowState = WindowState.Normal;
                     win.Activate();
                     win.ShowDialog();
                 }
+            }
+        }
+
+        protected void AttachOtherProperties(Window win, object parameter)
+        {
+            Action callback = null;
+            if (parameter is InteractionRequestedEventArgs args)
+            {
+                callback = args.Callback;
+            }
+
+            if (callback != null)
+            {
+                void WinOnClosed(object sender, EventArgs e)
+                {
+                    win.Closed -= WinOnClosed;
+
+                    callback();
+                }
+
+                win.Closed += WinOnClosed;
+            }
+
+            if (win.DataContext is ViewModelBase viewModelBase)
+            {
+                viewModelBase.FinishInteraction = () =>
+                {
+                    win.Close();
+                };
+
+                win.Closing += (sender, eventArgs) =>
+                {
+                    viewModelBase.Dispose();
+                };
+            }
+
+            if (Owner != null)
+            {
+                if (Owner is Window ow && ow.IsVisible)
+                {
+                    win.Owner = ow;
+                    Owner = ow;
+                }
+                else if (Owner is UserControl ctr)
+                {
+                    var ow1 = Window.GetWindow(ctr);
+                    win.Owner = ow1;
+
+                    Owner = ow1;
+                }
+            }
+
+            if (CloseOwner)
+            {
+                win.Owner = null;
+                (Owner as Window)?.Close();
             }
         }
 

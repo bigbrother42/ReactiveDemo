@@ -6,12 +6,63 @@
         xmlns:local="clr-namespace:ReactiveDemo.Views.Login"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:mvvm="http://prismlibrary.com/"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:interactionRequest="http://www.codeplex.com/prism"
+        xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase"
         mc:Ignorable="d"
         mvvm:ViewModelLocator.AutoWireViewModel="True"
+        WindowStartupLocation="CenterScreen"
         Title="Login"
         Height="450"
-        Width="800">
+        Width="350">
+
+    <i:Interaction.Triggers>
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding MainWindowRequest}">
+            <actionBase:AlertWindowAction
+                Owner="{Binding RelativeSource={RelativeSource AncestorType=local:LoginView}}"
+                CloseOwner="True"
+                WindowName="ReactiveDemo.Views.MainWindowView" />
+        </interactionRequest:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            
+        </Grid>
+
+        <StackPanel Grid.Row="1">
+            <TextBox x:Name="UserNameTextBox"
+                     Width="200"
+                     Height="35"
+                     HorizontalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     BorderThickness="1"
+                     BorderBrush="{StaticResource Common.LightGray}"/>
+
+            <TextBox x:Name="PasswordTextBox"
+                     Margin="0,10,0,0"
+                     Width="200"
+                     Height="35"
+                     HorizontalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     BorderThickness="1"
+                     BorderBrush="{StaticResource Common.LightGray}"/>
+
+            <Button x:Name="LoginButton"
+                    Margin="0,20,0,0"
+                    Width="150"
+                    Content="Login"
+                    Command="{Binding LoginCommand}"/>
+        </StackPanel>
+
+        <Grid Grid.Row="2">
+            
+        </Grid>
     </Grid>
 </mah:MetroWindow>

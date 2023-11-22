@@ -8,4 +8,6 @@
     <SolidColorBrush x:Key="Common.Red" Color="{StaticResource System.Color.001}" />
     <SolidColorBrush x:Key="Common.Yellow" Color="{StaticResource System.Color.002}" />
     <SolidColorBrush x:Key="Common.Blue" Color="{StaticResource System.Color.003}" />
+
+    <SolidColorBrush x:Key="Common.LightGray" Color="{StaticResource System.Color.004}" />
 </ResourceDictionary>

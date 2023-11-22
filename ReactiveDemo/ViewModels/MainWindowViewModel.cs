@@ -1,11 +1,17 @@
-﻿using Reactive.Bindings;
+﻿using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ReactiveDemo.ViewModels.Login
+namespace ReactiveDemo.ViewModels
 {
-    public class LoginViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
+
         #region Field
 
 
@@ -20,7 +26,7 @@ namespace ReactiveDemo.ViewModels.Login
 
         #region ReactiveCommand
 
-        public ReactiveCommand LoginCommand { get; set; }
+        public ReactiveCommand ReactiveDemoCommand { get; set; }
 
         #endregion
 
@@ -32,7 +38,7 @@ namespace ReactiveDemo.ViewModels.Login
 
         #region Request
 
-        public InteractionRequest<Notification> MainWindowRequest { get; set; } = new InteractionRequest<Notification>();
+        public InteractionRequest<Notification> ReactiveDemoRequest { get; set; } = new InteractionRequest<Notification>();
 
         #endregion
 
@@ -59,8 +65,8 @@ namespace ReactiveDemo.ViewModels.Login
         {
             base.RegisterCommands();
 
-            LoginCommand = new ReactiveCommand().AddTo(DisposablePool);
-            LoginCommand.Subscribe(Login).AddTo(DisposablePool);
+            ReactiveDemoCommand = new ReactiveCommand().AddTo(DisposablePool);
+            ReactiveDemoCommand.Subscribe(ReactiveDemoMethod).AddTo(DisposablePool);
         }
 
         protected override void RegisterPubEvents()
@@ -72,9 +78,9 @@ namespace ReactiveDemo.ViewModels.Login
 
         #region Method
 
-        private void Login()
+        private void ReactiveDemoMethod()
         {
-            MainWindowRequest.Raise(new Notification(), notification => { });
+            ReactiveDemoRequest.Raise(new Notification(), notification => { });
         }
 
         #endregion

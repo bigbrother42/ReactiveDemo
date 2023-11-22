@@ -4,5 +4,6 @@
     <Color x:Key="System.Color.001">red</Color>
     <Color x:Key="System.Color.002">yellow</Color>
     <Color x:Key="System.Color.003">blue</Color>
+    <Color x:Key="System.Color.004">LightGray</Color>
     
 </ResourceDictionary>

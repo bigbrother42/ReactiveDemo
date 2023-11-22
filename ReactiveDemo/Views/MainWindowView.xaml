@@ -1,0 +1,41 @@
+﻿<mah:MetroWindow x:Class="ReactiveDemo.Views.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReactiveDemo.Views"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mvvm="http://prismlibrary.com/"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:interactionRequest="http://www.codeplex.com/prism"
+        xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase"
+        mc:Ignorable="d"
+        mvvm:ViewModelLocator.AutoWireViewModel="True"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow"
+        Height="450"
+        Width="800">
+
+    <i:Interaction.Triggers>
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding ReactiveDemoRequest}">
+            <actionBase:AlertWindowAction
+                Owner="{Binding ElementName=MainWindowView}"
+                WindowName="ReactiveDemo.Views.ReactiveDemoView" />
+        </interactionRequest:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Button x:Name="ReactiveDemoButton"
+                    Margin="10,10,0,0"
+                    Width="100"
+                    HorizontalAlignment="Left"
+                    Content="ReactiveDemo"
+                    Command="{Binding ReactiveDemoCommand}"/>
+        </Grid>
+    </Grid>
+</mah:MetroWindow>
