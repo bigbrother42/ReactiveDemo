@@ -1,5 +1,6 @@
 ﻿using Prism.Events;
 using ReactiveDemo.Constants.Enum;
+using ReactiveDemo.Events;
 using ReactiveDemo.Filters;
 using ReactiveDemo.Schema;
 using ReactiveDemo.Views;
@@ -32,7 +33,9 @@ namespace ReactiveDemo
 
         public void InitProcess(StartupEventArgs e = null)
         {
-            Filter.SetNext(new InitializeContainerFilter());
+            Filter
+                .SetNext(new InitializeContainerFilter())
+                .SetNext(new RegisterEventSubscribersFilter());
         }
 
         public void Execute()
@@ -46,8 +49,10 @@ namespace ReactiveDemo
             var schema = ThemeSchemaProvider.GetThemeSchema();
             schema.ChangeSystemTheme(ConfigEnum.SystemTheme.Normal.GetCode());
 
-            var window = Context.Container.Resolve<ReactiveDemoView>();
-            window.ShowDialog();
+            //var window = Context.Container.Resolve<ReactiveDemoView>();
+            //window.ShowDialog();
+
+            Context.EventAggregator.GetEvent<LoginEvents.UserLoginRequestEvent>().Publish(0);
         }
     }
 }

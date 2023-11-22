@@ -255,11 +255,13 @@
     <Compile Include="Constants\Enum\ComboBoxSourceItem.cs" />
     <Compile Include="Constants\Enum\ConfigEnum.cs" />
     <Compile Include="Constants\Enum\EnumExtension.cs" />
+    <Compile Include="Events\LoginEvents.cs" />
     <Compile Include="Events\ReactiveDemoEvents.cs" />
     <Compile Include="Filters\AbstractFilter.cs" />
     <Compile Include="Filters\BaseFilter.cs" />
     <Compile Include="Filters\IFilter.cs" />
     <Compile Include="Filters\InitializeContainerFilter.cs" />
+    <Compile Include="Filters\RegisterEventSubscribersFilter.cs" />
     <Compile Include="LauncherContext.cs" />
     <Compile Include="Models\ReactiveDemoModel.cs" />
     <Compile Include="Common\AdornerEffect.cs" />
@@ -269,9 +271,13 @@
     <Compile Include="Schema\ISchema.cs" />
     <Compile Include="Schema\NormalSchema.cs" />
     <Compile Include="Schema\ThemeSchemaProvider.cs" />
+    <Compile Include="Subscribers\AbstractEventSubscriber.cs" />
+    <Compile Include="Subscribers\ApplicationLogin.cs" />
+    <Compile Include="Subscribers\IEventSubscriber.cs" />
     <Compile Include="Util\ConvertUtil.cs" />
     <Compile Include="ViewModels\Binding\BindingViewModel.cs" />
     <Compile Include="ViewModels\Component\ButtonGroupDragDropViewModel.cs" />
+    <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="ViewModels\Observer\ObserverViewModel.cs" />
     <Compile Include="ViewModels\ReactiveDemoViewModel.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
@@ -286,6 +292,9 @@
     </Compile>
     <Compile Include="Views\Component\ButtonGroupDragDropView.xaml.cs">
       <DependentUpon>ButtonGroupDragDropView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Login\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Observer\ObserverView.xaml.cs">
       <DependentUpon>ObserverView.xaml</DependentUpon>
@@ -348,6 +357,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Component\ButtonGroupDragDropView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Login\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

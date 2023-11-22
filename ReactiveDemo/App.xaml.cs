@@ -32,7 +32,7 @@ namespace ReactiveDemo
         {
             _launcher.InitProcess(e);
 
-            //_launcher.Execute();
+            _launcher.Execute();
 
             _launcher.PostProcess();
         }
