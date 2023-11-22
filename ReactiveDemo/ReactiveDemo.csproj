@@ -274,12 +274,6 @@
     <Compile Include="Helpers\Log\GuiResourcesHelper.cs" />
     <Compile Include="LauncherContext.cs" />
     <Compile Include="Managers\CustomerLogManager.cs" />
-    <Compile Include="Managers\ILogAppenderProvider.cs" />
-    <Compile Include="Managers\ILogFilenameProvider.cs" />
-    <Compile Include="Managers\ILogLayoutProvider.cs" />
-    <Compile Include="Managers\LogAppenderProvider.cs" />
-    <Compile Include="Managers\LogFilenameProvider.cs" />
-    <Compile Include="Managers\LogLayoutProvider.cs" />
     <Compile Include="Models\Login\LoginModel.cs" />
     <Compile Include="Models\ReactiveDemoModel.cs" />
     <Compile Include="Common\AdornerEffect.cs" />
@@ -292,7 +286,6 @@
     <Compile Include="Subscribers\AbstractEventSubscriber.cs" />
     <Compile Include="Subscribers\ApplicationLogin.cs" />
     <Compile Include="Subscribers\IEventSubscriber.cs" />
-    <Compile Include="Util\AssemblyInfoUtil.cs" />
     <Compile Include="Util\ConvertUtil.cs" />
     <Compile Include="Util\Extensions\EnumerableExtension.cs" />
     <Compile Include="Util\Extensions\ObservableCollectionExtension.cs" />

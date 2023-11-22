@@ -259,27 +259,13 @@ namespace ReactiveDemo.Util
             sb.AppendLine(string.Format("Assembly: {0}", a.GetName()));
 
             var fileLogConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DEFAULT_LOG4NETCONFIG_FILENAME);
-            var embeddedLogConfigPath = a.GetName().Name + "." + DEFAULT_LOG4NETCONFIG_FILENAME;
-
             var logConfig = new FileInfo(fileLogConfigPath);
 
             sb.AppendLine(string.Format("Log Config: {0}", logConfig));
 
             if (!logConfig.Exists)
             {
-                var isEmbeddedConfigLoaded = LoadEmbeddedConfiguration(fileLogConfigPath, embeddedLogConfigPath);
-                if (isEmbeddedConfigLoaded)
-                {
-                    using (Stream resFilestream = a.GetManifestResourceStream(embeddedLogConfigPath))
-                    {
-                        var hierarchy = CustomerLogManager.Instance.CreateLogger(resFilestream);
-                        Logger = LogManager.GetLogger(hierarchy.Name, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-                    }
-                }
-                else
-                {
-                    sb.AppendLine(string.Format("Failed to load logging configuration."));
-                }
+                sb.AppendLine(string.Format("Failed to load logging configuration."));
             }
             else
             {
@@ -299,42 +285,9 @@ namespace ReactiveDemo.Util
             GlobalContext.Properties["RequestID"] = "";
             sb.AppendLine(string.Format("END Adding Custom Properties to GlobalContext."));
 
-            sb.AppendLine(string.Format("EmLogUtil END Configuration"));
+            sb.AppendLine(string.Format("LogUtil END Configuration"));
 
             File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DEFAULT_LOG4NETCONFIG_FILENAME + ".log"), sb.ToString(), Encoding.UTF8);
-        }
-
-        private bool LoadEmbeddedConfiguration(string fileLogConfigPath, string embeddedLogConfigPath)
-        {
-            Assembly a = Assembly.GetExecutingAssembly();
-            bool isEmbeddedConfigLoaded = false;
-
-            using (Stream resFilestream = a.GetManifestResourceStream(embeddedLogConfigPath))
-            {
-                if (resFilestream != null)
-                {
-                    try
-                    {
-                        BinaryReader br = new BinaryReader(resFilestream);
-                        FileStream fs = new FileStream(fileLogConfigPath, FileMode.Create);
-                        BinaryWriter bw = new BinaryWriter(fs);
-                        byte[] ba = new byte[resFilestream.Length];
-                        resFilestream.Read(ba, 0, ba.Length);
-                        bw.Write(ba);
-                        br.Close();
-                        bw.Close();
-                        resFilestream.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.Print(ex.ToString());
-                        XmlConfigurator.Configure(resFilestream);
-                    }
-
-                    isEmbeddedConfigLoaded = true;
-                }
-            }
-            return isEmbeddedConfigLoaded;
         }
 
         #endregion
