@@ -13,7 +13,7 @@ namespace ReactiveDemo.Configure
 {
     public class AutoMapperConfigure : IAppConfigure
     {
-        public void Configure()
+        public void Configure(LauncherContext context)
         {
             List<Type> startupMapperProfiles = new List<Type>();
             Assembly assembly = Assembly.GetExecutingAssembly();

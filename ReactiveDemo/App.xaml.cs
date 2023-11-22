@@ -15,6 +15,7 @@ namespace ReactiveDemo
     using Reactive.Bindings;
     using ReactiveDemo.Configure;
     using ReactiveDemo.Constants.Enum;
+    using ReactiveDemo.Filters;
     using ReactiveDemo.Schema;
     using Unity;
     using Unity.ServiceLocation;
@@ -25,32 +26,15 @@ namespace ReactiveDemo
     /// </summary>
     public partial class App : Application
     {
-        private IUnityContainer Container { get; } = new UnityContainer();
-
-        private EventAggregator EventAggregator { get; } = new EventAggregator();
+        private ApplicationLauncher _launcher = new ApplicationLauncher();
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            ReactivePropertyScheduler.SetDefault(ImmediateScheduler.Instance);
+            _launcher.InitProcess(e);
 
-            Container.RegisterInstance(typeof(IUnityContainer), Container);
-            Container.RegisterInstance(typeof(IEventAggregator), EventAggregator);
+            //_launcher.Execute();
 
-            var provider = new UnityServiceLocator(Container);
-            ServiceLocator.SetLocatorProvider(() => provider);
-            ViewModelLocationProvider.SetDefaultViewModelFactory(x => Container.Resolve(x));
-
-            var autoMapperConfigure = new AutoMapperConfigure();
-            autoMapperConfigure.Configure();
-
-            // change system theme
-            var schema = ThemeSchemaProvider.GetThemeSchema();
-            schema.ChangeSystemTheme(ConfigEnum.SystemTheme.Normal.GetCode());
-
-            var window = Container.Resolve<ReactiveDemoView>();
-            window.ShowDialog();
+            _launcher.PostProcess();
         }
-
-
     }
 }

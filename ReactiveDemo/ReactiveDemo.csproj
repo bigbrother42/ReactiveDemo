@@ -240,6 +240,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationLauncher.cs" />
     <Compile Include="Base\ActionBase\AlertWindowAction.cs" />
     <Compile Include="Base\ActionBase\InvokeMethodAction.cs" />
     <Compile Include="Base\ActionBase\MethodNotification.cs" />
@@ -248,10 +249,18 @@
     <Compile Include="Component\SharedResourceDictionary.cs" />
     <Compile Include="Configure\AutoMapperConfigure.cs" />
     <Compile Include="Configure\IAppConfigure.cs" />
+    <Compile Include="Configure\ReactiveFrameworkConfigure.cs" />
+    <Compile Include="Configure\ServiceLocatorConfigure.cs" />
+    <Compile Include="Configure\ViewModelLocationProviderConfigure.cs" />
     <Compile Include="Constants\Enum\ComboBoxSourceItem.cs" />
     <Compile Include="Constants\Enum\ConfigEnum.cs" />
     <Compile Include="Constants\Enum\EnumExtension.cs" />
     <Compile Include="Events\ReactiveDemoEvents.cs" />
+    <Compile Include="Filters\AbstractFilter.cs" />
+    <Compile Include="Filters\BaseFilter.cs" />
+    <Compile Include="Filters\IFilter.cs" />
+    <Compile Include="Filters\InitializeContainerFilter.cs" />
+    <Compile Include="LauncherContext.cs" />
     <Compile Include="Models\ReactiveDemoModel.cs" />
     <Compile Include="Common\AdornerEffect.cs" />
     <Compile Include="Models\TestMapperModel.cs" />

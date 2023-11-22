@@ -8,6 +8,6 @@ namespace ReactiveDemo.Configure
 {
     public interface IAppConfigure
     {
-        void Configure();
+        void Configure(LauncherContext context);
     }
 }
