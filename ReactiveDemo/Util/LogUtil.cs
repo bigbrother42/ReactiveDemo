@@ -15,13 +15,13 @@ namespace ReactiveDemo.Util
 {
     public class LogUtil
     {
-        #region 定数
+        #region Constants
 
         private const string DEFAULT_LOG4NETCONFIG_FILENAME = "log4net.config";
 
         #endregion
 
-        #region シングルトン
+        #region singleton
 
         private static LogUtil _instance = null;
 
@@ -34,7 +34,7 @@ namespace ReactiveDemo.Util
         #region Static Properties
 
         /// <summary>
-        ///   log4netライブラリのロギングコンテキストのインスタンスを取得します。
+        ///   Get an instance of the log4net library's logging context.
         /// </summary>
         public static ILog Instance
         {
@@ -50,7 +50,7 @@ namespace ReactiveDemo.Util
         }
 
         /// <summary>
-        ///   現在実行中のプロセスに起因するデータを含むグローバルコンテキストのマッピング定義
+        ///   Global context mapping definition containing data originating from currently running processes
         /// </summary>
         public static Dictionary<string, string> CurrentProcessGlobalContextConfig = new Dictionary<string, string>()
         {
@@ -97,7 +97,7 @@ namespace ReactiveDemo.Util
         };
 
         /// <summary>
-        ///   現在実行中のプロセスのGUIリソースに起因するデータを含むグローバルコンテキストのマッピング定義
+        ///   A mapping definition for the global context containing data originating from the GUI resources of the currently running process
         /// </summary>
         public static Dictionary<string, uint> GuiResourcesGlobalContextConfig = new Dictionary<string, uint>()
         {
@@ -110,10 +110,10 @@ namespace ReactiveDemo.Util
         #region Static Methods
 
         /// <summary>
-        ///   指定されたlog4netライブラリのロギングコンテキストインスタンスを現在のロギングコンテキストとして設定します。
+        ///   Sets the specified log4net library's logging context instance as the current logging context.
         /// </summary>
         /// <param name="logger">
-        ///   log4netライブラリのロギングコンテキストインスタンスを指定します。
+        ///   Specifies a logging context instance for the log4net library.
         /// </param>
         public static void SetLogger(ILog logger)
         {
@@ -121,7 +121,7 @@ namespace ReactiveDemo.Util
         }
 
         /// <summary>
-        ///   現在実行中のプロセスに起因するデータをグローバルコンテキストに設定します。
+        ///   Sets data originating from the currently running process into the global context.
         /// </summary>
         public static void SetCurrentProcessGlobalContext()
         {
@@ -142,7 +142,7 @@ namespace ReactiveDemo.Util
         }
 
         /// <summary>
-        ///   現在実行中のプロセスのGUIリソースに起因するデータをグローバルコンテキストに設定します。
+        ///   Sets data resulting from the currently running process's GUI resources into the global context.
         /// </summary>
         public static void SetGuiResourcesGlobalContext()
         {
@@ -163,7 +163,7 @@ namespace ReactiveDemo.Util
         }
 
         /// <summary>
-        ///   現在実行中のプロセスに起因するデータをグローバルコンテキストに未設定します。
+        ///   Unsets data originating from the currently running process in the global context.
         /// </summary>
         public static void UnsetCurrentProcessGlobalContext()
         {
@@ -184,7 +184,7 @@ namespace ReactiveDemo.Util
         }
 
         /// <summary>
-        ///   現在実行中のプロセスのGUIリソースに起因するデータをグローバルコンテキストに未設定します。
+        ///   Data resulting from the GUI resources of the currently running process is not set in the global context.
         /// </summary>
         public static void UnsetGuiResourcesGlobalContext()
         {
@@ -205,10 +205,10 @@ namespace ReactiveDemo.Util
         }
 
         /// <summary>
-        ///   指定された例外をログへ出力します。
+        ///   Outputs the specified exception to the log.
         /// </summary>
         /// <param name="ex">
-        ///   ログへ出力する例外を指定します。
+        ///   Specify the exception to be output to the log.
         /// </param>
         public static void LogException(Exception ex)
         {
@@ -221,7 +221,7 @@ namespace ReactiveDemo.Util
         #region Properties
 
         /// <summary>
-        ///   log4netライブラリのロギングコンテキストインスタンス
+        ///   Logging context instance of log4net library
         /// </summary>
         public ILog Logger { get; private set; }
 
@@ -230,7 +230,7 @@ namespace ReactiveDemo.Util
         #region Constructor
 
         /// <summary>
-        ///   コンストラクタ
+        ///   constructor
         /// </summary>
         private LogUtil(ILog logger = null)
         {

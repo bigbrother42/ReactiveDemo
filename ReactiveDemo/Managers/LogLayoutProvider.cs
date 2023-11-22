@@ -23,7 +23,7 @@ namespace ReactiveDemo.Managers
         }
 
         /// <summary>
-        /// ログメッセージ出力パターンを作成する
+        /// Create a log message output pattern
         /// </summary>
         /// <param name="pattern"></param>
         /// <returns></returns>

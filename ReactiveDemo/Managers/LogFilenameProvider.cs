@@ -17,7 +17,7 @@ namespace ReactiveDemo.Managers
         private const string LOGFILE_DEFAULT_SEPARATOR = ".";
 
         /// <summary>
-        /// ログファイル名を取得する
+        /// Get log file name
         /// </summary>
         /// <param name="path"></param>
         /// <param name="name"></param>
@@ -68,7 +68,7 @@ namespace ReactiveDemo.Managers
         }
 
         /// <summary>
-        /// ロギング処理の名前を取得する
+        /// Get the name of the logging process
         /// </summary>
         /// <returns></returns>
         private string GetLoggerName()

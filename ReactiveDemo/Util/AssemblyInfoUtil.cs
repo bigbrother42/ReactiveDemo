@@ -12,106 +12,106 @@ namespace ReactiveDemo.Util
     public class AssemblyInfoUtil
     {
         /// <summary>
-        ///   ロードされたアセンブリのタイトル
+        ///   Loaded assembly title
         /// </summary>
         /// <value>
-        ///   <see cref="AssemblyTitleAttribute.Title"/> の値と同じです。
+        ///  is the same as the value of <see cref="AssemblyTitleAttribute.Title"/>
         /// </value>
         public string Title { get; set; }
 
         /// <summary>
-        ///   ロードされたアセンブリの説明
+        ///   Loaded assembly description
         /// </summary>
         /// <value>
-        ///   <see cref="AssemblyDescriptionAttribute.Description"/> の値と同じです。
+        /// is the same as the value of  <see cref="AssemblyDescriptionAttribute.Description"/>
         /// </value>
         public string Description { get; set; }
 
         /// <summary>
-        ///   ロードされたアセンブリの会社名
+        ///   Company name of loaded assembly
         /// </summary>
         /// <value>
-        ///   <see cref="AssemblyCompanyAttribute.Company"/> の値と同じです。
+        /// is the same as the value of  <see cref="AssemblyCompanyAttribute.Company"/>
         /// </value>
         public string Company { get; set; }
 
         /// <summary>
-        ///   ロードされたアセンブリの製品名
+        ///   Product name of loaded assembly
         /// </summary>
         /// <value>
-        ///   <see cref="AssemblyProductAttribute.Product"/> の値と同じです。
+        /// is the same as the value of  <see cref="AssemblyProductAttribute.Product"/>
         /// </value>
         public string Product { get; set; }
 
         /// <summary>
-        ///   ロードされたアセンブリの著作権
+        ///   Loaded assembly copyright
         /// </summary>
         /// <value>
-        ///   <see cref="AssemblyCopyrightAttribute.Copyright"/> の値と同じです。
+        ///  is the same as the value of <see cref="AssemblyCopyrightAttribute.Copyright"/>
         /// </value>
         public string Copyright { get; set; }
 
         /// <summary>
-        ///   ロードされたアセンブリの商標
+        ///   Loaded assembly trademark
         /// </summary>
         /// <value>
-        ///   <see cref="AssemblyTrademarkAttribute.Trademark"/> の値と同じです。
+        /// is the same as the value of  <see cref="AssemblyTrademarkAttribute.Trademark"/>
         /// </value>
         public string Trademark { get; set; }
 
         /// <summary>
-        ///   ロードされたアセンブリのアセンブリバージョン
+        ///   Assembly version of loaded assembly
         /// </summary>
         /// <value>
-        ///   <see cref="AssemblyName.Version"/> の <see cref="Version.ToString()"/> の戻り値と同じです。
+        /// is the same as the value of  <see cref="AssemblyName.Version"/> の <see cref="Version.ToString()"/>
         /// </value>
         public string AssemblyVersion { get; set; }
 
         /// <summary>
-        ///   <para>ロードされたアセンブリの短縮されたアセンブリバージョン</para>
+        ///   <para>Shortened assembly version of loaded assembly</para>
         /// </summary>
         /// <value>
-        ///   <see cref="Version.Major"/> と <see cref="Version.Minor"/> の値のみ含む文字列
+        ///  a string containing only the values of <see cref="Version.Major"/> と <see cref="Version.Minor"/>
         /// </value>
         public string ShortAssemblyVersion { get; set; }
 
         /// <summary>
-        ///   ロードされたアセンブリのファイルバージョン
+        ///   File version of loaded assembly
         /// </summary>
         /// <value>
-        ///   <see cref="AssemblyFileVersionAttribute.Version"/> の値と同じです。
+        ///  is the same as the value of <see cref="AssemblyFileVersionAttribute.Version"/>
         /// </value>
         public string FileVersion { get; set; }
 
         /// <summary>
-        ///   ロードされたアセンブリのグローバルに一意の識別子値
+        ///   Globally unique identifier value for loaded assemblies
         /// </summary>
         /// <value>
-        ///   <see cref="GuidAttribute.Value"/> の値と同じです。
+        ///  is the same as the value of <see cref="GuidAttribute.Value"/>
         /// </value>
         public string Guid { get; set; }
 
         /// <summary>
-        ///   ロードされたアセンブリのデフォルト言語
+        ///   Default language of loaded assemblies
         /// </summary>
         /// <value>
-        ///   <see cref="NeutralResourcesLanguageAttribute.CultureName"/> の値と同じです。
+        ///  is the same as the value of <see cref="NeutralResourcesLanguageAttribute.CultureName"/> 
         /// </value>
         public string NeutralLanguage { get; set; }
 
         /// <summary>
-        ///   COMクライアントがロードされたアセンブリのマネージコードにアクセスする方法
+        ///   How a COM client accesses managed code in a loaded assembly
         /// </summary>
         /// <value>
-        ///   <see cref="ComVisibleAttribute.Value"/> の値と同じです。
-        ///   <para>値が <c>true</c> の場合、管理対象タイプがCOMに表示されることを示します。</para>
-        ///   <para>値が <c>false</c> の場合、アセンブリ内のすべてのパブリック型はCOMから非表示になります。</para>
+        ///  is the same as the value of <see cref="ComVisibleAttribute.Value"/>
+        ///   <para>A value of <c>true</c> indicates that the managed type is visible to COM. </para>
+        ///   <para>If the value is <c>false</c>, all public types in the assembly are hidden from COM. </para>
         /// </value>
         public bool IsComVisible { get; set; } = false;
 
         /// <summary>
-        ///   <para>アセンブリ情報を表すクラスのインスタンスを作成します。</para>
-        ///   <para>ロードされるアセンブリは、 <see cref="Assembly.GetExecutingAssembly"/> メソッドの戻り値になります。</para>
+        ///  <para>Create an instance of a class representing assembly information. </para>
+        ///  <para>The assembly that is loaded is the return value of the <see cref="Assembly.GetExecutingAssembly"/> method. </para>
         /// </summary>
         public AssemblyInfoUtil() : this(Assembly.GetExecutingAssembly())
         {
