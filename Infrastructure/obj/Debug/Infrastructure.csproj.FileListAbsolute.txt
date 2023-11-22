@@ -13,3 +13,17 @@ C:\gitlab-repository\Local Projects\ReactiveDemo\Infrastructure\obj\Debug\Infras
 C:\gitlab-repository\Local Projects\ReactiveDemo\Infrastructure\obj\Debug\Infrastructure.csproj.CoreCompileInputs.cache
 C:\gitlab-repository\Local Projects\ReactiveDemo\Infrastructure\obj\Debug\Infrastructure.exe
 C:\gitlab-repository\Local Projects\ReactiveDemo\Infrastructure\obj\Debug\Infrastructure.pdb
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\bin\Debug\Infrastructure.exe.config
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\bin\Debug\Infrastructure.exe
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\bin\Debug\Infrastructure.pdb
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\obj\Debug\MainWindow.g.cs
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\obj\Debug\App.g.cs
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\obj\Debug\Infrastructure_MarkupCompile.cache
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\obj\Debug\Infrastructure_MarkupCompile.lref
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\obj\Debug\MainWindow.baml
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\obj\Debug\Infrastructure.g.resources
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\obj\Debug\Infrastructure.Properties.Resources.resources
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\obj\Debug\Infrastructure.csproj.GenerateResource.cache
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\obj\Debug\Infrastructure.csproj.CoreCompileInputs.cache
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\obj\Debug\Infrastructure.exe
+C:\git-repository\LocalProject\ReactiveDemo\Infrastructure\obj\Debug\Infrastructure.pdb

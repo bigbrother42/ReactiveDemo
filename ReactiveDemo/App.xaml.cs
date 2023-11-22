@@ -9,6 +9,7 @@ using System.Windows;
 namespace ReactiveDemo
 {
     using System.Reactive.Concurrency;
+    using System.Windows.Threading;
     using CommonServiceLocator;
     using Prism.Events;
     using Prism.Mvvm;
@@ -16,6 +17,7 @@ namespace ReactiveDemo
     using ReactiveDemo.Configure;
     using ReactiveDemo.Constants.Enum;
     using ReactiveDemo.Filters;
+    using ReactiveDemo.Helpers;
     using ReactiveDemo.Schema;
     using Unity;
     using Unity.ServiceLocation;
@@ -30,11 +32,18 @@ namespace ReactiveDemo
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            Dispatcher.UnhandledException += OnDispatcherUnhandledExceptionOccured;
+
             _launcher.InitProcess(e);
 
             _launcher.Execute();
 
             _launcher.PostProcess();
+        }
+
+        private void OnDispatcherUnhandledExceptionOccured(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            ExceptionProcessorHelper.Handle(e.Exception);
         }
     }
 }

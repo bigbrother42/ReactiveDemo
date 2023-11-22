@@ -9,6 +9,7 @@
     using Reactive.Bindings;
     using Reactive.Bindings.Extensions;
     using ReactiveDemo.Base.ActionBase;
+    using ReactiveDemo.Util;
 
     public class ReactiveDemoViewModel : ViewModelBase
     {
@@ -113,7 +114,7 @@
 
                 var mappedModel = Mapper.Map<TestMapperModel>(sourceModel);
 
-                Console.WriteLine(mappedModel.ToString());
+                LogUtil.Instance.Info(mappedModel.ToString());
             }).AddTo(DisposablePool);
         }
 

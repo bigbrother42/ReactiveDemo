@@ -47,6 +47,9 @@
     <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.4.4.0\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
+    </Reference>
     <Reference Include="InfragisticsWPF4.DragDrop.v18.1, Version=18.1.20181.82, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Infragistics\InfragisticsWPF4.DragDrop.v18.1.dll</HintPath>
@@ -54,6 +57,9 @@
     <Reference Include="InfragisticsWPF4.v18.1, Version=18.1.20181.82, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Infragistics\InfragisticsWPF4.v18.1.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.15\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.2.4.9\lib\net46\MahApps.Metro.dll</HintPath>
@@ -263,7 +269,17 @@
     <Compile Include="Filters\IFilter.cs" />
     <Compile Include="Filters\InitializeContainerFilter.cs" />
     <Compile Include="Filters\RegisterEventSubscribersFilter.cs" />
+    <Compile Include="Helpers\ExceptionProcessorHelper.cs" />
+    <Compile Include="Helpers\Log\CurrentProcessHelper.cs" />
+    <Compile Include="Helpers\Log\GuiResourcesHelper.cs" />
     <Compile Include="LauncherContext.cs" />
+    <Compile Include="Managers\CustomerLogManager.cs" />
+    <Compile Include="Managers\ILogAppenderProvider.cs" />
+    <Compile Include="Managers\ILogFilenameProvider.cs" />
+    <Compile Include="Managers\ILogLayoutProvider.cs" />
+    <Compile Include="Managers\LogAppenderProvider.cs" />
+    <Compile Include="Managers\LogFilenameProvider.cs" />
+    <Compile Include="Managers\LogLayoutProvider.cs" />
     <Compile Include="Models\Login\LoginModel.cs" />
     <Compile Include="Models\ReactiveDemoModel.cs" />
     <Compile Include="Common\AdornerEffect.cs" />
@@ -276,7 +292,11 @@
     <Compile Include="Subscribers\AbstractEventSubscriber.cs" />
     <Compile Include="Subscribers\ApplicationLogin.cs" />
     <Compile Include="Subscribers\IEventSubscriber.cs" />
+    <Compile Include="Util\AssemblyInfoUtil.cs" />
     <Compile Include="Util\ConvertUtil.cs" />
+    <Compile Include="Util\Extensions\EnumerableExtension.cs" />
+    <Compile Include="Util\Extensions\ObservableCollectionExtension.cs" />
+    <Compile Include="Util\LogUtil.cs" />
     <Compile Include="ViewModels\Binding\BindingViewModel.cs" />
     <Compile Include="ViewModels\Component\ButtonGroupDragDropViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
@@ -443,4 +463,7 @@
     <Error Condition="!Exists('..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets'))" />
   </Target>
   <Import Project="..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y /S /E "$(SolutionDir)External\Log4net\*" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
