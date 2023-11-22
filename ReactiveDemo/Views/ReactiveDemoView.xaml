@@ -9,6 +9,7 @@
              xmlns:interactionRequest="http://www.codeplex.com/prism"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:component="clr-namespace:ReactiveDemo.Component"
+             xmlns:actionBase1="clr-namespace:ReactiveDemo.Base.ActionBase"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              Title="ReactiveDemoView"
              Height="450"
@@ -26,10 +27,15 @@
                 Owner="{Binding ElementName=ReactiveDemoWindow}"
                 WindowName="ReactiveDemo.Views.Component.ButtonGroupDragDropView" />
         </interactionRequest:InteractionRequestTrigger>
+
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding TestMethodRequest}">
+            <actionBase1:InvokeMethodAction MethodName="TestMethod" />
+        </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
     <Grid Margin="20,20,0,0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -69,6 +75,12 @@
                    Source="{StaticResource TestImage}"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="3" Margin="0,20,0,0">
+            <Button Width="150" Height="30"
+                    Content="TestMethodRequest"
+                    Command="{Binding TestMethodRequestCommand}"/>
         </WrapPanel>
     </Grid>
 </mah:MetroWindow>

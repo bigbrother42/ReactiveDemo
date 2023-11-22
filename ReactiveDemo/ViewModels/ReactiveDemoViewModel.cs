@@ -7,6 +7,7 @@
     using Models;
     using Reactive.Bindings;
     using Reactive.Bindings.Extensions;
+    using ReactiveDemo.Base.ActionBase;
 
     public class ReactiveDemoViewModel : ViewModelBase
     {
@@ -22,6 +23,8 @@
 
         public ReactiveCommand ButtonGroupDragDropCommand { get; set; }
 
+        public ReactiveCommand TestMethodRequestCommand { get; set; }
+
         #endregion
 
         #region ReactiveProperty
@@ -35,6 +38,8 @@
         public InteractionRequest<Notification> LoginOpenPageRequest { get; set; } = new InteractionRequest<Notification>();
 
         public InteractionRequest<Notification> ButtonGroupDragDropRequest { get; set; } = new InteractionRequest<Notification>();
+
+        public InteractionRequest<MethodNotification> TestMethodRequest { get; set; } = new InteractionRequest<MethodNotification>();
 
         #endregion
 
@@ -88,6 +93,11 @@
             ButtonGroupDragDropCommand.Subscribe(o =>
             {
                 ButtonGroupDragDropRequest.Raise(new Notification(), notification => {});
+            }).AddTo(DisposablePool);
+
+            TestMethodRequestCommand = new ReactiveCommand().AddTo(DisposablePool);
+            TestMethodRequestCommand.Subscribe(o => {
+                TestMethodRequest.Raise(new MethodNotification { Parameters = new object[] { "Test" } });
             }).AddTo(DisposablePool);
         }
 

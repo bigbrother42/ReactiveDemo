@@ -24,5 +24,10 @@ namespace ReactiveDemo.Views
         {
             InitializeComponent();
         }
+
+        public void TestMethod(string methodParameter)
+        {
+            Console.WriteLine($"{methodParameter}");
+        }
     }
 }

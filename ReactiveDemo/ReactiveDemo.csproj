@@ -237,6 +237,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Base\ActionBase\AlertWindowAction.cs" />
+    <Compile Include="Base\ActionBase\InvokeMethodAction.cs" />
+    <Compile Include="Base\ActionBase\MethodNotification.cs" />
     <Compile Include="Component\CustomerButton.cs" />
     <Compile Include="Component\SharedResourceDictionary.cs" />
     <Compile Include="Constants\Enum\ComboBoxSourceItem.cs" />
