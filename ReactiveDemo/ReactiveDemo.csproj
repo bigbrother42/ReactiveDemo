@@ -19,7 +19,7 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -36,6 +36,26 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
@@ -247,10 +267,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ApplicationLauncher.cs" />
-    <Compile Include="Base\ActionBase\AlertWindowAction.cs" />
-    <Compile Include="Base\ActionBase\InvokeMethodAction.cs" />
-    <Compile Include="Base\ActionBase\MethodNotification.cs" />
-    <Compile Include="Base\ProfileBase\BaseProfile.cs" />
     <Compile Include="Behavior\ButtonBehavior\TestButtonBehavior.cs" />
     <Compile Include="Component\CustomerButton.cs" />
     <Compile Include="Component\SharedResourceDictionary.cs" />
@@ -276,7 +292,6 @@
     <Compile Include="Managers\CustomerLogManager.cs" />
     <Compile Include="Models\Login\LoginModel.cs" />
     <Compile Include="Models\ReactiveDemoModel.cs" />
-    <Compile Include="Common\AdornerEffect.cs" />
     <Compile Include="Models\TestMapperModel.cs" />
     <Compile Include="ReactiveDemoMapperProfile.cs" />
     <Compile Include="Schema\BaseSchema.cs" />
@@ -286,9 +301,6 @@
     <Compile Include="Subscribers\AbstractEventSubscriber.cs" />
     <Compile Include="Subscribers\ApplicationLogin.cs" />
     <Compile Include="Subscribers\IEventSubscriber.cs" />
-    <Compile Include="Util\ConvertUtil.cs" />
-    <Compile Include="Util\Extensions\EnumerableExtension.cs" />
-    <Compile Include="Util\Extensions\ObservableCollectionExtension.cs" />
     <Compile Include="Util\LogUtil.cs" />
     <Compile Include="ViewModels\Binding\BindingViewModel.cs" />
     <Compile Include="ViewModels\Component\ButtonGroupDragDropViewModel.cs" />
@@ -296,7 +308,6 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Observer\ObserverViewModel.cs" />
     <Compile Include="ViewModels\ReactiveDemoViewModel.cs" />
-    <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Visual\VisualViewModel.cs" />
     <Compile Include="ViewModels\Window1ViewModel.cs" />
     <Compile Include="ViewModels\Adorner\AdornerSampleViewModel.cs" />
@@ -446,6 +457,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InfrastructureDemo\InfrastructureDemo.csproj">
+      <Project>{6bb9cad3-8e48-4f51-9797-2c192efe5f13}</Project>
+      <Name>InfrastructureDemo</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

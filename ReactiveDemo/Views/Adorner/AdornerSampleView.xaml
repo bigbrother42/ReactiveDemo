@@ -7,9 +7,8 @@
              xmlns:mvvm="http://prismlibrary.com/"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:interactionRequest="http://www.codeplex.com/prism"
-             xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase"
-             xmlns:common="clr-namespace:ReactiveDemo.Common"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:common="clr-namespace:ReactiveDemo.Common;assembly=InfrastructureDemo"
              mc:Ignorable="d"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              Title="AdornerSampleView" Height="450" Width="800">

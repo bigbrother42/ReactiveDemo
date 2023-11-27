@@ -5,13 +5,14 @@
              xmlns:mvvm="http://prismlibrary.com/"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase"
+             xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo"
              xmlns:interactionRequest="http://www.codeplex.com/prism"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:component="clr-namespace:ReactiveDemo.Component"
-             xmlns:actionBase1="clr-namespace:ReactiveDemo.Base.ActionBase"
-             xmlns:b="http://schemas.microsoft.com/xaml/behaviors" xmlns:buttonbehavior="clr-namespace:ReactiveDemo.Behavior.ButtonBehavior"
-                 mvvm:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:buttonbehavior="clr-namespace:ReactiveDemo.Behavior.ButtonBehavior"
+             xmlns:actionBase11="clr-namespace:ReactiveDemo.Base.ActionBase;assembly=InfrastructureDemo"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
              WindowStartupLocation="CenterScreen"
              Title="ReactiveDemo"
              Height="450"
@@ -31,7 +32,7 @@
         </interactionRequest:InteractionRequestTrigger>
 
         <interactionRequest:InteractionRequestTrigger SourceObject="{Binding TestMethodRequest}">
-            <actionBase1:InvokeMethodAction MethodName="TestMethod" />
+            <actionBase11:InvokeMethodAction MethodName="TestMethod" />
         </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 

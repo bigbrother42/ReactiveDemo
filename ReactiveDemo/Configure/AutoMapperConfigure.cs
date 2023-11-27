@@ -21,8 +21,8 @@ namespace ReactiveDemo.Configure
             UriBuilder uri = new UriBuilder(assembly.CodeBase);
             string path = Uri.UnescapeDataString(uri.Path);
             string bin = Path.GetDirectoryName(path);
-            string[] assemblies = Directory.GetFiles(bin, "ReactiveDemo.dll");
-            assemblies = assemblies.Concat(Directory.GetFiles(bin, "ReactiveDemo.exe")).ToArray();
+            string[] assemblies = Directory.GetFiles(bin, "*Demo.dll");
+            assemblies = assemblies.Concat(Directory.GetFiles(bin, "*Demo.exe")).ToArray();
 
             foreach (string file in assemblies)
             {

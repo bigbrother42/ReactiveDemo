@@ -8,7 +8,7 @@
         xmlns:mvvm="http://prismlibrary.com/"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:interactionRequest="http://www.codeplex.com/prism"
-        xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase"
+        xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo"
         mc:Ignorable="d"
         mvvm:ViewModelLocator.AutoWireViewModel="True"
         WindowStartupLocation="CenterScreen"
