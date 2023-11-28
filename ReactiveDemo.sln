@@ -7,6 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveDemo", "ReactiveDem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfrastructureDemo", "InfrastructureDemo\InfrastructureDemo.csproj", "{6BB9CAD3-8E48-4F51-9797-2C192EFE5F13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDemo", "ServiceDemo\ServiceDemo.csproj", "{EC9A866F-AD4B-457A-A706-32E264F47634}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseDemo", "BaseDemo\BaseDemo.csproj", "{17F1EB76-32EA-4A2C-A50D-B29B06FDFACA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedDemo", "SharedDemo\SharedDemo.csproj", "{C18A705B-CF92-4B84-8599-EE465C66F008}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataDemo", "DataDemo\DataDemo.csproj", "{3CD0ACD2-4EB2-4384-A098-6AC4433E0A3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,12 +39,44 @@ Global
 		{6BB9CAD3-8E48-4F51-9797-2C192EFE5F13}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6BB9CAD3-8E48-4F51-9797-2C192EFE5F13}.Release|x64.ActiveCfg = Release|x64
 		{6BB9CAD3-8E48-4F51-9797-2C192EFE5F13}.Release|x64.Build.0 = Release|x64
+		{EC9A866F-AD4B-457A-A706-32E264F47634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC9A866F-AD4B-457A-A706-32E264F47634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC9A866F-AD4B-457A-A706-32E264F47634}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EC9A866F-AD4B-457A-A706-32E264F47634}.Debug|x64.Build.0 = Debug|Any CPU
+		{EC9A866F-AD4B-457A-A706-32E264F47634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC9A866F-AD4B-457A-A706-32E264F47634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC9A866F-AD4B-457A-A706-32E264F47634}.Release|x64.ActiveCfg = Release|Any CPU
+		{EC9A866F-AD4B-457A-A706-32E264F47634}.Release|x64.Build.0 = Release|Any CPU
+		{17F1EB76-32EA-4A2C-A50D-B29B06FDFACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17F1EB76-32EA-4A2C-A50D-B29B06FDFACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17F1EB76-32EA-4A2C-A50D-B29B06FDFACA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{17F1EB76-32EA-4A2C-A50D-B29B06FDFACA}.Debug|x64.Build.0 = Debug|Any CPU
+		{17F1EB76-32EA-4A2C-A50D-B29B06FDFACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17F1EB76-32EA-4A2C-A50D-B29B06FDFACA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17F1EB76-32EA-4A2C-A50D-B29B06FDFACA}.Release|x64.ActiveCfg = Release|Any CPU
+		{17F1EB76-32EA-4A2C-A50D-B29B06FDFACA}.Release|x64.Build.0 = Release|Any CPU
+		{C18A705B-CF92-4B84-8599-EE465C66F008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C18A705B-CF92-4B84-8599-EE465C66F008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C18A705B-CF92-4B84-8599-EE465C66F008}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C18A705B-CF92-4B84-8599-EE465C66F008}.Debug|x64.Build.0 = Debug|Any CPU
+		{C18A705B-CF92-4B84-8599-EE465C66F008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C18A705B-CF92-4B84-8599-EE465C66F008}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C18A705B-CF92-4B84-8599-EE465C66F008}.Release|x64.ActiveCfg = Release|Any CPU
+		{C18A705B-CF92-4B84-8599-EE465C66F008}.Release|x64.Build.0 = Release|Any CPU
+		{3CD0ACD2-4EB2-4384-A098-6AC4433E0A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CD0ACD2-4EB2-4384-A098-6AC4433E0A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CD0ACD2-4EB2-4384-A098-6AC4433E0A3B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3CD0ACD2-4EB2-4384-A098-6AC4433E0A3B}.Debug|x64.Build.0 = Debug|Any CPU
+		{3CD0ACD2-4EB2-4384-A098-6AC4433E0A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CD0ACD2-4EB2-4384-A098-6AC4433E0A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CD0ACD2-4EB2-4384-A098-6AC4433E0A3B}.Release|x64.ActiveCfg = Release|Any CPU
+		{3CD0ACD2-4EB2-4384-A098-6AC4433E0A3B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 		SolutionGuid = {74C8F972-6EFA-4463-BBA4-819653BA8FCE}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 	EndGlobalSection
 EndGlobal

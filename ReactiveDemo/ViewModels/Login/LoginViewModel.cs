@@ -1,6 +1,8 @@
 ﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+using SharedDemo.GlobalData;
+using ReactiveDemo.Models.Login;
 
 namespace ReactiveDemo.ViewModels.Login
 {
@@ -14,7 +16,9 @@ namespace ReactiveDemo.ViewModels.Login
 
         #region PrivateProperty
 
+        private readonly SqLiteDbContext _dbContext = new SqLiteDbContext(GlobalData.DbConnection);
 
+        private LoginModel _loginModel;
 
         #endregion
 
@@ -26,7 +30,7 @@ namespace ReactiveDemo.ViewModels.Login
 
         #region ReactiveProperty
 
-
+        public ReactiveProperty<string> UserName { get; set; }
 
         #endregion
 
@@ -48,11 +52,15 @@ namespace ReactiveDemo.ViewModels.Login
         {
             base.InitData();
 
+            _loginModel = new LoginModel();
         }
 
         protected override void RegisterProperties()
         {
             base.RegisterProperties();
+
+            UserName = new ReactiveProperty<string>().AddTo(DisposablePool);
+            UserName.Value = "guobin";
         }
 
         protected override void RegisterCommands()
@@ -74,6 +82,11 @@ namespace ReactiveDemo.ViewModels.Login
 
         private void Login()
         {
+            _loginModel.Login(new DataDemo.WebDto.UserBasicInfoWebDto
+            { 
+                UserName = UserName.Value
+            });
+
             MainWindowRequest.Raise(new Notification(), notification => { });
         }
 

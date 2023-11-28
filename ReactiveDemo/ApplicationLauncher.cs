@@ -35,7 +35,9 @@ namespace ReactiveDemo
         {
             Filter
                 .SetNext(new InitializeContainerFilter())
-                .SetNext(new RegisterEventSubscribersFilter());
+                .SetNext(new RegisterEventSubscribersFilter())
+                .SetNext(new CreateSQLiteDbConnectionFilter())
+                ;
         }
 
         public void Execute()
