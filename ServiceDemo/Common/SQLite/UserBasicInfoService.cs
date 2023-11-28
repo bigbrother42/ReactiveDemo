@@ -5,16 +5,20 @@ using System;
 using System.Collections.Generic;
 using SharedDemo.Util;
 using System.Data;
+using System.Threading.Tasks;
+using BaseDemo.Util.Extensions;
 
 namespace ServiceDemo.Common.SQLite
 {
     public class UserBasicInfoService : ClientApiService
     {
-        public List<UserBasicInfoWebDto> SelectUserBasicInfoList(SqLiteDbContext dbContext, UserBasicInfoWebDto param)
+        public async Task<List<UserBasicInfoWebDto>> SelectUserBasicInfoListAsync(SqLiteDbContext dbContext, UserBasicInfoWebDto param)
         {
             var userList = new List<UserBasicInfoWebDto>();
 
-            var sql = @"SELECT 
+            var taskResult = await Task.Run(() => 
+            {
+                var sql = @"SELECT 
                          ubi.UserId,
                          ubi.UserName, 
                          ubi.Password,
@@ -27,18 +31,21 @@ namespace ServiceDemo.Common.SQLite
                         FROM user_basic_info ubi
                         WHERE ubi.UserName = @UserName";
 
-            var userModelList = dbContext.Database.ExecuteRawSqlQueryAutoMapper<UserBasicInfoWebDto>(sql, dbCommand =>
-            {
-                var userNameParam = dbCommand.CreateParameter();
-                userNameParam.ParameterName = "@UserName";
-                userNameParam.DbType = DbType.String;
-                userNameParam.Value = param.UserName;
-                dbCommand.Parameters.Add(userNameParam);
+                var userModelList = dbContext.Database.ExecuteRawSqlQueryAutoMapper<UserBasicInfoWebDto>(sql, dbCommand =>
+                {
+                    var userNameParam = dbCommand.CreateParameter();
+                    userNameParam.ParameterName = "@UserName";
+                    userNameParam.DbType = DbType.String;
+                    userNameParam.Value = param.UserName;
+                    dbCommand.Parameters.Add(userNameParam);
+                });
+
+                return userModelList;
             });
 
-            if (userModelList != null && userModelList.Count > 0)
+            if (!taskResult.IsNullOrEmpty())
             {
-                userList.AddRange(userModelList);
+                userList.AddRange(taskResult);
             }
 
             return userList;

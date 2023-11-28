@@ -51,10 +51,15 @@
     <Compile Include="Util\Extensions\CollectionExtensions.cs" />
     <Compile Include="Util\EncryptionUtility.cs" />
     <Compile Include="Util\ExceptionUtil.cs" />
+    <Compile Include="Util\Extensions\EnumerableExtension.cs" />
     <Compile Include="Util\LogUtil.cs" />
+    <Compile Include="Util\PasswordEncoderUtil.cs" />
     <Compile Include="Util\StringUtil.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net-Next, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net-Next.3.1.0\lib\net452\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.15\lib\net45\log4net.dll</HintPath>
     </Reference>
@@ -64,6 +69,9 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Constants\Enum\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

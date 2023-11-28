@@ -1,7 +1,7 @@
 ﻿using log4net;
 using log4net.Config;
-using ReactiveDemo.Helpers.Log;
-using ReactiveDemo.Managers;
+using BaseDemo.Helpers.Log;
+using BaseDemo.Managers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReactiveDemo.Util
+namespace BaseDemo.Util
 {
     public class LogUtil
     {

@@ -17,7 +17,7 @@ namespace ReactiveDemo
     using ReactiveDemo.Configure;
     using ReactiveDemo.Constants.Enum;
     using ReactiveDemo.Filters;
-    using ReactiveDemo.Helpers;
+    using BaseDemo.Helpers;
     using ReactiveDemo.Schema;
     using Unity;
     using Unity.ServiceLocation;

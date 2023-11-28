@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReactiveDemo.Util.Extensions
+namespace BaseDemo.Util.Extensions
 {
     public static class EnumerableExtension
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReactiveDemo.Helpers.Log
+namespace BaseDemo.Helpers.Log
 {
     public class CurrentProcessHelper
     {

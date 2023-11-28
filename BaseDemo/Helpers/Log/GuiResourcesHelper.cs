@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReactiveDemo.Helpers.Log
+namespace BaseDemo.Helpers.Log
 {
     public class GuiResourcesHelper
     {

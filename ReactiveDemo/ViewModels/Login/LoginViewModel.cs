@@ -3,6 +3,9 @@ using Reactive.Bindings.Extensions;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using SharedDemo.GlobalData;
 using ReactiveDemo.Models.Login;
+using System.Text.RegularExpressions;
+using System;
+using System.Threading.Tasks;
 
 namespace ReactiveDemo.ViewModels.Login
 {
@@ -10,7 +13,7 @@ namespace ReactiveDemo.ViewModels.Login
     {
         #region Field
 
-
+        private static readonly string VALIDATION_ERROR_ASCIIONLY = "Please enter {0} using alphanumeric characters or symbols.";
 
         #endregion
 
@@ -24,13 +27,17 @@ namespace ReactiveDemo.ViewModels.Login
 
         #region ReactiveCommand
 
-        public ReactiveCommand LoginCommand { get; set; }
+        public AsyncReactiveCommand LoginCommand { get; set; }
 
         #endregion
 
         #region ReactiveProperty
 
         public ReactiveProperty<string> UserName { get; set; }
+
+        public ReactiveProperty<string> Password { get; set; }
+
+        public ReactiveProperty<bool> CanUserLogin { get; set; }
 
         #endregion
 
@@ -60,15 +67,29 @@ namespace ReactiveDemo.ViewModels.Login
             base.RegisterProperties();
 
             UserName = new ReactiveProperty<string>().AddTo(DisposablePool);
-            UserName.Value = "guobin";
+            Password = new ReactiveProperty<string>().AddTo(DisposablePool);
+            CanUserLogin = new ReactiveProperty<bool>().AddTo(DisposablePool);
+
+            UserName.SetValidateNotifyError(x => !string.IsNullOrEmpty(x) && !ValidateAsciiOnly(x, "UserName", out var message) ? message : null)
+                .Subscribe(code => {
+                    CanUserLogin.Value = !string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(Password.Value) && StringIsAsciiOnly(code) && StringIsAsciiOnly(Password.Value);
+                })
+                .AddTo(DisposablePool);
+
+            Password.SetValidateNotifyError(x => !string.IsNullOrEmpty(x) && !ValidateAsciiOnly(x, "Password", out var message) ? message : null)
+                .Subscribe(pass =>
+                {
+                    CanUserLogin.Value = !string.IsNullOrWhiteSpace(pass) && !string.IsNullOrWhiteSpace(UserName.Value) && StringIsAsciiOnly(pass) && StringIsAsciiOnly(UserName.Value);
+                })
+                .AddTo(DisposablePool);
         }
 
         protected override void RegisterCommands()
         {
             base.RegisterCommands();
 
-            LoginCommand = new ReactiveCommand().AddTo(DisposablePool);
-            LoginCommand.Subscribe(Login).AddTo(DisposablePool);
+            LoginCommand = new AsyncReactiveCommand().AddTo(DisposablePool);
+            LoginCommand.Subscribe(LoginAsync).AddTo(DisposablePool);
         }
 
         protected override void RegisterPubEvents()
@@ -80,14 +101,39 @@ namespace ReactiveDemo.ViewModels.Login
 
         #region Method
 
-        private void Login()
+        private async Task LoginAsync()
         {
-            _loginModel.Login(new DataDemo.WebDto.UserBasicInfoWebDto
+            var isSuccess = await _loginModel.LoginAsync(new DataDemo.WebDto.UserBasicInfoWebDto
             { 
-                UserName = UserName.Value
+                UserName = UserName.Value,
+                Password = Password.Value
             });
 
+            if (!isSuccess)
+            {
+                return;
+            }
+
             MainWindowRequest.Raise(new Notification(), notification => { });
+        }
+
+        private bool StringIsAsciiOnly(string str)
+        {
+            return Regex.IsMatch(str, @"^[\x00-\x7F]+$");
+        }
+
+        private bool ValidateAsciiOnly(string str, string caption, out string message)
+        {
+            var validationResult = StringIsAsciiOnly(str);
+            if (!validationResult)
+            {
+                message = string.Format(VALIDATION_ERROR_ASCIIONLY, caption);
+            }
+            else
+            {
+                message = null;
+            }
+            return validationResult;
         }
 
         #endregion

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BaseDemo.Util.Extensions;
 
 namespace ReactiveDemo.Models.Login
 {
@@ -15,9 +16,15 @@ namespace ReactiveDemo.Models.Login
 
         private readonly SqLiteDbContext _dbContext = new SqLiteDbContext(GlobalData.DbConnection);
 
-        public void Login(UserBasicInfoWebDto userBasicInfoWebDto)
+        public async Task<bool> LoginAsync(UserBasicInfoWebDto userBasicInfoWebDto)
         {
-            var userList = _userBasicInfoService.SelectUserBasicInfoList(_dbContext, userBasicInfoWebDto);
+            var userList = await _userBasicInfoService.SelectUserBasicInfoListAsync(_dbContext, userBasicInfoWebDto);
+
+            if (userList.IsNullOrEmpty()) return false;
+
+            var dbUser = userList.First();
+
+            return string.Equals(dbUser.Password, userBasicInfoWebDto.Password);
         }
     }
 }

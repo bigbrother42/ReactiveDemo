@@ -53,13 +53,15 @@
                      HorizontalAlignment="Center"
                      VerticalContentAlignment="Center"
                      BorderThickness="1"
-                     BorderBrush="{StaticResource Common.LightGray}"/>
+                     BorderBrush="{StaticResource Common.LightGray}"
+                     Text="{Binding Password.Value}"/>
 
             <Button x:Name="LoginButton"
                     Margin="0,20,0,0"
                     Width="150"
                     Content="Login"
-                    Command="{Binding LoginCommand}"/>
+                    Command="{Binding LoginCommand}"
+                    IsEnabled="{Binding CanUserLogin.Value}"/>
         </StackPanel>
 
         <Grid Grid.Row="2">

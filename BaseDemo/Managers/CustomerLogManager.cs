@@ -10,7 +10,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ReactiveDemo.Managers
+namespace BaseDemo.Managers
 {
     public class CustomerLogManager
     {

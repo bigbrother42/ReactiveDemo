@@ -3,6 +3,7 @@
     using System;
     using System.Reactive.Disposables;
     using AutoMapper;
+    using BaseDemo.Util;
     using Events;
     using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
     using Models;

@@ -1,4 +1,4 @@
-﻿using ReactiveDemo.Util;
+﻿using BaseDemo.Util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReactiveDemo.Helpers
+namespace BaseDemo.Helpers
 {
     public class ExceptionProcessorHelper
     {
