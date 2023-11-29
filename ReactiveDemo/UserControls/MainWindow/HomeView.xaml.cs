@@ -31,14 +31,5 @@ namespace ReactiveDemo.UserControls.MainWindow
                 this.DataContext = new HomeViewModel();
             }
         }
-
-        private void AccentSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedTheme = e.AddedItems.OfType<Theme>().FirstOrDefault();
-            if (selectedTheme != null)
-            {
-                ThemeManager.Current.ChangeTheme(Application.Current, selectedTheme);
-            }
-        }
     }
 }

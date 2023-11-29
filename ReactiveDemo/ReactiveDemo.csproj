@@ -438,7 +438,9 @@
     <Compile Include="Filters\InitializeContainerFilter.cs" />
     <Compile Include="Filters\RegisterEventSubscribersFilter.cs" />
     <Compile Include="LauncherContext.cs" />
+    <Compile Include="Models\Account\AccountModel.cs" />
     <Compile Include="Models\Login\LoginModel.cs" />
+    <Compile Include="Models\UiModel\AccountUiModel.cs" />
     <Compile Include="Models\ReactiveDemoModel.cs" />
     <Compile Include="Models\TestMapperModel.cs" />
     <Compile Include="ReactiveDemoMapperProfile.cs" />
@@ -466,8 +468,12 @@
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\HomeViewModel.cs" />
+    <Compile Include="ViewModels\MainWindow\PrivateViewModel.cs" />
+    <Compile Include="ViewModels\MainWindow\SettingsViewModel.cs" />
     <Compile Include="ViewModels\Observer\ObserverViewModel.cs" />
     <Compile Include="ViewModels\ReactiveDemoViewModel.cs" />
+    <Compile Include="ViewModels\Setting\AccountViewModel.cs" />
+    <Compile Include="ViewModels\Setting\CreateAccountViewModel.cs" />
     <Compile Include="ViewModels\Visual\VisualViewModel.cs" />
     <Compile Include="ViewModels\Window1ViewModel.cs" />
     <Compile Include="ViewModels\Adorner\AdornerSampleViewModel.cs" />
@@ -491,6 +497,12 @@
     </Compile>
     <Compile Include="Views\ReactiveDemoView.xaml.cs">
       <DependentUpon>ReactiveDemoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Setting\AccountView.xaml.cs">
+      <DependentUpon>AccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Setting\CreateAccountView.xaml.cs">
+      <DependentUpon>CreateAccountView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Visual\VisualView.xaml.cs">
       <DependentUpon>VisualView.xaml</DependentUpon>
@@ -579,6 +591,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ReactiveDemoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Setting\AccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Setting\CreateAccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

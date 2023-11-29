@@ -10,16 +10,16 @@ namespace DataDemo.WebDto
     [Serializable]
     public class WebDtoBase
     {
-        [JsonProperty("CreatedBy")]
-        public int CreatedBy { get; set; }
+        [JsonProperty("CreateBy")]
+        public int CreateBy { get; set; }
 
         [JsonProperty("CreateAt")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreateAt { get; set; }
 
-        [JsonProperty("UpdatedBy")]
-        public int UpdatedBy { get; set; }
+        [JsonProperty("UpdateBy")]
+        public int UpdateBy { get; set; }
 
         [JsonProperty("UpdateAt")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime UpdateAt { get; set; }
     }
 }

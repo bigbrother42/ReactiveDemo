@@ -19,17 +19,17 @@ namespace ServiceDemo.Common.SQLite
             var taskResult = await Task.Run(() => 
             {
                 var sql = @"SELECT 
-                         ubi.UserId,
-                         ubi.UserName, 
-                         ubi.Password,
-                         ubi.StartDate,
-                         ubi.EndDate,
-                         ubi.CreateBy,
-                         ubi.CreateAt,
-                         ubi.UpdateBy,
-                         ubi.UpdateAt
-                        FROM user_basic_info ubi
-                        WHERE ubi.UserName = @UserName";
+                             ubi.UserId,
+                             ubi.UserName, 
+                             ubi.Password,
+                             ubi.StartDate,
+                             ubi.EndDate,
+                             ubi.CreateBy,
+                             ubi.CreateAt,
+                             ubi.UpdateBy,
+                             ubi.UpdateAt
+                            FROM UserBasicInfo ubi
+                            WHERE ubi.UserName = @UserName";
 
                 var userModelList = dbContext.Database.ExecuteRawSqlQueryAutoMapper<UserBasicInfoWebDto>(sql, dbCommand =>
                 {
@@ -49,6 +49,51 @@ namespace ServiceDemo.Common.SQLite
             }
 
             return userList;
+        }
+
+        public async Task<List<UserBasicInfoWebDto>> SelectAllUserBasicInfoListAsync(SqLiteDbContext dbContext)
+        {
+            var userList = new List<UserBasicInfoWebDto>();
+
+            var taskResult = await Task.Run(() =>
+            {
+                var sql = @"SELECT 
+                             ubi.UserId,
+                             ubi.UserName, 
+                             ubi.Password,
+                             ubi.StartDate,
+                             ubi.EndDate,
+                             ubi.CreateBy,
+                             ubi.CreateAt,
+                             ubi.UpdateBy,
+                             ubi.UpdateAt
+                            FROM UserBasicInfo ubi";
+
+                var userModelList = dbContext.Database.ExecuteRawSqlQueryAutoMapper<UserBasicInfoWebDto>(sql);
+
+                return userModelList;
+            });
+
+            if (!taskResult.IsNullOrEmpty())
+            {
+                userList.AddRange(taskResult);
+            }
+
+            return userList;
+        }
+
+        public async Task<int> InsertAccount(SqLiteDbContext dbContext, UserBasicInfoWebDto param)
+        {
+            if (param == null) return 0;
+
+            dbContext.UserBasicInfo.Add(param);
+
+            var taskResult = await Task.Run(() =>
+            {
+                return dbContext.SaveChanges();
+            });
+
+            return taskResult;
         }
     }
 }

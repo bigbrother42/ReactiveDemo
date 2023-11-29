@@ -8,27 +8,8 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:interactionRequest="http://www.codeplex.com/prism"
              xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo" 
-             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-             xmlns:controlzex="urn:controlzex"
-             RenderOptions.ClearTypeHint="Enabled"
-             TextOptions.TextFormattingMode="Display"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
-            <CollectionViewSource x:Key="Themes"
-                                  Source="{Binding Source={x:Static controlzex:ThemeManager.Current}, Path=Themes}">
-                <CollectionViewSource.SortDescriptions>
-                    <componentModel:SortDescription PropertyName="Name" />
-                </CollectionViewSource.SortDescriptions>
-            </CollectionViewSource>
-        </ResourceDictionary>
-    </UserControl.Resources>
 
     <i:Interaction.Triggers>
         <interactionRequest:InteractionRequestTrigger SourceObject="{Binding ReactiveDemoRequest}">
@@ -49,14 +30,6 @@
                     HorizontalAlignment="Left"
                     Content="ReactiveDemo"
                     Command="{Binding ReactiveDemoCommand}"/>
-
-            <ComboBox x:Name="ThemeComboBox"
-                      Margin="10,0,0,0"
-                      Width="150"
-                      IsSynchronizedWithCurrentItem="False"
-                      SelectionChanged="AccentSelectionChanged"
-                      DisplayMemberPath="Name"
-                      ItemsSource="{Binding Source={StaticResource Themes}}"/>
         </WrapPanel>
     </Grid>
 </UserControl>

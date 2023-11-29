@@ -103,13 +103,32 @@ namespace ReactiveDemo.ViewModels.Login
 
         private async Task LoginAsync()
         {
+            if (string.IsNullOrEmpty(UserName.Value))
+            {
+                UserName.ForceValidate();
+            }
+
+            if (string.IsNullOrEmpty(Password.Value))
+            {
+                Password.ForceValidate();
+            }
+
             if (!CanUserLogin.Value) return;
 
-            var isSuccess = await _loginModel.LoginAsync(new DataDemo.WebDto.UserBasicInfoWebDto
-            { 
-                UserName = UserName.Value,
-                Password = Password.Value
-            });
+            var isSuccess = true;
+            if (!string.Equals(UserName.Value, "admin"))
+            {
+                isSuccess = await _loginModel.LoginAsync(new DataDemo.WebDto.UserBasicInfoWebDto
+                {
+                    UserName = UserName.Value,
+                    Password = Password.Value
+                });
+            }
+            else
+            {
+                // when username is admin
+                isSuccess = string.Equals(Password.Value, "admin");
+            }
 
             if (!isSuccess)
             {

@@ -4,9 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ReactiveDemo.UserControls.MainWindow"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:interactionRequest="http://www.codeplex.com/prism"
+             xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <i:Interaction.Triggers>
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding AccountViewRequest}">
+            <actionBase:AlertWindowAction
+                Owner="{Binding ElementName=MainWindowView}"
+                WindowName="ReactiveDemo.Views.Setting.AccountView" />
+        </interactionRequest:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10,10,0,0">
+            <Button x:Name="AccountSettingButton"
+                    Width="150"
+                    HorizontalAlignment="Left"
+                    Content="AccountSetting"
+                    Command="{Binding AccountViewCommand}"/>
+        </Grid>
     </Grid>
 </UserControl>

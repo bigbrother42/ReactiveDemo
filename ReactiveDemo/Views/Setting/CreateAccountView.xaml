@@ -1,0 +1,72 @@
+﻿<mah:MetroWindow  x:Class="ReactiveDemo.Views.Setting.CreateAccountView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:local="clr-namespace:ReactiveDemo.Views.Setting"
+        xmlns:mvvm="http://prismlibrary.com/"
+        mc:Ignorable="d"
+        mvvm:ViewModelLocator.AutoWireViewModel="True"
+        Title="CreateAccountView"
+        WindowStartupLocation="CenterScreen"
+        Height="450"
+        Width="400"
+        MinHeight="450"
+        MinWidth="400">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Margin="10,0,0,0"
+                       VerticalAlignment="Center"
+                       FontWeight="Bold"
+                       Text="User Name: "/>
+
+            <TextBox Grid.Column="1"
+                     Width="200"
+                     Height="35"
+                     Text="{Binding UserName.Value}"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="10,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Margin="10,0,0,0"
+                       VerticalAlignment="Center"
+                       FontWeight="Bold"
+                       Text="Password: "/>
+
+            <TextBox Grid.Column="1"
+                     Width="200"
+                     Height="35"
+                     Text="{Binding Password.Value}"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Button x:Name="CreateButton"
+                    Margin="0,0,10,10"
+                    Width="60"
+                    Height="40"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Content="Create"
+                    Command="{Binding CreateCommand}"/>
+        </Grid>
+    </Grid>
+</mah:MetroWindow>

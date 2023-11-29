@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ControlzEx.Theming;
+using ReactiveDemo.ViewModels.MainWindow;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,20 @@ namespace ReactiveDemo.UserControls.MainWindow
         public SettingsView()
         {
             InitializeComponent();
+
+            if (this.DataContext == null)
+            {
+                this.DataContext = new SettingsViewModel();
+            }
+        }
+
+        private void AccentSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedTheme = e.AddedItems.OfType<Theme>().FirstOrDefault();
+            if (selectedTheme != null)
+            {
+                ThemeManager.Current.ChangeTheme(Application.Current, selectedTheme);
+            }
         }
     }
 }

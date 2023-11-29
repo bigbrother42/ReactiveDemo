@@ -14,6 +14,8 @@ namespace SharedDemo.GlobalData
     {
         private SqliteConnection dbConnection;
 
+        public DbSet<UserBasicInfoWebDto> UserBasicInfo { get; set; }
+
         public SqLiteDbContext()
         {
 
