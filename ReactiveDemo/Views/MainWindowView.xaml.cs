@@ -27,14 +27,10 @@ namespace ReactiveDemo.Views
             InitializeComponent();
         }
 
-        private void AccentSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void HamburgerMenuControl_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            var selectedTheme = e.AddedItems.OfType<Theme>().FirstOrDefault();
-            if (selectedTheme != null)
-            {
-                ThemeManager.Current.ChangeTheme(this, selectedTheme);
-                this.Activate();
-            }
+            this.HamburgerMenuControl.SetCurrentValue(ContentProperty, e.ClickedItem);
+            this.HamburgerMenuControl.SetCurrentValue(HamburgerMenu.IsPaneOpenProperty, false);
         }
     }
 }

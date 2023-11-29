@@ -43,6 +43,7 @@
                      HorizontalAlignment="Center"
                      VerticalContentAlignment="Center"
                      BorderThickness="1"
+                     mah:TextBoxHelper.Watermark="Please enter username."
                      BorderBrush="{StaticResource Common.LightGray}"
                      Text="{Binding UserName.Value}"/>
 
@@ -53,6 +54,8 @@
                      HorizontalAlignment="Center"
                      VerticalContentAlignment="Center"
                      BorderThickness="1"
+                     mah:TextBoxHelper.Watermark="Please enter password."
+                     mah:TextBoxHelper.ClearTextButton="True"
                      BorderBrush="{StaticResource Common.LightGray}"
                      Text="{Binding Password.Value}"/>
 
@@ -60,8 +63,7 @@
                     Margin="0,20,0,0"
                     Width="150"
                     Content="Login"
-                    Command="{Binding LoginCommand}"
-                    IsEnabled="{Binding CanUserLogin.Value}"/>
+                    Command="{Binding LoginCommand}"/>
         </StackPanel>
 
         <Grid Grid.Row="2">

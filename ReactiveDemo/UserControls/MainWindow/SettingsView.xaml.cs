@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ReactiveDemo.Views.Login
+namespace ReactiveDemo.UserControls.MainWindow
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for SettingsView.xaml
     /// </summary>
-    public partial class LoginView : MetroWindow
+    public partial class SettingsView : UserControl
     {
-        public LoginView()
+        public SettingsView()
         {
             InitializeComponent();
-
-            UserNameTextBox.Focus();
         }
     }
 }

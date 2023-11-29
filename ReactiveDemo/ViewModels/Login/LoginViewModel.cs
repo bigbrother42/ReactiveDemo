@@ -103,6 +103,8 @@ namespace ReactiveDemo.ViewModels.Login
 
         private async Task LoginAsync()
         {
+            if (!CanUserLogin.Value) return;
+
             var isSuccess = await _loginModel.LoginAsync(new DataDemo.WebDto.UserBasicInfoWebDto
             { 
                 UserName = UserName.Value,
