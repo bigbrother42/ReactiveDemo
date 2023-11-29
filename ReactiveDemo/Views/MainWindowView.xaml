@@ -5,16 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReactiveDemo.Views"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mahConverters="http://metro.mahapps.com/winfx/xaml/shared"
         xmlns:mvvm="http://prismlibrary.com/"
+        xmlns:controlzex="urn:controlzex"
+        RenderOptions.ClearTypeHint="Enabled"
+        TextOptions.TextFormattingMode="Display"
+        ResizeMode="CanResizeWithGrip"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:interactionRequest="http://www.codeplex.com/prism"
-        xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo"
+        xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo" 
+        xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
         mvvm:ViewModelLocator.AutoWireViewModel="True"
         WindowStartupLocation="CenterScreen"
         Title="MainWindow"
         Height="450"
         Width="800">
+
+    <mah:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <CollectionViewSource x:Key="Themes"
+                                  Source="{Binding Source={x:Static controlzex:ThemeManager.Current}, Path=Themes}">
+                <CollectionViewSource.SortDescriptions>
+                    <componentModel:SortDescription PropertyName="Name" />
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
+        </ResourceDictionary>
+    </mah:MetroWindow.Resources>
 
     <i:Interaction.Triggers>
         <interactionRequest:InteractionRequestTrigger SourceObject="{Binding ReactiveDemoRequest}">
@@ -29,13 +50,20 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <WrapPanel Grid.Row="0" Margin="10,10,0,0">
             <Button x:Name="ReactiveDemoButton"
-                    Margin="10,10,0,0"
                     Width="100"
                     HorizontalAlignment="Left"
                     Content="ReactiveDemo"
                     Command="{Binding ReactiveDemoCommand}"/>
-        </Grid>
+
+            <ComboBox x:Name="ThemeComboBox"
+                      Margin="10,0,0,0"
+                      Width="150"
+                      IsSynchronizedWithCurrentItem="False"
+                      SelectionChanged="AccentSelectionChanged"
+                      DisplayMemberPath="Name"
+                      ItemsSource="{Binding Source={StaticResource Themes}}"/>
+        </WrapPanel>
     </Grid>
 </mah:MetroWindow>

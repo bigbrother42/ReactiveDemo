@@ -1,4 +1,6 @@
-﻿using MahApps.Metro.Controls;
+﻿using ControlzEx.Theming;
+using MahApps.Metro.Controls;
+using ReactiveDemo.Constants.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,16 @@ namespace ReactiveDemo.Views
         public MainWindowView()
         {
             InitializeComponent();
+        }
+
+        private void AccentSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedTheme = e.AddedItems.OfType<Theme>().FirstOrDefault();
+            if (selectedTheme != null)
+            {
+                ThemeManager.Current.ChangeTheme(this, selectedTheme);
+                this.Activate();
+            }
         }
     }
 }
