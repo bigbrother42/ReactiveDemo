@@ -26,7 +26,11 @@ namespace ReactiveDemo.Models.Login
 
             var dbUser = userList.First();
 
-            return string.Equals(dbUser.Password, userBasicInfoWebDto.Password);
+            if (!string.Equals(dbUser.Password, userBasicInfoWebDto.Password)) return false;
+
+            LoginInfo.UserBasicInfo = dbUser;
+
+            return true;
         }
 
         public static bool CheckUserInfo(string userName, string password)

@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using InfrastructureDemo.Util;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static InfrastructureDemo.Constans.Enum.EnumConstants;
 
 namespace ReactiveDemo.Views.Setting
 {
@@ -25,6 +27,11 @@ namespace ReactiveDemo.Views.Setting
             InitializeComponent();
 
             UserNameTextBox.Focus();
+        }
+
+        public async void UserExist()
+        {
+            var result = await MessageUtil.ShowMessageBoxAsync(this, "Warning!", $"[{UserNameTextBox.Text}] is exist! \r\nPlease enter another username.", MessageBoxType.OK);
         }
     }
 }

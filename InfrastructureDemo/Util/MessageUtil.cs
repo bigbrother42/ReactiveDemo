@@ -5,24 +5,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static InfrastructureDemo.Constans.Enum.EnumConstants;
 
 namespace InfrastructureDemo.Util
 {
     public class MessageUtil
     {
-        public static async Task<MessageDialogResult> ShowMessageBoxAsync(MetroWindow win, string title, string messageContent)
+        public static async Task<MessageDialogResult> ShowMessageBoxAsync(MetroWindow win, string title, string messageContent, MessageBoxType messageBoxType)
         {
             var mySettings = new MetroDialogSettings()
             {
-                AffirmativeButtonText = "Yes",
-                NegativeButtonText = "No",
-                FirstAuxiliaryButtonText = "Cancel",
                 AnimateShow = false,
                 AnimateHide = false,
                 ColorScheme = MetroDialogColorScheme.Theme
             };
 
-            return await win.ShowMessageAsync(title, messageContent, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary, mySettings);
+            var buttonType = MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary;
+
+            switch (messageBoxType)
+            {
+                case MessageBoxType.Normal:
+                    mySettings.AffirmativeButtonText = "Yes";
+                    mySettings.NegativeButtonText = "No";
+                    mySettings.FirstAuxiliaryButtonText = "Cancel";
+
+                    break;
+                case MessageBoxType.OK:
+                    mySettings.AffirmativeButtonText = "OK";
+                    buttonType = MessageDialogStyle.Affirmative;
+
+                    break;
+                default:
+                    mySettings.AffirmativeButtonText = "Yes";
+                    mySettings.NegativeButtonText = "No";
+                    mySettings.FirstAuxiliaryButtonText = "Cancel";
+
+                    break;
+            }
+
+            return await win.ShowMessageAsync(title, messageContent, buttonType, mySettings);
         }
     }
 }

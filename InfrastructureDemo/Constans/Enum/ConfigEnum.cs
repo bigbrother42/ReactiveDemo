@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ReactiveDemo.Constants.Enum.EnumExtension;
+using static InfrastructureDemo.Constants.Enum.EnumExtension;
 
-namespace ReactiveDemo.Constants.Enum
+namespace InfrastructureDemo.Constants.Enum
 {
     public class ConfigEnum
     {

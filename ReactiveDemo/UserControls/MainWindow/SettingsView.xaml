@@ -32,9 +32,20 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="10,10,0,0">
-            <ComboBox x:Name="ThemeComboBox"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       FontSize="14"
+                       VerticalAlignment="Center"
+                       Text="Change System Theme"/>
+
+            <ComboBox Grid.Column="1" x:Name="ThemeComboBox"
                       Margin="10,0,0,0"
                       Width="150"
+                      FontSize="14"
                       HorizontalAlignment="Left"
                       IsSynchronizedWithCurrentItem="False"
                       SelectionChanged="AccentSelectionChanged"

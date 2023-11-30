@@ -8,6 +8,7 @@ using System;
 using System.Threading.Tasks;
 using BaseDemo.Util;
 using ReactiveDemo.Util.Login;
+using static InfrastructureDemo.Constants.Constants;
 
 namespace ReactiveDemo.ViewModels.Login
 {
@@ -95,7 +96,7 @@ namespace ReactiveDemo.ViewModels.Login
             if (!LoginModel.CheckUserInfo(UserName.Value, Password.Value)) return;
 
             var isSuccess = true;
-            if (!string.Equals(UserName.Value, "admin"))
+            if (!string.Equals(UserName.Value, LoginConstants.USERNAME_ADMIN))
             {
                 isSuccess = await _loginModel.LoginAsync(new DataDemo.WebDto.UserBasicInfoWebDto
                 {
@@ -106,7 +107,9 @@ namespace ReactiveDemo.ViewModels.Login
             else
             {
                 // when username is admin
-                isSuccess = string.Equals(Password.Value, "admin");
+                isSuccess = string.Equals(Password.Value, LoginConstants.USERNAME_ADMIN);
+
+                LoginInfo.IsAdmin = true;
             }
 
             if (!isSuccess)

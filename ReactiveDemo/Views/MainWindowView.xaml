@@ -85,6 +85,18 @@
                         </mah:HamburgerMenuGlyphItem.Tag>
                     </mah:HamburgerMenuGlyphItem>
 
+                    <mah:HamburgerMenuGlyphItem Glyph="" Label="Note">
+                        <mah:HamburgerMenuGlyphItem.Tag>
+                            <views:HomeView />
+                        </mah:HamburgerMenuGlyphItem.Tag>
+                    </mah:HamburgerMenuGlyphItem>
+
+                    <mah:HamburgerMenuGlyphItem Glyph="" Label="Document">
+                        <mah:HamburgerMenuGlyphItem.Tag>
+                            <views:HomeView />
+                        </mah:HamburgerMenuGlyphItem.Tag>
+                    </mah:HamburgerMenuGlyphItem>
+
                     <mah:HamburgerMenuGlyphItem Glyph="" Label="Private">
                         <mah:HamburgerMenuGlyphItem.Tag>
                             <views:PrivateView />

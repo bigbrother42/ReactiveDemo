@@ -1,5 +1,6 @@
 ﻿using ControlzEx.Theming;
 using ReactiveDemo.ViewModels.MainWindow;
+using SharedDemo.GlobalData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,8 @@ namespace ReactiveDemo.UserControls.MainWindow
             {
                 this.DataContext = new SettingsViewModel();
             }
+
+            ThemeComboBox.SelectedValue = ThemeManager.Current.GetTheme(GlobalData.SystemTheme); ;
         }
 
         private void AccentSelectionChanged(object sender, SelectionChangedEventArgs e)

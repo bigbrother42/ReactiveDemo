@@ -22,14 +22,24 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <WrapPanel Grid.Row="0" Margin="10,10,0,0">
             <Button x:Name="ReactiveDemoButton"
-                    Width="100"
+                    Width="150"
+                    Height="150"
+                    FontSize="16"
                     HorizontalAlignment="Left"
-                    Content="ReactiveDemo"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Visibility="Collapsed"
+                    Content="Reactive&#xa;  Demo"
                     Command="{Binding ReactiveDemoCommand}"/>
         </WrapPanel>
+
+        <Grid Grid.Row="1">
+            
+        </Grid>
     </Grid>
 </UserControl>

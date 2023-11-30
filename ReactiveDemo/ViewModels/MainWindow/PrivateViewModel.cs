@@ -1,11 +1,14 @@
 ﻿using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
+using SharedDemo.GlobalData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using static InfrastructureDemo.Constants.Constants;
 
 namespace ReactiveDemo.ViewModels.MainWindow
 {
@@ -31,7 +34,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         #region ReactiveProperty
 
-
+        public ReactiveProperty<Visibility> IsAccountSettingShow { get; set; }
 
         #endregion
 
@@ -52,11 +55,15 @@ namespace ReactiveDemo.ViewModels.MainWindow
         protected override void InitData()
         {
             base.InitData();
+
+            IsAccountSettingShow.Value = LoginInfo.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
         }
 
         protected override void RegisterProperties()
         {
             base.RegisterProperties();
+
+            IsAccountSettingShow = new ReactiveProperty<Visibility>(Visibility.Collapsed).AddTo(DisposablePool);
         }
 
         protected override void RegisterCommands()

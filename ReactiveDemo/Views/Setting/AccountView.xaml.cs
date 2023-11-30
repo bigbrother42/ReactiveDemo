@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static InfrastructureDemo.Constans.Enum.EnumConstants;
 
 namespace ReactiveDemo.Views.Setting
 {
@@ -34,7 +35,7 @@ namespace ReactiveDemo.Views.Setting
             if (DataContext is AccountViewModel vm
                 && AccountDataGrid.SelectedItem is AccountUiModel selectedAccount)
             {
-                var result = await MessageUtil.ShowMessageBoxAsync(this, "Warning!", $"Do you want to delete this account? [{selectedAccount.UserName}]");
+                var result = await MessageUtil.ShowMessageBoxAsync(this, "Warning!", $"Do you want to delete this account? [{selectedAccount.UserName}]", MessageBoxType.Normal);
 
                 if (result == MessageDialogResult.Affirmative)
                 {

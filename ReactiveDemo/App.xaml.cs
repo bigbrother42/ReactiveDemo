@@ -15,7 +15,7 @@ namespace ReactiveDemo
     using Prism.Mvvm;
     using Reactive.Bindings;
     using ReactiveDemo.Configure;
-    using ReactiveDemo.Constants.Enum;
+    using InfrastructureDemo.Constants.Enum;
     using ReactiveDemo.Filters;
     using BaseDemo.Helpers;
     using ReactiveDemo.Schema;

@@ -26,8 +26,13 @@
         <Grid Grid.Row="0" Margin="10,10,0,0">
             <Button x:Name="AccountSettingButton"
                     Width="150"
+                    Height="150"
+                    FontSize="16"
                     HorizontalAlignment="Left"
-                    Content="AccountSetting"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Content="Account&#xa; Setting"
+                    Visibility="{Binding IsAccountSettingShow.Value}"
                     Command="{Binding AccountViewCommand}"/>
         </Grid>
     </Grid>

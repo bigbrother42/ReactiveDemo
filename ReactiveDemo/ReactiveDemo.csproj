@@ -426,10 +426,6 @@
     <Compile Include="Configure\ReactiveFrameworkConfigure.cs" />
     <Compile Include="Configure\ServiceLocatorConfigure.cs" />
     <Compile Include="Configure\ViewModelLocationProviderConfigure.cs" />
-    <Compile Include="Constants\Constants.cs" />
-    <Compile Include="Constants\Enum\ComboBoxSourceItem.cs" />
-    <Compile Include="Constants\Enum\ConfigEnum.cs" />
-    <Compile Include="Constants\Enum\EnumExtension.cs" />
     <Compile Include="Events\LoginEvents.cs" />
     <Compile Include="Events\ReactiveDemoEvents.cs" />
     <Compile Include="Filters\AbstractFilter.cs" />

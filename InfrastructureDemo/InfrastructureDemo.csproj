@@ -66,6 +66,11 @@
     <Compile Include="ActionBase\InvokeMethodAction.cs" />
     <Compile Include="ActionBase\MethodNotification.cs" />
     <Compile Include="Common\AdornerEffect.cs" />
+    <Compile Include="Constans\Constants.cs" />
+    <Compile Include="Constans\Enum\ComboBoxSourceItem.cs" />
+    <Compile Include="Constans\Enum\ConfigEnum.cs" />
+    <Compile Include="Constans\Enum\EnumConstants.cs" />
+    <Compile Include="Constans\Enum\EnumExtension.cs" />
     <Compile Include="ProfileBase\BaseProfile.cs" />
     <Compile Include="Util\ConvertUtil.cs" />
     <Compile Include="Util\MessageUtil.cs" />

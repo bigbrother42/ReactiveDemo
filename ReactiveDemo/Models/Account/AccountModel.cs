@@ -77,5 +77,17 @@ namespace ReactiveDemo.Models.Account
 
             return insertNum;
         }
+
+        public async Task<bool> CheckUserIsExist(string userName)
+        {
+            var userList = await _userBasicInfoService.SelectUserBasicInfoListAsync(_dbContext, new UserBasicInfoWebDto 
+            { 
+                UserName = userName
+            });
+
+            if (!userList.IsNullOrEmpty()) return true;
+
+            return false;
+        }
     }
 }

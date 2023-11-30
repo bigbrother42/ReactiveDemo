@@ -1,6 +1,8 @@
 ﻿using BaseDemo.Util;
+using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
+using ReactiveDemo.Base.ActionBase;
 using ReactiveDemo.Models.Account;
 using ReactiveDemo.Models.Login;
 using ReactiveDemo.Models.UiModel;
@@ -45,7 +47,7 @@ namespace ReactiveDemo.ViewModels.Setting
 
         #region Request
 
-        
+        public InteractionRequest<MethodNotification> UserExistRequest { get; set; } = new InteractionRequest<MethodNotification>();
 
         #endregion
 
@@ -107,6 +109,13 @@ namespace ReactiveDemo.ViewModels.Setting
             if (!string.Equals(ConfirmPassword.Value, Password.Value)) return;
 
             if (!LoginModel.CheckUserInfo(UserName.Value, Password.Value)) return;
+
+            if (await _accountModel.CheckUserIsExist(UserName.Value))
+            {
+                UserExistRequest.Raise(new MethodNotification());
+
+                return;
+            }
 
             var inserNum = await _accountModel.CreateAccountAsync(new AccountUiModel
             { 

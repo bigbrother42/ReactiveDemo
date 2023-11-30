@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReactiveDemo.Constants.Enum
+namespace InfrastructureDemo.Constants.Enum
 {
     public static class EnumExtension
     {

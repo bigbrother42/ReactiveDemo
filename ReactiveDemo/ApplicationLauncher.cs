@@ -1,5 +1,5 @@
 ﻿using Prism.Events;
-using ReactiveDemo.Constants.Enum;
+using InfrastructureDemo.Constants.Enum;
 using ReactiveDemo.Events;
 using ReactiveDemo.Filters;
 using ReactiveDemo.Schema;

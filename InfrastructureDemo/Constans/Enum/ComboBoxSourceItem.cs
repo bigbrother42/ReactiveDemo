@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReactiveDemo.Constants.Enum
+namespace InfrastructureDemo.Constants.Enum
 {
     public class ComboBoxSourceItem
     {

@@ -6,6 +6,9 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:ReactiveDemo.Views.Setting"
         xmlns:mvvm="http://prismlibrary.com/"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:interactionRequest="http://www.codeplex.com/prism"
+        xmlns:actionBase="clr-namespace:ReactiveDemo.Base.ActionBase;assembly=InfrastructureDemo"
         mc:Ignorable="d"
         mvvm:ViewModelLocator.AutoWireViewModel="True"
         Title="CreateAccountView"
@@ -14,6 +17,12 @@
         Width="400"
         MinHeight="450"
         MinWidth="400">
+
+    <i:Interaction.Triggers>
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding UserExistRequest}">
+            <actionBase:InvokeMethodAction MethodName="UserExist" />
+        </interactionRequest:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>

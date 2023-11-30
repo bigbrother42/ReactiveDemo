@@ -1,6 +1,6 @@
 ﻿using ControlzEx.Theming;
 using MahApps.Metro.Controls;
-using ReactiveDemo.Constants.Enum;
+using InfrastructureDemo.Constants.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +30,7 @@ namespace ReactiveDemo.Views
         private void HamburgerMenuControl_OnItemClick(object sender, ItemClickEventArgs e)
         {
             this.HamburgerMenuControl.SetCurrentValue(ContentProperty, e.ClickedItem);
-            this.HamburgerMenuControl.SetCurrentValue(HamburgerMenu.IsPaneOpenProperty, false);
+            //this.HamburgerMenuControl.SetCurrentValue(HamburgerMenu.IsPaneOpenProperty, false);
         }
     }
 }
