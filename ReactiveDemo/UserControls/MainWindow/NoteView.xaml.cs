@@ -17,25 +17,17 @@ using System.Windows.Shapes;
 namespace ReactiveDemo.UserControls.MainWindow
 {
     /// <summary>
-    /// Interaction logic for PrivateView.xaml
+    /// Interaction logic for NoteView.xaml
     /// </summary>
-    public partial class PrivateView : UserControl
+    public partial class NoteView : UserControl
     {
-        public PrivateView()
+        public NoteView()
         {
             InitializeComponent();
 
             if (this.DataContext == null)
             {
-                this.DataContext = new PrivateViewModel();
-            }
-        }
-
-        private void Tile_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is PrivateViewModel privateViewModel)
-            {
-                privateViewModel.AccountViewCommand.Execute();
+                this.DataContext = new NoteViewModel();
             }
         }
     }

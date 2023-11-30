@@ -451,8 +451,14 @@
     <Compile Include="UserControls\MainWindow\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MainWindow\DocumentView.xaml.cs">
+      <DependentUpon>DocumentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MainWindow\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MainWindow\NoteView.xaml.cs">
+      <DependentUpon>NoteView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MainWindow\PrivateView.xaml.cs">
       <DependentUpon>PrivateView.xaml</DependentUpon>
@@ -465,7 +471,9 @@
     <Compile Include="ViewModels\Component\ButtonGroupDragDropViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MainWindow\DocumentViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\HomeViewModel.cs" />
+    <Compile Include="ViewModels\MainWindow\NoteViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\PrivateViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\SettingsViewModel.cs" />
     <Compile Include="ViewModels\Observer\ObserverViewModel.cs" />
@@ -552,7 +560,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\MainWindow\DocumentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\MainWindow\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MainWindow\NoteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

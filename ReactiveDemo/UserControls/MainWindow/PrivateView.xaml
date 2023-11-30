@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ReactiveDemo.UserControls.MainWindow"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:interactionRequest="http://www.codeplex.com/prism"
-             xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo" 
+             xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo" xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="10,10,0,0">
+        <!--<Grid Grid.Row="0" Margin="10,10,0,0">
             <Button x:Name="AccountSettingButton"
                     Width="150"
                     Height="150"
@@ -34,6 +34,20 @@
                     Content="Account&#xa; Setting"
                     Visibility="{Binding IsAccountSettingShow.Value}"
                     Command="{Binding AccountViewCommand}"/>
-        </Grid>
+        </Grid>-->
+        <Controls:Tile Grid.Row="0"
+                       Title="AccountSetting"
+                       Margin="3"
+                       HorizontalAlignment="Left"
+                       Visibility="{Binding IsAccountSettingShow.Value}"
+                       Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+                       Background="Teal"
+                       HorizontalTitleAlignment="Right"
+                       Click="Tile_Click">
+            <iconPacks:PackIconModern Width="40"
+                                      Height="40"
+                                      Kind="People"/>
+
+        </Controls:Tile>
     </Grid>
 </UserControl>

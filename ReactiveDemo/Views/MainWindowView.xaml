@@ -87,13 +87,13 @@
 
                     <mah:HamburgerMenuGlyphItem Glyph="" Label="Note">
                         <mah:HamburgerMenuGlyphItem.Tag>
-                            <views:HomeView />
+                            <views:NoteView />
                         </mah:HamburgerMenuGlyphItem.Tag>
                     </mah:HamburgerMenuGlyphItem>
 
                     <mah:HamburgerMenuGlyphItem Glyph="" Label="Document">
                         <mah:HamburgerMenuGlyphItem.Tag>
-                            <views:HomeView />
+                            <views:DocumentView />
                         </mah:HamburgerMenuGlyphItem.Tag>
                     </mah:HamburgerMenuGlyphItem>
 
