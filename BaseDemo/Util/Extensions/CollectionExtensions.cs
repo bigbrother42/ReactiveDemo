@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -17,6 +18,18 @@ namespace BaseDemo.Util.Extensions
         public static IEnumerable<PropertyInfo> GetAllSetProperties(this Type type)
         {
             return type.GetProperties().AsEnumerable().Where(o => o.PropertyType.IsGenericType);
+        }
+
+        public static int ExRemoveAll<T>(this ObservableCollection<T> coll, Func<T, bool> condition)
+        {
+            var itemsToRemove = coll.Where(condition).ToList();
+
+            foreach (var itemToRemove in itemsToRemove)
+            {
+                coll.Remove(itemToRemove);
+            }
+
+            return itemsToRemove.Count;
         }
     }
 }

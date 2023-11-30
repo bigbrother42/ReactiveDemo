@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BaseDemo.Util.Extensions;
+using BaseDemo.Util;
+using ReactiveDemo.Util.Login;
 
 namespace ReactiveDemo.Models.Login
 {
@@ -25,6 +27,20 @@ namespace ReactiveDemo.Models.Login
             var dbUser = userList.First();
 
             return string.Equals(dbUser.Password, userBasicInfoWebDto.Password);
+        }
+
+        public static bool CheckUserInfo(string userName, string password)
+        {
+            if (string.IsNullOrEmpty(userName)) return false;
+
+            if (string.IsNullOrEmpty(password)) return false;
+
+            if (!LoginUtil.StringIsAsciiOnly(userName)) return false;
+
+            if (!LoginUtil.StringIsAsciiOnly(password)) return false;
+
+
+            return true;
         }
     }
 }

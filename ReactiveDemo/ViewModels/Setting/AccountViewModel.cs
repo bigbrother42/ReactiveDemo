@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ReactiveDemo.ViewModels.Setting
 {
@@ -33,11 +34,13 @@ namespace ReactiveDemo.ViewModels.Setting
 
         public ReactiveCommand CreateAccountCommand { get; set; }
 
+        public AsyncReactiveCommand<AccountUiModel> DeleteAccountCommand { get; set; }
+
         #endregion
 
         #region ReactiveProperty
 
-
+        
 
         #endregion
 
@@ -74,6 +77,9 @@ namespace ReactiveDemo.ViewModels.Setting
 
             CreateAccountCommand = new ReactiveCommand().AddTo(DisposablePool);
             CreateAccountCommand.Subscribe(CreateAccount).AddTo(DisposablePool);
+
+            DeleteAccountCommand = new AsyncReactiveCommand<AccountUiModel>().AddTo(DisposablePool);
+            DeleteAccountCommand.Subscribe(DeleteAccount).AddTo(DisposablePool);
         }
 
         protected override void RegisterPubEvents()
@@ -99,6 +105,17 @@ namespace ReactiveDemo.ViewModels.Setting
                     }
                 }
             });
+        }
+
+        private async Task DeleteAccount(AccountUiModel deleteAccount)
+        {
+            if (deleteAccount == null) return;
+
+            var deleteNum = await _accountModel.DeleteAccountAsync(deleteAccount);
+            if (deleteNum > 0)
+            {
+                AccountCollection.Remove(deleteAccount);
+            }
         }
 
         #endregion

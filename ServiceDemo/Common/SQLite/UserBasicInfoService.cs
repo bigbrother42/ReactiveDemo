@@ -95,5 +95,26 @@ namespace ServiceDemo.Common.SQLite
 
             return taskResult;
         }
+
+        public async Task<int> DeleteAccount(SqLiteDbContext dbContext, UserBasicInfoWebDto param)
+        {
+            if (param == null) return 0;
+
+            var deleteItem = dbContext.UserBasicInfo.Find(param.UserId);
+
+            if (deleteItem != null)
+            {
+                dbContext.UserBasicInfo.Remove(deleteItem);
+
+                var taskResult = await Task.Run(() =>
+                {
+                    return dbContext.SaveChanges();
+                });
+
+                return taskResult;
+            }
+
+            return 0;
+        }
     }
 }

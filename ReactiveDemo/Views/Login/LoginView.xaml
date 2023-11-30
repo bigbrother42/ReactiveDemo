@@ -47,17 +47,17 @@
                      BorderBrush="{StaticResource Common.LightGray}"
                      Text="{Binding UserName.Value}"/>
 
-            <TextBox x:Name="PasswordTextBox"
-                     Margin="0,10,0,0"
-                     Width="200"
-                     Height="35"
-                     HorizontalAlignment="Center"
-                     VerticalContentAlignment="Center"
-                     BorderThickness="1"
-                     mah:TextBoxHelper.Watermark="Please enter password."
-                     mah:TextBoxHelper.ClearTextButton="True"
-                     BorderBrush="{StaticResource Common.LightGray}"
-                     Text="{Binding Password.Value}"/>
+            <PasswordBox x:Name="PasswordTextBox"
+                         Margin="0,10,0,0"
+                         Width="200"
+                         Height="35"
+                         HorizontalAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="1"
+                         mah:TextBoxHelper.Watermark="Please enter password."
+                         BorderBrush="{StaticResource Common.LightGray}"
+                         Style="{StaticResource MahApps.Styles.PasswordBox.Button.Revealed}"
+                         mah:PasswordBoxBindingBehavior.Password="{Binding Password.Value}"/>
 
             <Button x:Name="LoginButton"
                     Margin="0,20,0,0"

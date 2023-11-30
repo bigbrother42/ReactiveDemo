@@ -23,6 +23,8 @@ namespace ReactiveDemo.Views.Setting
         public CreateAccountView()
         {
             InitializeComponent();
+
+            UserNameTextBox.Focus();
         }
     }
 }

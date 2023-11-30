@@ -426,6 +426,7 @@
     <Compile Include="Configure\ReactiveFrameworkConfigure.cs" />
     <Compile Include="Configure\ServiceLocatorConfigure.cs" />
     <Compile Include="Configure\ViewModelLocationProviderConfigure.cs" />
+    <Compile Include="Constants\Constants.cs" />
     <Compile Include="Constants\Enum\ComboBoxSourceItem.cs" />
     <Compile Include="Constants\Enum\ConfigEnum.cs" />
     <Compile Include="Constants\Enum\EnumExtension.cs" />
@@ -463,6 +464,7 @@
     <Compile Include="UserControls\MainWindow\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\Login\LoginUtil.cs" />
     <Compile Include="ViewModels\Binding\BindingViewModel.cs" />
     <Compile Include="ViewModels\Component\ButtonGroupDragDropViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
@@ -641,7 +643,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converters\" />
-    <Folder Include="Util\" />
     <Folder Include="ViewModels\Datagrid\" />
     <Folder Include="Views\Datagrid\" />
   </ItemGroup>

@@ -57,5 +57,25 @@ namespace ReactiveDemo.Models.Account
 
             return insertNum;
         }
+
+        public async Task<int> DeleteAccountAsync(AccountUiModel accountUiModel)
+        {
+            var param = new UserBasicInfoWebDto
+            {
+                UserId = int.Parse(accountUiModel.UserId),
+                UserName = accountUiModel.UserName,
+                Password = accountUiModel.Password,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.MaxValue,
+                CreateAt = DateTime.Now,
+                UpdateAt = DateTime.Now,
+                CreateBy = 1,
+                UpdateBy = 1
+            };
+
+            var insertNum = await _userBasicInfoService.DeleteAccount(_dbContext, param);
+
+            return insertNum;
+        }
     }
 }

@@ -6,6 +6,8 @@ using ReactiveDemo.Models.Login;
 using System.Text.RegularExpressions;
 using System;
 using System.Threading.Tasks;
+using BaseDemo.Util;
+using ReactiveDemo.Util.Login;
 
 namespace ReactiveDemo.ViewModels.Login
 {
@@ -13,7 +15,7 @@ namespace ReactiveDemo.ViewModels.Login
     {
         #region Field
 
-        private static readonly string VALIDATION_ERROR_ASCIIONLY = "Please enter {0} using alphanumeric characters or symbols.";
+        
 
         #endregion
 
@@ -36,8 +38,6 @@ namespace ReactiveDemo.ViewModels.Login
         public ReactiveProperty<string> UserName { get; set; }
 
         public ReactiveProperty<string> Password { get; set; }
-
-        public ReactiveProperty<bool> CanUserLogin { get; set; }
 
         #endregion
 
@@ -68,20 +68,9 @@ namespace ReactiveDemo.ViewModels.Login
 
             UserName = new ReactiveProperty<string>().AddTo(DisposablePool);
             Password = new ReactiveProperty<string>().AddTo(DisposablePool);
-            CanUserLogin = new ReactiveProperty<bool>().AddTo(DisposablePool);
 
-            UserName.SetValidateNotifyError(x => !string.IsNullOrEmpty(x) && !ValidateAsciiOnly(x, "UserName", out var message) ? message : null)
-                .Subscribe(code => {
-                    CanUserLogin.Value = !string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(Password.Value) && StringIsAsciiOnly(code) && StringIsAsciiOnly(Password.Value);
-                })
-                .AddTo(DisposablePool);
-
-            Password.SetValidateNotifyError(x => !string.IsNullOrEmpty(x) && !ValidateAsciiOnly(x, "Password", out var message) ? message : null)
-                .Subscribe(pass =>
-                {
-                    CanUserLogin.Value = !string.IsNullOrWhiteSpace(pass) && !string.IsNullOrWhiteSpace(UserName.Value) && StringIsAsciiOnly(pass) && StringIsAsciiOnly(UserName.Value);
-                })
-                .AddTo(DisposablePool);
+            UserName.SetValidateNotifyError(x => !string.IsNullOrEmpty(x) && !LoginUtil.ValidateAsciiOnly(x, "UserName", out var message) ? message : null).AddTo(DisposablePool);
+            Password.SetValidateNotifyError(x => !string.IsNullOrEmpty(x) && !LoginUtil.ValidateAsciiOnly(x, "Password", out var message) ? message : null).AddTo(DisposablePool);
         }
 
         protected override void RegisterCommands()
@@ -103,17 +92,7 @@ namespace ReactiveDemo.ViewModels.Login
 
         private async Task LoginAsync()
         {
-            if (string.IsNullOrEmpty(UserName.Value))
-            {
-                UserName.ForceValidate();
-            }
-
-            if (string.IsNullOrEmpty(Password.Value))
-            {
-                Password.ForceValidate();
-            }
-
-            if (!CanUserLogin.Value) return;
+            if (!LoginModel.CheckUserInfo(UserName.Value, Password.Value)) return;
 
             var isSuccess = true;
             if (!string.Equals(UserName.Value, "admin"))
@@ -136,25 +115,6 @@ namespace ReactiveDemo.ViewModels.Login
             }
 
             MainWindowRequest.Raise(new Notification(), notification => { });
-        }
-
-        private bool StringIsAsciiOnly(string str)
-        {
-            return Regex.IsMatch(str, @"^[\x00-\x7F]+$");
-        }
-
-        private bool ValidateAsciiOnly(string str, string caption, out string message)
-        {
-            var validationResult = StringIsAsciiOnly(str);
-            if (!validationResult)
-            {
-                message = string.Format(VALIDATION_ERROR_ASCIIONLY, caption);
-            }
-            else
-            {
-                message = null;
-            }
-            return validationResult;
         }
 
         #endregion

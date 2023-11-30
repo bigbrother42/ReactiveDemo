@@ -1,7 +1,10 @@
-﻿using Reactive.Bindings;
+﻿using BaseDemo.Util;
+using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactiveDemo.Models.Account;
+using ReactiveDemo.Models.Login;
 using ReactiveDemo.Models.UiModel;
+using ReactiveDemo.Util.Login;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +26,8 @@ namespace ReactiveDemo.ViewModels.Setting
         public ReactiveProperty<string> UserName { get; set; }
 
         public ReactiveProperty<string> Password { get; set; }
+
+        public ReactiveProperty<string> ConfirmPassword { get; set; }
 
         #endregion
 
@@ -63,6 +68,21 @@ namespace ReactiveDemo.ViewModels.Setting
 
             UserName = new ReactiveProperty<string>().AddTo(DisposablePool);
             Password = new ReactiveProperty<string>().AddTo(DisposablePool);
+            ConfirmPassword = new ReactiveProperty<string>().AddTo(DisposablePool);
+
+            UserName.SetValidateNotifyError(x => !string.IsNullOrEmpty(x) && !LoginUtil.ValidateAsciiOnly(x, "UserName", out var message) ? message : null).AddTo(DisposablePool);
+            Password.SetValidateNotifyError(x => !string.IsNullOrEmpty(x) && !LoginUtil.ValidateAsciiOnly(x, "Password", out var message) ? message : null).AddTo(DisposablePool);
+            ConfirmPassword.SetValidateNotifyError(x =>
+            {
+                if (string.IsNullOrEmpty(x)) return "Confirm password is empty!";
+
+                if (!string.Equals(x, Password.Value)) return "Confirm password is different from password!";
+
+                if (!LoginUtil.ValidateAsciiOnly(x, "Password", out var message)) return message;
+
+                return null;
+                
+            }).AddTo(DisposablePool);
         }
 
         protected override void RegisterCommands()
@@ -84,9 +104,9 @@ namespace ReactiveDemo.ViewModels.Setting
 
         private async Task CreateAsync()
         {
-            if (string.IsNullOrEmpty(UserName.Value)) return;
+            if (!string.Equals(ConfirmPassword.Value, Password.Value)) return;
 
-            if (string.IsNullOrEmpty(Password.Value)) return;
+            if (!LoginModel.CheckUserInfo(UserName.Value, Password.Value)) return;
 
             var inserNum = await _accountModel.CreateAccountAsync(new AccountUiModel
             { 
