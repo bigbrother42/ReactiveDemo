@@ -71,9 +71,12 @@
     <Compile Include="Constans\Enum\ConfigEnum.cs" />
     <Compile Include="Constans\Enum\EnumConstants.cs" />
     <Compile Include="Constans\Enum\EnumExtension.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\ReverseBoolToVisibilityConverter.cs" />
     <Compile Include="ProfileBase\BaseProfile.cs" />
     <Compile Include="Util\ConvertUtil.cs" />
     <Compile Include="Util\MessageUtil.cs" />
+    <Compile Include="ValidationRules\NoteCategoryNameValidationRule.cs" />
     <Compile Include="ViewModelBase\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>

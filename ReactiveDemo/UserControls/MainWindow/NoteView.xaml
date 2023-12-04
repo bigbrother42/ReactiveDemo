@@ -5,39 +5,169 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ReactiveDemo.UserControls.MainWindow"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:controlzex="urn:controlzex"
+             xmlns:converters="clr-namespace:InfrastructureDemo.Converters;assembly=InfrastructureDemo"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:interactionRequest="http://www.codeplex.com/prism"
+             xmlns:actionBase="clr-namespace:ReactiveDemo.Base.ActionBase;assembly=InfrastructureDemo"
+             xmlns:behaviors="clr-namespace:MahApps.Metro.Behaviors;assembly=MahApps.Metro" xmlns:validationrules="clr-namespace:InfrastructureDemo.ValidationRules;assembly=InfrastructureDemo"
              mc:Ignorable="d" 
              d:DesignHeight="450"
              d:DesignWidth="800">
 
+    <i:Interaction.Triggers>
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding AddNoteCategoryRequest}">
+            <actionBase:InvokeMethodAction MethodName="AddNoteCategory" />
+        </interactionRequest:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+
     <UserControl.Resources>
         <ResourceDictionary>
-            
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:ReverseBoolToVisibilityConverter x:Key="ReverseBoolToVisibilityConverter" />
+
+            <ContextMenu x:Key="CategoryContextMenu">
+                <MenuItem Header="delete"
+                          Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1,AncestorType=local:NoteView}, Path=DataContext.DeleteNoteCategoryCommand}"
+                          CommandParameter="{Binding}"/>
+                <MenuItem Header="edit name"
+                          Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1,AncestorType=local:NoteView}, Path=DataContext.EditNoteCategoryNameCommand}"
+                          CommandParameter="{Binding}"/>
+            </ContextMenu>
+
+            <Style x:Key="ListViewItemStyle" TargetType="{x:Type ListViewItem}">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="1,1,1,0"/>
+                <Setter Property="BorderBrush" Value="LightGray"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Margin" Value="2,0,0,0"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="ContextMenu" Value="{StaticResource CategoryContextMenu}"/>
+            </Style>
+
+            <Style TargetType="{x:Type ListView}">
+                <Style.Resources>
+                    <Style BasedOn="{StaticResource ListViewItemStyle}" TargetType="{x:Type ListViewItem}" />
+                </Style.Resources>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="ItemContainerStyle" Value="{StaticResource ListViewItemStyle}" />
+                <Setter Property="ItemTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <ContentControl>
+                                <Grid>
+                                    <TextBlock x:Name="DisplayTextBlock"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Text="{Binding CategoryName}"
+                                               Visibility="{Binding IsEdit, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolToVisibilityConverter}}"/>
+
+                                    <TextBox x:Name="EditTextBox"
+                                             VerticalContentAlignment="Center"
+                                             FontSize="16"
+                                             Visibility="{Binding IsEdit, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}"
+                                             BorderThickness="0"
+                                             mah:ValidationHelper.CloseOnMouseLeftButtonDown="True"
+                                             mah:ValidationHelper.ShowValidationErrorOnMouseOver="True"
+                                             LostFocus="EditTextBox_LostFocus"
+                                             IsVisibleChanged="EditTextBox_IsVisibleChanged"
+                                             KeyUp="EditTextBox_KeyUp">
+                                        <TextBox.Text>
+                                            <Binding Path="CategoryName" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validationrules:NoteCategoryNameValidationRule/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                </Grid>
+                            </ContentControl>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListView">
+                            <ScrollViewer Template="{DynamicResource MahApps.Templates.ScrollViewer.AnimatedSingleRow}"
+                                          HorizontalScrollBarVisibility="Auto"
+                                          VerticalScrollBarVisibility="Disabled">
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True" />
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MaxWidth="1100"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        
-        <TabControl Grid.Row="0" Grid.Column="0"
-                    TabStripPlacement="Left"
-                    Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}">
-            <TabItem Header="test1" Name="test1" ></TabItem>
-            <TabItem Header="test2" Name="test2" ></TabItem>
-            <TabItem Header="test3" Name="test3" ></TabItem>
-        </TabControl>
 
-        <Button Grid.Row="1" Grid.Column="0"
-                Width="40"
-                Height="40"
-                FontSize="16"
-                Content="✚"/>
+        <ListView x:Name="NoteCategoryListView" Grid.Row="0" Grid.Column="0"
+                  BorderThickness="0"
+                  VerticalAlignment="Bottom"
+                  ItemsSource="{Binding NoteCategoryCollection}"
+                  SelectedItem="{Binding SelectedNoteCategory.Value}"/>
+
+        <Button Grid.Row="0" Grid.Column="1"
+                Margin="10,10,10,0"
+                Padding="0,0,0,0"
+                Width="30"
+                Height="30"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                FontSize="15"
+                Content="✚"
+                Command="{Binding AddNoteCategoryCommand}">
+            <Button.ToolTip>
+                <ToolTip controlzex:ToolTipAssist.AutoMove="True">
+                    <ToolTip.Template>
+                        <ControlTemplate>
+                            <Grid>
+                                <Border Background="White"
+                                        BorderBrush="Black"
+                                        BorderThickness="1"
+                                        Opacity="0.9"
+                                        SnapsToDevicePixels="True" />
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Margin="2"
+                                               FontSize="16"
+                                               Foreground="Black"
+                                               Text="You can click this button to add a category of note."
+                                               TextOptions.TextFormattingMode="Display"
+                                               TextOptions.TextRenderingMode="ClearType" />
+                                </StackPanel>
+                            </Grid>
+                        </ControlTemplate>
+                    </ToolTip.Template>
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
+
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                Margin="0,-1,0,0"
+                BorderThickness="0,1,0,0"
+                BorderBrush="LightGray">
+            
+        </Border>
     </Grid>
 </UserControl>
