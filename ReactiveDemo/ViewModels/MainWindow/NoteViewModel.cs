@@ -32,7 +32,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public AsyncReactiveCommand AddNoteCategoryCommand { get; set; }
 
-        public ReactiveCommand<NoteCategoryUiModel> DeleteNoteCategoryCommand { get; set; }
+        public AsyncReactiveCommand<NoteCategoryUiModel> DeleteNoteCategoryCommand { get; set; }
 
         public ReactiveCommand<NoteCategoryUiModel> EditNoteCategoryNameCommand { get; set; }
 
@@ -80,8 +80,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
             AddNoteCategoryCommand = new AsyncReactiveCommand().AddTo(DisposablePool);
             AddNoteCategoryCommand.Subscribe(AddNoteCategory).AddTo(DisposablePool);
 
-            DeleteNoteCategoryCommand = new ReactiveCommand<NoteCategoryUiModel>().AddTo(DisposablePool);
-            DeleteNoteCategoryCommand.Subscribe(DeleteNoteCategory).AddTo(DisposablePool);
+            DeleteNoteCategoryCommand = new AsyncReactiveCommand<NoteCategoryUiModel>().AddTo(DisposablePool);
+            DeleteNoteCategoryCommand.Subscribe(DeleteNoteCategoryAsync).AddTo(DisposablePool);
 
             EditNoteCategoryNameCommand = new ReactiveCommand<NoteCategoryUiModel>().AddTo(DisposablePool);
             EditNoteCategoryNameCommand.Subscribe(EditNoteCategoryName).AddTo(DisposablePool);
@@ -122,11 +122,15 @@ namespace ReactiveDemo.ViewModels.MainWindow
             AddNoteCategoryRequest.Raise(new MethodNotification());
         }
 
-        private void DeleteNoteCategory(NoteCategoryUiModel deleteItem)
+        private async Task DeleteNoteCategoryAsync(NoteCategoryUiModel deleteItem)
         {
             if (deleteItem == null) return;
 
-            NoteCategoryCollection.ExRemoveAll(o => o.CategorySeq == deleteItem.CategorySeq);
+            var deleteNum = await _noteModel.DeleteNoteCategory(deleteItem);
+            if (deleteNum > 0)
+            {
+                NoteCategoryCollection.ExRemoveAll(o => o.CategorySeq == deleteItem.CategorySeq);
+            }
         }
 
         private void EditNoteCategoryName(NoteCategoryUiModel editItem)

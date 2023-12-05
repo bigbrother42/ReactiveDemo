@@ -14,10 +14,11 @@ namespace ReactiveDemo.Models.MainWindow
     {
         private NoteService _noteService = new NoteService();
 
-        public async Task<int> InsertNoteCategory(NoteCategoryUiModel noteCategoryUiModel)
+        public async Task<NoteCategoryWebDto> InsertOrUpdateNoteCategory(NoteCategoryUiModel noteCategoryUiModel)
         {
             var webDto = new NoteCategoryWebDto
             {
+                CategoryId = noteCategoryUiModel.CategorySeq,
                 CategoryName = noteCategoryUiModel.CategoryName,
                 CreateAt = DateTime.Now,
                 UpdateAt = DateTime.Now,
@@ -25,9 +26,22 @@ namespace ReactiveDemo.Models.MainWindow
                 UpdateBy = LoginInfo.UserBasicInfo.UserId
             };
 
-            var insertNum = await _noteService.InsertNoteCategory(webDto);
+            return await _noteService.InsertOrUpdateNoteCategory(webDto);
+        }
 
-            return insertNum;
+        public async Task<int> DeleteNoteCategory(NoteCategoryUiModel noteCategoryUiModel)
+        {
+            var webDto = new NoteCategoryWebDto
+            {
+                CategoryId = noteCategoryUiModel.CategorySeq,
+                CategoryName = noteCategoryUiModel.CategoryName,
+                CreateAt = DateTime.Now,
+                UpdateAt = DateTime.Now,
+                CreateBy = LoginInfo.UserBasicInfo.UserId,
+                UpdateBy = LoginInfo.UserBasicInfo.UserId
+            };
+
+            return await _noteService.DeleteNoteCategory(webDto);
         }
 
         public async Task<List<NoteCategoryUiModel>> SelectAllNoteCategory()

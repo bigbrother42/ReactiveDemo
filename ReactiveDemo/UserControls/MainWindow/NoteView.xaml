@@ -71,6 +71,7 @@
                                              BorderThickness="0"
                                              mah:ValidationHelper.CloseOnMouseLeftButtonDown="True"
                                              mah:ValidationHelper.ShowValidationErrorOnMouseOver="True"
+                                             GotFocus="EditTextBox_GotFocus"
                                              LostFocus="EditTextBox_LostFocus"
                                              IsVisibleChanged="EditTextBox_IsVisibleChanged"
                                              KeyUp="EditTextBox_KeyUp">
@@ -112,7 +113,9 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -120,13 +123,49 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <ListView x:Name="NoteCategoryListView" Grid.Row="0" Grid.Column="0"
+        <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                   VerticalAlignment="Center">
+            <TextBlock Margin="10,0,0,0"
+                       Text="Color: "
+                       FontSize="16"
+                       VerticalAlignment="Center"/>
+
+            <mah:ColorPicker Width="220" Height="40"
+                             Margin="10,2,0,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             mah:TextBoxHelper.ClearTextButton="True"
+                             mah:TextBoxHelper.UseFloatingWatermark="True"
+                             mah:TextBoxHelper.Watermark="Select a color"
+                             AddToRecentColorsTrigger="SelectedColorChanged"
+                             SelectedColorChanged="ColorPicker_SelectedColorChanged"/>
+
+            <TextBlock Margin="10,0,0,0"
+                       Text="Font Size: "
+                       FontSize="16"
+                       VerticalAlignment="Center"/>
+
+            <ComboBox Width="60" Height="40"
+                      Margin="10,1,0,0"
+                      FontSize="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedItem.Content}"
+                      VerticalAlignment="Center"
+                      SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem Content="12" FontSize="12"/>
+                <ComboBoxItem Content="14" FontSize="14"/>
+                <ComboBoxItem Content="16" FontSize="16"/>
+                <ComboBoxItem Content="18" FontSize="18"/>
+                <ComboBoxItem Content="20" FontSize="20"/>
+                <ComboBoxItem Content="22" FontSize="22"/>
+            </ComboBox>
+        </WrapPanel>
+
+        <ListView x:Name="NoteCategoryListView" Grid.Row="1" Grid.Column="0"
                   BorderThickness="0"
                   VerticalAlignment="Bottom"
                   ItemsSource="{Binding NoteCategoryCollection}"
                   SelectedItem="{Binding SelectedNoteCategory.Value}"/>
 
-        <Button Grid.Row="0" Grid.Column="1"
+        <Button Grid.Row="1" Grid.Column="1"
                 Margin="10,10,10,0"
                 Padding="0,0,0,0"
                 Width="30"
@@ -163,11 +202,25 @@
             </Button.ToolTip>
         </Button>
 
-        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                 Margin="0,-1,0,0"
                 BorderThickness="0,1,0,0"
                 BorderBrush="LightGray">
-            
+            <RichTextBox x:Name="NoteContentRichTextBox"
+                         Margin="2,2,2,0"
+                         BorderThickness="1,1,1,1"
+                         BorderBrush="LightGray"
+                         AcceptsReturn="True"
+                         FontSize="16"/>
         </Border>
+
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+            <Button Width="80"
+                    Height="40"
+                    Margin="0,0,10,0"
+                    HorizontalAlignment="Right"
+                    FontSize="16"
+                    Content="save"/>
+        </Grid>
     </Grid>
 </UserControl>

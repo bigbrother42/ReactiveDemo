@@ -27,6 +27,8 @@ namespace ReactiveDemo.UserControls.MainWindow
     /// </summary>
     public partial class NoteView : UserControl
     {
+        private string _originalName = string.Empty;
+
         public NoteView()
         {
             InitializeComponent();
@@ -37,7 +39,17 @@ namespace ReactiveDemo.UserControls.MainWindow
             }
         }
 
-        private async void EditTextBox_LostFocus(object sender, RoutedEventArgs e)
+        private void EditTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is NoteViewModel vm
+                && sender is TextBox textBox
+                && textBox.DataContext is NoteCategoryUiModel noteCategoryUiModel)
+            {
+                _originalName = textBox.Text;
+            }
+        }
+
+        private void EditTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (DataContext is NoteViewModel vm
                 && sender is TextBox textBox
@@ -46,16 +58,15 @@ namespace ReactiveDemo.UserControls.MainWindow
                 if (textBox.Text.IsNullOrEmpty())
                 {
                     MessageBox.Show("Please enter category name!", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
-                else
-                {
-                    noteCategoryUiModel.IsEdit = false;
-                }
+
+                if (string.Equals(_originalName, textBox.Text)) return;
+
+                new NoteModel().InsertOrUpdateNoteCategory(noteCategoryUiModel);
 
                 e.Handled = true;
-
-                var noteModel = new NoteModel();
-                await noteModel.InsertNoteCategory(noteCategoryUiModel);
+                noteCategoryUiModel.IsEdit = false;
             }
         }
 
@@ -88,6 +99,23 @@ namespace ReactiveDemo.UserControls.MainWindow
                 {
                     textBox.RaiseEvent(new RoutedEventArgs(LostFocusEvent));
                 }
+            }
+        }
+
+        private void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (e.NewValue != null)
+            {
+                var brusher = new SolidColorBrush(e.NewValue.Value);
+                NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, brusher);
+            }
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox comboBox && comboBox.SelectedItem is ComboBoxItem comboBoxItem)
+            {
+                NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, double.Parse(comboBoxItem.Content.ToString()));
             }
         }
     }
