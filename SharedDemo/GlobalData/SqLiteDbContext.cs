@@ -16,6 +16,8 @@ namespace SharedDemo.GlobalData
 
         public DbSet<UserBasicInfoWebDto> UserBasicInfo { get; set; }
 
+        public DbSet<NoteCategoryWebDto> NoteCategory { get; set; }
+
         public SqLiteDbContext()
         {
 
@@ -59,6 +61,13 @@ namespace SharedDemo.GlobalData
                 e.Property(o => o.UserId).IsRequired();
                 e.Property(o => o.UserName).IsRequired();
                 e.Property(o => o.Password).IsRequired();
+            });
+
+            modelBuilder.Entity<NoteCategoryWebDto>().HasKey(o => o.CategoryId);
+            modelBuilder.Entity<NoteCategoryWebDto>(e =>
+            {
+                e.Property(o => o.CategoryId).IsRequired();
+                e.Property(o => o.CategoryName).IsRequired();
             });
 
             modelBuilder.SetDefaultValueSql(GetType().GetAllSetProperties(), "CURRENT_TIMESTAMP", "CreatedAt", "UpdatedAt");

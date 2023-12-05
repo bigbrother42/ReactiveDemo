@@ -1,6 +1,7 @@
 ﻿using BaseDemo.Util;
 using InfrastructureDemo.Util;
 using Prism.Services.Dialogs;
+using ReactiveDemo.Models.MainWindow;
 using ReactiveDemo.Models.UiModel;
 using ReactiveDemo.ViewModels.MainWindow;
 using System;
@@ -36,7 +37,7 @@ namespace ReactiveDemo.UserControls.MainWindow
             }
         }
 
-        private void EditTextBox_LostFocus(object sender, RoutedEventArgs e)
+        private async void EditTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (DataContext is NoteViewModel vm
                 && sender is TextBox textBox
@@ -52,6 +53,9 @@ namespace ReactiveDemo.UserControls.MainWindow
                 }
 
                 e.Handled = true;
+
+                var noteModel = new NoteModel();
+                await noteModel.InsertNoteCategory(noteCategoryUiModel);
             }
         }
 

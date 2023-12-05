@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using BaseDemo.Util;
 using ReactiveDemo.Util.Login;
 using static InfrastructureDemo.Constants.Constants;
+using DataDemo.WebDto;
 
 namespace ReactiveDemo.ViewModels.Login
 {
@@ -110,6 +111,11 @@ namespace ReactiveDemo.ViewModels.Login
                 isSuccess = string.Equals(Password.Value, LoginConstants.USERNAME_ADMIN);
 
                 LoginInfo.IsAdmin = true;
+                LoginInfo.UserBasicInfo = new UserBasicInfoWebDto
+                {
+                    UserId = 0,
+                    UserName = "admin"
+                };
             }
 
             if (!isSuccess)

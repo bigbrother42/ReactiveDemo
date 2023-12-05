@@ -16,11 +16,9 @@ namespace ReactiveDemo.Models.Login
     {
         private UserBasicInfoService _userBasicInfoService = new UserBasicInfoService();
 
-        private readonly SqLiteDbContext _dbContext = new SqLiteDbContext(GlobalData.DbConnection);
-
         public async Task<bool> LoginAsync(UserBasicInfoWebDto userBasicInfoWebDto)
         {
-            var userList = await _userBasicInfoService.SelectUserBasicInfoListAsync(_dbContext, userBasicInfoWebDto);
+            var userList = await _userBasicInfoService.SelectUserBasicInfoListAsync(userBasicInfoWebDto);
 
             if (userList.IsNullOrEmpty()) return false;
 

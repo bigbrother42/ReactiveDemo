@@ -3,6 +3,7 @@ using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactiveDemo.Base.ActionBase;
+using ReactiveDemo.Models.MainWindow;
 using ReactiveDemo.Models.UiModel;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         #region PrivateProperty
 
-
+        private NoteModel _noteModel = new NoteModel();
 
         #endregion
 
@@ -57,10 +58,12 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         #region Override
 
-        protected override void InitData()
+        protected override async void InitData()
         {
             base.InitData();
 
+            var categoryList = await _noteModel.SelectAllNoteCategory();
+            NoteCategoryCollection.AddRange(categoryList);
         }
 
         protected override void RegisterProperties()

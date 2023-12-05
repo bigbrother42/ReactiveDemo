@@ -15,13 +15,11 @@ namespace ReactiveDemo.Models.Account
     {
         private UserBasicInfoService _userBasicInfoService = new UserBasicInfoService();
 
-        private readonly SqLiteDbContext _dbContext = new SqLiteDbContext(GlobalData.DbConnection);
-
         public async Task<List<AccountUiModel>> LoadAccountListAsync()
         {
             var acountList = new List<AccountUiModel>();
 
-            var userList = await _userBasicInfoService.SelectAllUserBasicInfoListAsync(_dbContext);
+            var userList = await _userBasicInfoService.SelectAllUserBasicInfoListAsync();
             if (!userList.IsNullOrEmpty())
             {
                 foreach (var user in userList)
@@ -53,7 +51,7 @@ namespace ReactiveDemo.Models.Account
                 UpdateBy = 1
             };
 
-            var insertNum = await _userBasicInfoService.InsertAccount(_dbContext, param);
+            var insertNum = await _userBasicInfoService.InsertAccount(param);
 
             return insertNum;
         }
@@ -73,14 +71,14 @@ namespace ReactiveDemo.Models.Account
                 UpdateBy = 1
             };
 
-            var insertNum = await _userBasicInfoService.DeleteAccount(_dbContext, param);
+            var insertNum = await _userBasicInfoService.DeleteAccount(param);
 
             return insertNum;
         }
 
         public async Task<bool> CheckUserIsExist(string userName)
         {
-            var userList = await _userBasicInfoService.SelectUserBasicInfoListAsync(_dbContext, new UserBasicInfoWebDto 
+            var userList = await _userBasicInfoService.SelectUserBasicInfoListAsync(new UserBasicInfoWebDto 
             { 
                 UserName = userName
             });

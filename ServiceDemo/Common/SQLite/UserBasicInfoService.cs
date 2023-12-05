@@ -12,7 +12,7 @@ namespace ServiceDemo.Common.SQLite
 {
     public class UserBasicInfoService : ClientApiService
     {
-        public async Task<List<UserBasicInfoWebDto>> SelectUserBasicInfoListAsync(SqLiteDbContext dbContext, UserBasicInfoWebDto param)
+        public async Task<List<UserBasicInfoWebDto>> SelectUserBasicInfoListAsync(UserBasicInfoWebDto param)
         {
             var userList = new List<UserBasicInfoWebDto>();
 
@@ -31,7 +31,7 @@ namespace ServiceDemo.Common.SQLite
                             FROM UserBasicInfo ubi
                             WHERE ubi.UserName = @UserName";
 
-                var userModelList = dbContext.Database.ExecuteRawSqlQueryAutoMapper<UserBasicInfoWebDto>(sql, dbCommand =>
+                var userModelList = SqLiteDbContext.Database.ExecuteRawSqlQueryAutoMapper<UserBasicInfoWebDto>(sql, dbCommand =>
                 {
                     var userNameParam = dbCommand.CreateParameter();
                     userNameParam.ParameterName = "@UserName";
@@ -51,7 +51,7 @@ namespace ServiceDemo.Common.SQLite
             return userList;
         }
 
-        public async Task<List<UserBasicInfoWebDto>> SelectAllUserBasicInfoListAsync(SqLiteDbContext dbContext)
+        public async Task<List<UserBasicInfoWebDto>> SelectAllUserBasicInfoListAsync()
         {
             var userList = new List<UserBasicInfoWebDto>();
 
@@ -69,7 +69,7 @@ namespace ServiceDemo.Common.SQLite
                              ubi.UpdateAt
                             FROM UserBasicInfo ubi";
 
-                var userModelList = dbContext.Database.ExecuteRawSqlQueryAutoMapper<UserBasicInfoWebDto>(sql);
+                var userModelList = SqLiteDbContext.Database.ExecuteRawSqlQueryAutoMapper<UserBasicInfoWebDto>(sql);
 
                 return userModelList;
             });
@@ -82,33 +82,33 @@ namespace ServiceDemo.Common.SQLite
             return userList;
         }
 
-        public async Task<int> InsertAccount(SqLiteDbContext dbContext, UserBasicInfoWebDto param)
+        public async Task<int> InsertAccount(UserBasicInfoWebDto param)
         {
             if (param == null) return 0;
 
-            dbContext.UserBasicInfo.Add(param);
+            SqLiteDbContext.UserBasicInfo.Add(param);
 
             var taskResult = await Task.Run(() =>
             {
-                return dbContext.SaveChanges();
+                return SqLiteDbContext.SaveChanges();
             });
 
             return taskResult;
         }
 
-        public async Task<int> DeleteAccount(SqLiteDbContext dbContext, UserBasicInfoWebDto param)
+        public async Task<int> DeleteAccount(UserBasicInfoWebDto param)
         {
             if (param == null) return 0;
 
-            var deleteItem = dbContext.UserBasicInfo.Find(param.UserId);
+            var deleteItem = SqLiteDbContext.UserBasicInfo.Find(param.UserId);
 
             if (deleteItem != null)
             {
-                dbContext.UserBasicInfo.Remove(deleteItem);
+                SqLiteDbContext.UserBasicInfo.Remove(deleteItem);
 
                 var taskResult = await Task.Run(() =>
                 {
-                    return dbContext.SaveChanges();
+                    return SqLiteDbContext.SaveChanges();
                 });
 
                 return taskResult;
