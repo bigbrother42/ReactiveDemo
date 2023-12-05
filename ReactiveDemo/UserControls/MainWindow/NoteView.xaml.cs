@@ -61,7 +61,7 @@ namespace ReactiveDemo.UserControls.MainWindow
                     return;
                 }
 
-                if (string.Equals(_originalName, textBox.Text)) return;
+                if (string.Equals(_originalName, textBox.Text) && !string.Equals("New Category", textBox.Text)) return;
 
                 new NoteModel().InsertOrUpdateNoteCategory(noteCategoryUiModel);
 

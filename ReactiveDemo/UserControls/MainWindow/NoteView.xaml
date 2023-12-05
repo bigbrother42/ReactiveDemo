@@ -41,32 +41,29 @@
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="1,1,1,0"/>
                 <Setter Property="BorderBrush" Value="LightGray"/>
-                <Setter Property="Height" Value="40"/>
+                <Setter Property="Height" Value="30"/>
                 <Setter Property="Margin" Value="2,0,0,0"/>
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="ContextMenu" Value="{StaticResource CategoryContextMenu}"/>
-            </Style>
-
-            <Style TargetType="{x:Type ListView}">
-                <Style.Resources>
-                    <Style BasedOn="{StaticResource ListViewItemStyle}" TargetType="{x:Type ListViewItem}" />
-                </Style.Resources>
-                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                <Setter Property="ItemContainerStyle" Value="{StaticResource ListViewItemStyle}" />
-                <Setter Property="ItemTemplate">
+                <Setter Property="Template">
                     <Setter.Value>
-                        <DataTemplate>
-                            <ContentControl>
-                                <Grid>
-                                    <TextBlock x:Name="DisplayTextBlock"
-                                               HorizontalAlignment="Center"
+                        <ControlTemplate TargetType="ListViewItem">
+                            <Border x:Name="ItemParentBorder"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Margin="{TemplateBinding Margin}"
+                                    Height="{TemplateBinding Height}"
+                                    CornerRadius="5,5,0,0">
+                                <Grid Margin="5,0,5,0">
+                                    <TextBlock HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
+                                               FontSize="{TemplateBinding FontSize}"
                                                Text="{Binding CategoryName}"
                                                Visibility="{Binding IsEdit, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolToVisibilityConverter}}"/>
 
                                     <TextBox x:Name="EditTextBox"
                                              VerticalContentAlignment="Center"
-                                             FontSize="16"
+                                             FontSize="{TemplateBinding FontSize}"
                                              Visibility="{Binding IsEdit, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}"
                                              BorderThickness="0"
                                              mah:ValidationHelper.CloseOnMouseLeftButtonDown="True"
@@ -84,10 +81,28 @@
                                         </TextBox.Text>
                                     </TextBox>
                                 </Grid>
-                            </ContentControl>
-                        </DataTemplate>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="ItemParentBorder" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent2}"/>
+                                </Trigger>
+
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ItemParentBorder" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent4}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+            </Style>
+
+            <Style TargetType="{x:Type ListView}">
+                <Style.Resources>
+                    <Style BasedOn="{StaticResource ListViewItemStyle}" TargetType="{x:Type ListViewItem}" />
+                </Style.Resources>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="ItemContainerStyle" Value="{StaticResource ListViewItemStyle}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListView">
@@ -113,7 +128,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="45"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
