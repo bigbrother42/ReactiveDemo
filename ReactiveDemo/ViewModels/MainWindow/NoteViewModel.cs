@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace ReactiveDemo.ViewModels.MainWindow
 {
@@ -35,6 +36,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
         public AsyncReactiveCommand<NoteCategoryUiModel> DeleteNoteCategoryCommand { get; set; }
 
         public ReactiveCommand<NoteCategoryUiModel> EditNoteCategoryNameCommand { get; set; }
+
+        public AsyncReactiveCommand SaveContentCommand { get; set; }
 
         #endregion
 
@@ -85,6 +88,9 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
             EditNoteCategoryNameCommand = new ReactiveCommand<NoteCategoryUiModel>().AddTo(DisposablePool);
             EditNoteCategoryNameCommand.Subscribe(EditNoteCategoryName).AddTo(DisposablePool);
+
+            SaveContentCommand = new AsyncReactiveCommand().AddTo(DisposablePool);
+            SaveContentCommand.Subscribe(SaveContent).AddTo(DisposablePool);
         }
 
         protected override void RegisterPubEvents()
@@ -138,6 +144,12 @@ namespace ReactiveDemo.ViewModels.MainWindow
             if (editItem == null) return;
 
             editItem.IsEdit = true;
+        }
+
+        private async Task SaveContent()
+        {
+            if (SelectedNoteCategory.Value == null) return;
+
         }
 
         #endregion

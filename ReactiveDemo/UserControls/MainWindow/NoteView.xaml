@@ -178,7 +178,8 @@
                   BorderThickness="0"
                   VerticalAlignment="Bottom"
                   ItemsSource="{Binding NoteCategoryCollection}"
-                  SelectedItem="{Binding SelectedNoteCategory.Value}"/>
+                  SelectedItem="{Binding SelectedNoteCategory.Value}"
+                  SelectionChanged="NoteCategoryListView_SelectionChanged"/>
 
         <Button Grid.Row="1" Grid.Column="1"
                 Margin="10,10,10,0"
@@ -235,7 +236,8 @@
                     Margin="0,0,10,0"
                     HorizontalAlignment="Right"
                     FontSize="16"
-                    Content="save"/>
+                    Content="save"
+                    Click="Button_Click"/>
         </Grid>
     </Grid>
 </UserControl>

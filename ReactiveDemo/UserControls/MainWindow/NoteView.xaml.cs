@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -116,6 +117,29 @@ namespace ReactiveDemo.UserControls.MainWindow
             if (sender is ComboBox comboBox && comboBox.SelectedItem is ComboBoxItem comboBoxItem)
             {
                 NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, double.Parse(comboBoxItem.Content.ToString()));
+            }
+        }
+
+        private void NoteCategoryListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ListView listView
+                && listView.SelectedItem is ListViewItem listViewItem
+                && listViewItem.DataContext is NoteCategoryUiModel noteCategoryUiModel)
+            {
+                if (noteCategoryUiModel.Content != null)
+                {
+                    NoteContentRichTextBox.Document = noteCategoryUiModel.Content;
+                }
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && DataContext is NoteViewModel vm)
+            {
+                string xmlText = XamlWriter.Save(NoteContentRichTextBox.Document);
+
+                vm.SaveContentCommand.Execute();
             }
         }
     }

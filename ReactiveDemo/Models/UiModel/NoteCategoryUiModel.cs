@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace ReactiveDemo.Models.UiModel
 {
@@ -28,6 +29,13 @@ namespace ReactiveDemo.Models.UiModel
         {
             get => _isEdit;
             set => SetProperty(ref _isEdit, value);
+        }
+
+        private FlowDocument _content;
+        public FlowDocument Content
+        {
+            get => _content;
+            set => SetProperty(ref _content, value);
         }
     }
 }
