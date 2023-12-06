@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:ReactiveDemo.UserControls.MainWindow"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:interactionRequest="http://www.codeplex.com/prism"
-             xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo" xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 

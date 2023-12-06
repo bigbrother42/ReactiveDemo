@@ -123,12 +123,16 @@ namespace ReactiveDemo.UserControls.MainWindow
         private void NoteCategoryListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sender is ListView listView
-                && listView.SelectedItem is ListViewItem listViewItem
-                && listViewItem.DataContext is NoteCategoryUiModel noteCategoryUiModel)
+                && DataContext is NoteViewModel vm
+                && vm.SelectedNoteCategory.Value != null)
             {
-                if (noteCategoryUiModel.Content != null)
+                if (vm.SelectedNoteCategory.Value.Content != null)
                 {
-                    NoteContentRichTextBox.Document = noteCategoryUiModel.Content;
+                    NoteContentRichTextBox.Document = vm.SelectedNoteCategory.Value.Content;
+                }
+                else
+                {
+                    NoteContentRichTextBox.Document = new FlowDocument();
                 }
             }
         }
@@ -137,9 +141,44 @@ namespace ReactiveDemo.UserControls.MainWindow
         {
             if (sender is Button button && DataContext is NoteViewModel vm)
             {
-                string xmlText = XamlWriter.Save(NoteContentRichTextBox.Document);
+                if (vm.SelectedNoteCategory.Value != null)
+                {
+                    vm.SelectedNoteCategory.Value.Content = NoteContentRichTextBox.Document;
+                }
 
                 vm.SaveContentCommand.Execute();
+            }
+        }
+
+        private void NoteContentRichTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                if (Keyboard.IsKeyUp(Key.S))
+                {
+                    var eventArgs = new MouseEventArgs(Mouse.PrimaryDevice, 0)
+                    {
+                        RoutedEvent = UIElement.MouseLeftButtonUpEvent
+                    };
+
+                    SaveButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                }
+            }
+        }
+
+        private void EditTextBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                if (textBox.Visibility == Visibility.Visible)
+                {
+                    textBox.Focus();
+                    textBox.SelectAll();
+                }
+                else if (textBox.Visibility == Visibility.Collapsed)
+                {
+                    textBox.RaiseEvent(new RoutedEventArgs(LostFocusEvent));
+                }
             }
         }
     }

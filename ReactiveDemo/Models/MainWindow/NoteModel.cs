@@ -1,4 +1,5 @@
-﻿using DataDemo.WebDto;
+﻿using BaseDemo.Util.Extensions;
+using DataDemo.WebDto;
 using ReactiveDemo.Models.UiModel;
 using ServiceDemo.Common.SQLite;
 using SharedDemo.GlobalData;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 
 namespace ReactiveDemo.Models.MainWindow
 {
@@ -26,7 +28,7 @@ namespace ReactiveDemo.Models.MainWindow
                 UpdateBy = LoginInfo.UserBasicInfo.UserId
             };
 
-            return await _noteService.InsertOrUpdateNoteCategory(webDto);
+            return await _noteService.InsertOrUpdateNoteCategoryAsync(webDto);
         }
 
         public async Task<int> DeleteNoteCategory(NoteCategoryUiModel noteCategoryUiModel)
@@ -41,17 +43,52 @@ namespace ReactiveDemo.Models.MainWindow
                 UpdateBy = LoginInfo.UserBasicInfo.UserId
             };
 
-            return await _noteService.DeleteNoteCategory(webDto);
+            return await _noteService.DeleteNoteCategoryAsync(webDto);
         }
 
         public async Task<List<NoteCategoryUiModel>> SelectAllNoteCategory()
         {
             var noteCategoryWebDtoList = await _noteService.SelectAllNoteCategoryListAsync();
 
-            return noteCategoryWebDtoList.Select(o => new NoteCategoryUiModel {
-                CategorySeq = o.CategoryId,
-                CategoryName = o.CategoryName
-            }).ToList();
+            var customCategoryList = new List<NoteCategoryUiModel>();
+            if (!noteCategoryWebDtoList.IsNullOrEmpty())
+            {
+                foreach (var noteCategoryWebDto in noteCategoryWebDtoList)
+                {
+                    var uiModle = new NoteCategoryUiModel
+                    {
+                        CategorySeq = noteCategoryWebDto.CategoryId,
+                        CategoryName = noteCategoryWebDto.CategoryName
+                    };
+
+                    if (!noteCategoryWebDto.Content.IsNullOrEmpty())
+                    {
+                        var contentDocument = (System.Windows.Documents.FlowDocument)XamlReader.Parse(noteCategoryWebDto.Content);
+                        uiModle.Content = contentDocument;
+                    }
+
+                    customCategoryList.Add(uiModle);
+                }
+            }
+
+            return customCategoryList;
+        }
+
+        public async Task InsertOrUpdateNoteContent(NoteCategoryUiModel noteCategoryUiModel)
+        {
+            var contentStr = XamlWriter.Save(noteCategoryUiModel.Content);
+
+            var wenDto = new NoteContentWebDto
+            {
+                CategoryId = noteCategoryUiModel.CategorySeq,
+                Content = contentStr,
+                CreateAt = DateTime.Now,
+                UpdateAt = DateTime.Now,
+                CreateBy = LoginInfo.UserBasicInfo.UserId,
+                UpdateBy = LoginInfo.UserBasicInfo.UserId
+            };
+
+            await _noteService.InsertOrUpdateNoteContentAsync(wenDto);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BaseDemo.Util.Extensions;
 using DataDemo.WebDto;
+using DataDemo.WebDto.Custom;
 using ServiceDemo.Base;
 using SharedDemo.GlobalData;
 using SharedDemo.Util;
@@ -14,7 +15,7 @@ namespace ServiceDemo.Common.SQLite
 {
     public class NoteService : ClientApiService
     {
-        public async Task<NoteCategoryWebDto> InsertOrUpdateNoteCategory(NoteCategoryWebDto param)
+        public async Task<NoteCategoryWebDto> InsertOrUpdateNoteCategoryAsync(NoteCategoryWebDto param)
         {
             if (param == null) return null;
 
@@ -55,7 +56,33 @@ namespace ServiceDemo.Common.SQLite
             return null;
         }
 
-        public async Task<int> DeleteNoteCategory(NoteCategoryWebDto param)
+        public async Task<NoteContentWebDto> InsertOrUpdateNoteContentAsync(NoteContentWebDto param)
+        {
+            if (param == null) return null;
+
+            var existContent = SqLiteDbContext.NoteContent.FirstOrDefault(o => o.CategoryId == param.CategoryId);
+            if (existContent == null)
+            {
+                // insert
+                SqLiteDbContext.NoteContent.Add(param);
+            }
+            else
+            {
+                // update
+                existContent.Content = param.Content;
+            }
+
+            await Task.Run(() =>
+            {
+                SqLiteDbContext.SaveChanges();
+
+                return param;
+            });
+
+            return null;
+        }
+
+        public async Task<int> DeleteNoteCategoryAsync(NoteCategoryWebDto param)
         {
             if (param == null) return 0;
 
@@ -114,22 +141,22 @@ namespace ServiceDemo.Common.SQLite
             return noteCategoryList;
         }
 
-        public async Task<List<NoteCategoryWebDto>> SelectAllNoteCategoryListAsync()
+        public async Task<List<NoteCategoryCustomWebDto>> SelectAllNoteCategoryListAsync()
         {
-            var noteCategoryList = new List<NoteCategoryWebDto>();
+            var noteCategoryList = new List<NoteCategoryCustomWebDto>();
 
             var taskResult = await Task.Run(() =>
             {
                 var sql = @"SELECT 
                              nc.CategoryId,
                              nc.CategoryName, 
-                             nc.CreateBy,
-                             nc.CreateAt,
-                             nc.UpdateBy,
-                             nc.UpdateAt
-                            FROM NoteCategory nc";
+                             nc2.ContentId,
+                             nc2.Content
+                            FROM NoteCategory nc
+                            LEFT JOIN NoteContent nc2
+                            ON nc.CategoryId = nc2.CategoryId";
 
-                var noteCategoryModelList = SqLiteDbContext.Database.ExecuteRawSqlQueryAutoMapper<NoteCategoryWebDto>(sql);
+                var noteCategoryModelList = SqLiteDbContext.Database.ExecuteRawSqlQueryAutoMapper<NoteCategoryCustomWebDto>(sql);
 
                 return noteCategoryModelList;
             });

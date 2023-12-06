@@ -10,7 +10,9 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:interactionRequest="http://www.codeplex.com/prism"
              xmlns:actionBase="clr-namespace:ReactiveDemo.Base.ActionBase;assembly=InfrastructureDemo"
-             xmlns:behaviors="clr-namespace:MahApps.Metro.Behaviors;assembly=MahApps.Metro" xmlns:validationrules="clr-namespace:InfrastructureDemo.ValidationRules;assembly=InfrastructureDemo"
+             xmlns:behaviors="clr-namespace:MahApps.Metro.Behaviors;assembly=MahApps.Metro"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:validationrules="clr-namespace:InfrastructureDemo.ValidationRules;assembly=InfrastructureDemo"
              mc:Ignorable="d" 
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -71,7 +73,8 @@
                                              GotFocus="EditTextBox_GotFocus"
                                              LostFocus="EditTextBox_LostFocus"
                                              IsVisibleChanged="EditTextBox_IsVisibleChanged"
-                                             KeyUp="EditTextBox_KeyUp">
+                                             KeyUp="EditTextBox_KeyUp"
+                                             Loaded="EditTextBox_Loaded">
                                         <TextBox.Text>
                                             <Binding Path="CategoryName" UpdateSourceTrigger="PropertyChanged">
                                                 <Binding.ValidationRules>
@@ -181,42 +184,71 @@
                   SelectedItem="{Binding SelectedNoteCategory.Value}"
                   SelectionChanged="NoteCategoryListView_SelectionChanged"/>
 
-        <Button Grid.Row="1" Grid.Column="1"
-                Margin="10,10,10,0"
-                Padding="0,0,0,0"
-                Width="30"
-                Height="30"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                FontSize="15"
-                Content="✚"
-                Command="{Binding AddNoteCategoryCommand}">
-            <Button.ToolTip>
-                <ToolTip controlzex:ToolTipAssist.AutoMove="True">
-                    <ToolTip.Template>
-                        <ControlTemplate>
-                            <Grid>
-                                <Border Background="White"
-                                        BorderBrush="Black"
-                                        BorderThickness="1"
-                                        Opacity="0.9"
-                                        SnapsToDevicePixels="True" />
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="2"
-                                               FontSize="16"
-                                               Foreground="Black"
-                                               Text="You can click this button to add a category of note."
-                                               TextOptions.TextFormattingMode="Display"
-                                               TextOptions.TextRenderingMode="ClearType" />
-                                </StackPanel>
-                            </Grid>
-                        </ControlTemplate>
-                    </ToolTip.Template>
-                </ToolTip>
-            </Button.ToolTip>
-        </Button>
+        <WrapPanel Margin="10,10,10,0" Grid.Row="1" Grid.Column="1">
+            <iconPacks:PackIconModern Margin="5,0,5,0"
+                                      Kind="Question"
+                                      VerticalAlignment="Center">
+                <iconPacks:PackIconModern.ToolTip>
+                    <ToolTip controlzex:ToolTipAssist.AutoMove="True">
+                        <ToolTip.Template>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Border Background="White"
+                                            BorderBrush="Black"
+                                            BorderThickness="1"
+                                            Opacity="0.9"
+                                            SnapsToDevicePixels="True" />
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Margin="2"
+                                                   FontSize="16"
+                                                   Foreground="Black"
+                                                   Text=" Click 'SAVE' button or press 'Ctrl+S' can save the content! "
+                                                   TextOptions.TextFormattingMode="Display"
+                                                   TextOptions.TextRenderingMode="ClearType" />
+                                    </StackPanel>
+                                </Grid>
+                            </ControlTemplate>
+                        </ToolTip.Template>
+                    </ToolTip>
+                </iconPacks:PackIconModern.ToolTip>
+            </iconPacks:PackIconModern>
+
+            <Button Grid.Row="1" Grid.Column="1"
+                    Padding="0,0,0,0"
+                    Width="30"
+                    Height="30"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    FontSize="15"
+                    Content="✚"
+                    Command="{Binding AddNoteCategoryCommand}">
+                <Button.ToolTip>
+                    <ToolTip controlzex:ToolTipAssist.AutoMove="True">
+                        <ToolTip.Template>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Border Background="White"
+                                            BorderBrush="Black"
+                                            BorderThickness="1"
+                                            Opacity="0.9"
+                                            SnapsToDevicePixels="True" />
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Margin="2"
+                                                   FontSize="16"
+                                                   Foreground="Black"
+                                                   Text=" You can click this button to add a category of note. "
+                                                   TextOptions.TextFormattingMode="Display"
+                                                   TextOptions.TextRenderingMode="ClearType" />
+                                    </StackPanel>
+                                </Grid>
+                            </ControlTemplate>
+                        </ToolTip.Template>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+        </WrapPanel>
 
         <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                 Margin="0,-1,0,0"
@@ -227,11 +259,15 @@
                          BorderThickness="1,1,1,1"
                          BorderBrush="LightGray"
                          AcceptsReturn="True"
-                         FontSize="16"/>
+                         FontSize="16"
+                         KeyUp="NoteContentRichTextBox_KeyUp"
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Disabled"/>
         </Border>
 
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
-            <Button Width="80"
+            <Button x:Name="SaveButton"
+                    Width="80"
                     Height="40"
                     Margin="0,0,10,0"
                     HorizontalAlignment="Right"

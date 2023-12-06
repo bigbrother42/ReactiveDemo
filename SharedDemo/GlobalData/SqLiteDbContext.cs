@@ -18,6 +18,8 @@ namespace SharedDemo.GlobalData
 
         public DbSet<NoteCategoryWebDto> NoteCategory { get; set; }
 
+        public DbSet<NoteContentWebDto> NoteContent { get; set; }
+
         public SqLiteDbContext()
         {
 
@@ -68,6 +70,13 @@ namespace SharedDemo.GlobalData
             {
                 e.Property(o => o.CategoryId).IsRequired();
                 e.Property(o => o.CategoryName).IsRequired();
+            });
+
+            modelBuilder.Entity<NoteContentWebDto>().HasKey(o => o.ContentId);
+            modelBuilder.Entity<NoteContentWebDto>(e =>
+            {
+                e.Property(o => o.ContentId).IsRequired();
+                e.Property(o => o.CategoryId).IsRequired();
             });
 
             modelBuilder.SetDefaultValueSql(GetType().GetAllSetProperties(), "CURRENT_TIMESTAMP", "CreatedAt", "UpdatedAt");

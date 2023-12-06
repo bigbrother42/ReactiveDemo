@@ -67,6 +67,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
             var categoryList = await _noteModel.SelectAllNoteCategory();
             NoteCategoryCollection.AddRange(categoryList);
+
+            SelectedNoteCategory.Value = NoteCategoryCollection.FirstOrDefault();
         }
 
         protected override void RegisterProperties()
@@ -150,6 +152,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
         {
             if (SelectedNoteCategory.Value == null) return;
 
+            await _noteModel.InsertOrUpdateNoteContent(SelectedNoteCategory.Value);
         }
 
         #endregion
