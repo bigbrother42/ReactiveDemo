@@ -31,8 +31,8 @@ namespace ReactiveDemo.Models.UiModel
             set => SetProperty(ref _isEdit, value);
         }
 
-        private FlowDocument _content;
-        public FlowDocument Content
+        private string _content;
+        public string Content
         {
             get => _content;
             set => SetProperty(ref _content, value);

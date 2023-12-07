@@ -44,6 +44,7 @@
     <Compile Include="Data\AppErrorInfo.cs" />
     <Compile Include="Data\Constants\Constants.cs" />
     <Compile Include="Data\Constants\EnumExtension.cs" />
+    <Compile Include="Helpers\Component\RichTextBoxHelper.cs" />
     <Compile Include="Helpers\ExceptionProcessorHelper.cs" />
     <Compile Include="Helpers\Log\CurrentProcessHelper.cs" />
     <Compile Include="Helpers\Log\GuiResourcesHelper.cs" />

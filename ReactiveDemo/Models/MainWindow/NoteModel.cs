@@ -63,8 +63,7 @@ namespace ReactiveDemo.Models.MainWindow
 
                     if (!noteCategoryWebDto.Content.IsNullOrEmpty())
                     {
-                        var contentDocument = (System.Windows.Documents.FlowDocument)XamlReader.Parse(noteCategoryWebDto.Content);
-                        uiModle.Content = contentDocument;
+                        uiModle.Content = noteCategoryWebDto.Content;
                     }
 
                     customCategoryList.Add(uiModle);
@@ -76,12 +75,10 @@ namespace ReactiveDemo.Models.MainWindow
 
         public async Task InsertOrUpdateNoteContent(NoteCategoryUiModel noteCategoryUiModel)
         {
-            var contentStr = XamlWriter.Save(noteCategoryUiModel.Content);
-
             var wenDto = new NoteContentWebDto
             {
                 CategoryId = noteCategoryUiModel.CategorySeq,
-                Content = contentStr,
+                Content = noteCategoryUiModel.Content,
                 CreateAt = DateTime.Now,
                 UpdateAt = DateTime.Now,
                 CreateBy = LoginInfo.UserBasicInfo.UserId,

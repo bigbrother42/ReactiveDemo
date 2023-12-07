@@ -13,6 +13,7 @@
              xmlns:behaviors="clr-namespace:MahApps.Metro.Behaviors;assembly=MahApps.Metro"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:validationrules="clr-namespace:InfrastructureDemo.ValidationRules;assembly=InfrastructureDemo"
+             xmlns:helpers="clr-namespace:BaseDemo.Helpers.Component;assembly=BaseDemo"
              mc:Ignorable="d" 
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -175,6 +176,7 @@
                 <ComboBoxItem Content="20" FontSize="20"/>
                 <ComboBoxItem Content="22" FontSize="22"/>
             </ComboBox>
+
         </WrapPanel>
 
         <ListView x:Name="NoteCategoryListView" Grid.Row="1" Grid.Column="0"
@@ -262,7 +264,9 @@
                          FontSize="16"
                          KeyUp="NoteContentRichTextBox_KeyUp"
                          VerticalScrollBarVisibility="Auto"
-                         HorizontalScrollBarVisibility="Disabled"/>
+                         HorizontalScrollBarVisibility="Disabled"
+                         helpers:RichTextBoxHelper.DocumentXaml="{Binding SelectedNoteCategory.Value.Content}"
+                         />
         </Border>
 
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
@@ -273,7 +277,7 @@
                     HorizontalAlignment="Right"
                     FontSize="16"
                     Content="save"
-                    Click="Button_Click"/>
+                    Command="{Binding SaveContentCommand}"/>
         </Grid>
     </Grid>
 </UserControl>

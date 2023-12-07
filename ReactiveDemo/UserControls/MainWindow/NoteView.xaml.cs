@@ -120,48 +120,16 @@ namespace ReactiveDemo.UserControls.MainWindow
             }
         }
 
-        private void NoteCategoryListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (sender is ListView listView
-                && DataContext is NoteViewModel vm
-                && vm.SelectedNoteCategory.Value != null)
-            {
-                if (vm.SelectedNoteCategory.Value.Content != null)
-                {
-                    NoteContentRichTextBox.Document = vm.SelectedNoteCategory.Value.Content;
-                }
-                else
-                {
-                    NoteContentRichTextBox.Document = new FlowDocument();
-                }
-            }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button button && DataContext is NoteViewModel vm)
-            {
-                if (vm.SelectedNoteCategory.Value != null)
-                {
-                    vm.SelectedNoteCategory.Value.Content = NoteContentRichTextBox.Document;
-                }
-
-                vm.SaveContentCommand.Execute();
-            }
-        }
-
         private void NoteContentRichTextBox_KeyUp(object sender, KeyEventArgs e)
         {
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
                 if (Keyboard.IsKeyUp(Key.S))
                 {
-                    var eventArgs = new MouseEventArgs(Mouse.PrimaryDevice, 0)
+                    if (DataContext is NoteViewModel vm)
                     {
-                        RoutedEvent = UIElement.MouseLeftButtonUpEvent
-                    };
-
-                    SaveButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                        vm.SaveContentCommand.Execute();
+                    }
                 }
             }
         }
@@ -180,6 +148,11 @@ namespace ReactiveDemo.UserControls.MainWindow
                     textBox.RaiseEvent(new RoutedEventArgs(LostFocusEvent));
                 }
             }
+        }
+
+        private void NoteCategoryListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NoteContentRichTextBox.Focus();
         }
     }
 }
