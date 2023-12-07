@@ -112,6 +112,7 @@ namespace ServiceDemo.Common.SQLite
             var taskResult = await Task.Run(() =>
             {
                 var sql = @"SELECT 
+                             nc.UserId,
                              nc.CategoryId,
                              nc.CategoryName, 
                              nc.CreateBy,
@@ -148,6 +149,7 @@ namespace ServiceDemo.Common.SQLite
             var taskResult = await Task.Run(() =>
             {
                 var sql = @"SELECT 
+                             nc.UserId,
                              nc.CategoryId,
                              nc.CategoryName, 
                              nc2.ContentId,

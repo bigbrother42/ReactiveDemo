@@ -11,6 +11,9 @@ namespace DataDemo.WebDto
     [Serializable]
     public class NoteContentWebDto : WebDtoBase
     {
+        [JsonProperty("UserId")]
+        public int UserId { get; set; }
+
         [JsonProperty("ContentId")]
         public int ContentId { get; set; }
 

@@ -11,6 +11,9 @@ namespace DataDemo.WebDto.Custom
     [Serializable]
     public class NoteCategoryCustomWebDto
     {
+        [JsonProperty("UserId")]
+        public int UserId { get; set; }
+
         [JsonProperty("CategoryId")]
         public int CategoryId { get; set; }
 

@@ -42,8 +42,10 @@
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="BorderThickness" Value="1,1,1,0"/>
+                <Setter Property="BorderThickness" Value="0,0,0,0"/>
                 <Setter Property="BorderBrush" Value="LightGray"/>
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray4}"/>
+                <Setter Property="FontFamily" Value="Meiryo UI"/>
                 <Setter Property="Height" Value="30"/>
                 <Setter Property="Margin" Value="2,0,0,0"/>
                 <Setter Property="FontSize" Value="16"/>
@@ -58,10 +60,13 @@
                                     Height="{TemplateBinding Height}"
                                     CornerRadius="5,5,0,0">
                                 <Grid Margin="5,0,5,0">
-                                    <TextBlock HorizontalAlignment="Center"
+                                    <TextBlock x:Name="DisplayTextBlock"
+                                               HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
+                                               Foreground="{TemplateBinding Foreground}"
                                                FontSize="{TemplateBinding FontSize}"
                                                Text="{Binding CategoryName}"
+                                               FontFamily="{TemplateBinding FontFamily}"
                                                Visibility="{Binding IsEdit, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolToVisibilityConverter}}"/>
 
                                     <TextBox x:Name="EditTextBox"
@@ -89,12 +94,21 @@
 
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="ItemParentBorder" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent2}"/>
+                                    <Setter TargetName="DisplayTextBlock" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}"/>
+                                    <Setter TargetName="DisplayTextBlock" Property="FontWeight" Value="Bold"/>
+                                    <Setter TargetName="DisplayTextBlock" Property="FontSize" Value="20"/>
                                 </Trigger>
 
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="ItemParentBorder" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent4}"/>
-                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                        <Condition Property="IsSelected" Value="False"/>
+                                    </MultiTrigger.Conditions>
+
+                                    <Setter TargetName="DisplayTextBlock" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent3}"/>
+                                    <Setter TargetName="DisplayTextBlock" Property="FontWeight" Value="Bold"/>
+                                    <Setter TargetName="DisplayTextBlock" Property="FontSize" Value="18"/>
+                                </MultiTrigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
