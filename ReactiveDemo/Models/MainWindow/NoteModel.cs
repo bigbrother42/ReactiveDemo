@@ -105,6 +105,10 @@ namespace ReactiveDemo.Models.MainWindow
                         TypeId = webDto.TypeId,
                         TypeName = webDto.TypeName,
                         Description = webDto.Description,
+                        CreateAt = $"{webDto.CreateAt:yyyy-MM-dd HH:mm:ss}",
+                        CreateBy = webDto.CreateBy,
+                        UpdateAt = $"{webDto.UpdateAt:yyyy-MM-dd HH:mm:ss}",
+                        UpdateBy = webDto.UpdateBy
                     });
                 }
             }

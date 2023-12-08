@@ -28,7 +28,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         #region ReactiveCommand
 
-        public ReactiveCommand SaveCommand { get; set; }
+        public AsyncReactiveCommand SaveCommand { get; set; }
 
         #endregion
 
@@ -61,18 +61,6 @@ namespace ReactiveDemo.ViewModels.MainWindow
             {
                 NoteTypeCollection.AddRange(dbList);
             }
-
-            NoteTypeCollection.Add(new NoteCategoryTypeUiModel
-            {
-                TypeId = 1,
-                TypeName = "test1"
-            });
-
-            NoteTypeCollection.Add(new NoteCategoryTypeUiModel
-            {
-                TypeId = 2,
-                TypeName = "test2"
-            });
         }
 
         protected override void RegisterProperties()
@@ -84,7 +72,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
         {
             base.RegisterCommands();
 
-            SaveCommand = new ReactiveCommand().AddTo(DisposablePool);
+            SaveCommand = new AsyncReactiveCommand().AddTo(DisposablePool);
             SaveCommand.Subscribe(Save).AddTo(DisposablePool);
         }
 
@@ -102,8 +90,10 @@ namespace ReactiveDemo.ViewModels.MainWindow
             FinishInteraction?.Invoke();
         }
 
-        private void Save()
+        private async Task Save()
         {
+            await _noteModel.InsertOrUpdateNoteTypeList(NoteTypeCollection.ToList());
+
             CloseWindow();
         }
 
