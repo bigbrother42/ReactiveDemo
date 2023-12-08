@@ -76,7 +76,7 @@
                                 OptionsItemTemplate="{StaticResource OptionsMenuItemTemplate}"
                                 ItemClick="HamburgerMenuControl_OnItemClick"
                                 OptionsItemClick="HamburgerMenuControl_OnItemClick"
-                                SelectedIndex="1"
+                                SelectedIndex="0"
                                 DisplayMode="CompactInline">
 
             <!--  Items  -->
@@ -93,12 +93,12 @@
                             <views:NoteView />
                         </mah:HamburgerMenuGlyphItem.Tag>
                     </mah:HamburgerMenuGlyphItem>
-
-                    <mah:HamburgerMenuGlyphItem Glyph="&#xE723;" Label="Document">
+<!--<mah:HamburgerMenuGlyphItem Glyph="&#xE723;" Label="Document">
                         <mah:HamburgerMenuGlyphItem.Tag>
                             <views:DocumentView />
                         </mah:HamburgerMenuGlyphItem.Tag>
-                    </mah:HamburgerMenuGlyphItem>
+                    </mah:HamburgerMenuGlyphItem>-->
+                    
 
                     <mah:HamburgerMenuGlyphItem Glyph="" Label="Private">
                         <mah:HamburgerMenuGlyphItem.Tag>

@@ -51,10 +51,5 @@
                                       Kind="People"/>
 
         </Controls:Tile>
-
-        <iconPacks:PackIconCoolicons Margin="200,40,0,0"
-                                     Width="40"
-                                     Height="40"
-                                     Kind="Note"/>
     </Grid>
 </UserControl>

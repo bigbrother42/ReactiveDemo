@@ -14,6 +14,7 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:validationrules="clr-namespace:InfrastructureDemo.ValidationRules;assembly=InfrastructureDemo"
              xmlns:helpers="clr-namespace:BaseDemo.Helpers.Component;assembly=BaseDemo"
+             xmlns:actionBase1="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo"
              mc:Ignorable="d" 
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -21,6 +22,12 @@
     <i:Interaction.Triggers>
         <interactionRequest:InteractionRequestTrigger SourceObject="{Binding AddNoteCategoryRequest}">
             <actionBase:InvokeMethodAction MethodName="AddNoteCategory" />
+        </interactionRequest:InteractionRequestTrigger>
+
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding ConfigTypeViewRequest}">
+            <actionBase1:AlertWindowAction
+                Owner="{Binding ElementName=MainWindowView}"
+                WindowName="ReactiveDemo.Views.MainWindow.ConfigNoteTypeView" />
         </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
@@ -105,9 +112,10 @@
                                         <Condition Property="IsSelected" Value="False"/>
                                     </MultiTrigger.Conditions>
 
-                                    <Setter TargetName="DisplayTextBlock" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent3}"/>
+                                    <!--<Setter TargetName="DisplayTextBlock" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent3}"/>
                                     <Setter TargetName="DisplayTextBlock" Property="FontWeight" Value="Bold"/>
-                                    <Setter TargetName="DisplayTextBlock" Property="FontSize" Value="18"/>
+                                    <Setter TargetName="DisplayTextBlock" Property="FontSize" Value="18"/>-->
+                                    <Setter TargetName="DisplayTextBlock" Property="Foreground" Value="Black"/>
                                 </MultiTrigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -115,7 +123,7 @@
                 </Setter>
             </Style>
 
-            <Style TargetType="{x:Type ListView}">
+            <Style x:Key="Note.Category.ListView.Style" TargetType="{x:Type ListView}">
                 <Style.Resources>
                     <Style BasedOn="{StaticResource ListViewItemStyle}" TargetType="{x:Type ListViewItem}" />
                 </Style.Resources>
@@ -140,6 +148,87 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <Style x:Key="Note.Type.ListViewItem.Style" TargetType="{x:Type ListViewItem}">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="1,1,0,1"/>
+                <Setter Property="BorderBrush" Value="Gray"/>
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray4}"/>
+                <Setter Property="FontFamily" Value="Meiryo UI"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Margin" Value="0,0,0,3"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Width" Value="90"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="ContextMenu" Value="{StaticResource CategoryContextMenu}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListViewItem">
+                            <Border x:Name="ItemParentBorder"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Height="{TemplateBinding Height}"
+                                    CornerRadius="5,0,0,5">
+                                <Grid Margin="5,0,5,0">
+                                    <TextBlock x:Name="DisplayTextBlock"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Foreground="{TemplateBinding Foreground}"
+                                               FontSize="{TemplateBinding FontSize}"
+                                               Text="{Binding TypeName}"
+                                               FontFamily="{TemplateBinding FontFamily}">
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="DisplayTextBlock" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}"/>
+                                    <Setter TargetName="DisplayTextBlock" Property="FontWeight" Value="Bold"/>
+                                    <Setter TargetName="DisplayTextBlock" Property="FontSize" Value="20"/>
+                                </Trigger>
+
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                        <Condition Property="IsSelected" Value="False"/>
+                                    </MultiTrigger.Conditions>
+
+                                    <Setter TargetName="DisplayTextBlock" Property="Foreground" Value="Black"/>
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="Note.Type.ListView.Style" TargetType="{x:Type ListView}">
+                <Style.Resources>
+                    <Style BasedOn="{StaticResource ListViewItemStyle}" TargetType="{x:Type ListViewItem}" />
+                </Style.Resources>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="ItemContainerStyle" Value="{StaticResource Note.Type.ListViewItem.Style}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListView">
+                            <ScrollViewer Template="{DynamicResource MahApps.Templates.ScrollViewer.AnimatedSingleRow}"
+                                          HorizontalScrollBarVisibility="Disabled"
+                                          VerticalScrollBarVisibility="Auto">
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical" IsItemsHost="True" />
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -152,11 +241,12 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="*" MaxWidth="1100"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+        <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                    VerticalAlignment="Center">
             <TextBlock Margin="10,0,0,0"
                        Text="Color: "
@@ -193,43 +283,29 @@
 
         </WrapPanel>
 
-        <ListView x:Name="NoteCategoryListView" Grid.Row="1" Grid.Column="0"
+        <ListView x:Name="NoteCategoryListView" Grid.Row="1" Grid.Column="1"
                   BorderThickness="0"
                   VerticalAlignment="Bottom"
+                  Style="{StaticResource Note.Category.ListView.Style}"
                   ItemsSource="{Binding NoteCategoryCollection}"
                   SelectedItem="{Binding SelectedNoteCategory.Value}"
                   SelectionChanged="NoteCategoryListView_SelectionChanged"/>
 
-        <WrapPanel Margin="10,10,10,0" Grid.Row="1" Grid.Column="1">
-            <iconPacks:PackIconModern Margin="5,0,5,0"
-                                      Kind="Question"
-                                      VerticalAlignment="Center">
-                <iconPacks:PackIconModern.ToolTip>
-                    <ToolTip controlzex:ToolTipAssist.AutoMove="True">
-                        <ToolTip.Template>
-                            <ControlTemplate>
-                                <Grid>
-                                    <Border Background="White"
-                                            BorderBrush="Black"
-                                            BorderThickness="1"
-                                            Opacity="0.9"
-                                            SnapsToDevicePixels="True" />
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Margin="2"
-                                                   FontSize="16"
-                                                   Foreground="Black"
-                                                   Text=" Click 'SAVE' button or press 'Ctrl+S' can save the content! "
-                                                   TextOptions.TextFormattingMode="Display"
-                                                   TextOptions.TextRenderingMode="ClearType" />
-                                    </StackPanel>
-                                </Grid>
-                            </ControlTemplate>
-                        </ToolTip.Template>
-                    </ToolTip>
-                </iconPacks:PackIconModern.ToolTip>
-            </iconPacks:PackIconModern>
+        <Border Grid.Row="2" Grid.Column="0"
+                BorderBrush="Gray"
+                BorderThickness="0,0,1,0">
+            <ListView x:Name="NoteTypeListView"
+                      Margin="0,0,-1,0"
+                      BorderThickness="0"
+                      HorizontalAlignment="Right"
+                      Style="{StaticResource Note.Type.ListView.Style}"
+                      ItemsSource="{Binding NoteTypeCollection}"
+                      SelectedItem="{Binding SelectedNoteType.Value}"/>
+        </Border>
 
-            <Button Grid.Row="1" Grid.Column="1"
+
+        <WrapPanel Margin="10,10,10,0" Grid.Row="1" Grid.Column="2">
+            <Button Grid.Row="1" Grid.Column="2"
                     Padding="0,0,0,0"
                     Width="30"
                     Height="30"
@@ -266,24 +342,83 @@
             </Button>
         </WrapPanel>
 
-        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                Margin="0,-1,0,0"
+        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                Margin="0,0,0,0"
                 BorderThickness="0,1,0,0"
-                BorderBrush="LightGray">
-            <RichTextBox x:Name="NoteContentRichTextBox"
-                         Margin="2,2,2,0"
-                         BorderThickness="1,1,1,1"
-                         BorderBrush="LightGray"
-                         AcceptsReturn="True"
-                         FontSize="16"
-                         KeyUp="NoteContentRichTextBox_KeyUp"
-                         VerticalScrollBarVisibility="Auto"
-                         HorizontalScrollBarVisibility="Disabled"
-                         helpers:RichTextBoxHelper.DocumentXaml="{Binding SelectedNoteCategory.Value.Content}"
-                         />
+                BorderBrush="Gray">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <WrapPanel Grid.Row="0"
+                           VerticalAlignment="Center">
+                    <iconPacks:PackIconModern Margin="5,0,5,0"
+                                              Kind="Question"
+                                              VerticalAlignment="Center">
+                        <iconPacks:PackIconModern.ToolTip>
+                            <ToolTip controlzex:ToolTipAssist.AutoMove="True">
+                                <ToolTip.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Border Background="White"
+                                            BorderBrush="Black"
+                                            BorderThickness="1"
+                                            Opacity="0.9"
+                                            SnapsToDevicePixels="True" />
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Margin="2"
+                                                   FontSize="16"
+                                                   Foreground="Black"
+                                                   Text=" Click 'SAVE' button or press 'Ctrl+S' can save the content! "
+                                                   TextOptions.TextFormattingMode="Display"
+                                                   TextOptions.TextRenderingMode="ClearType" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ToolTip.Template>
+                            </ToolTip>
+                        </iconPacks:PackIconModern.ToolTip>
+                    </iconPacks:PackIconModern>
+
+                    <TextBlock Text="You can click 'SAVE' button or press 'Ctrl+S' to save the content!"
+                               Foreground="{DynamicResource MahApps.Brushes.Gray4}"
+                               FontSize="14"/>
+                </WrapPanel>
+                
+                <RichTextBox x:Name="NoteContentRichTextBox"
+                             Grid.Row="1"
+                             Margin="2,2,2,0"
+                             BorderThickness="2"
+                             BorderBrush="LightGray"
+                             AcceptsReturn="True"
+                             FontSize="16"
+                             KeyUp="NoteContentRichTextBox_KeyUp"
+                             VerticalScrollBarVisibility="Auto"
+                             HorizontalScrollBarVisibility="Disabled"
+                             helpers:RichTextBoxHelper.DocumentXaml="{Binding SelectedNoteCategory.Value.Content}"/>
+            </Grid>
         </Border>
 
-        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+            <Button x:Name="ConfigypeButton"
+                    Height="40"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    FontSize="16"
+                    Content="Config"
+                    Command="{Binding ConfigTypeCommand}"/>
+            
+            <Button x:Name="SearchButton"
+                    Width="80"
+                    Height="40"
+                    Margin="0,0,100,0"
+                    HorizontalAlignment="Right"
+                    FontSize="16"
+                    Content="Search"
+                    Command="{Binding SearchContentCommand}"/>
+            
             <Button x:Name="SaveButton"
                     Width="80"
                     Height="40"

@@ -21,6 +21,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public ObservableCollection<NoteCategoryUiModel> NoteCategoryCollection { get; set; } = new ObservableCollection<NoteCategoryUiModel>();
 
+        public ObservableCollection<NoteCategoryTypeUiModel> NoteTypeCollection { get; set; } = new ObservableCollection<NoteCategoryTypeUiModel>();
+
         #endregion
 
         #region PrivateProperty
@@ -39,17 +41,25 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public AsyncReactiveCommand SaveContentCommand { get; set; }
 
+        public ReactiveCommand SearchContentCommand { get; set; }
+
+        public ReactiveCommand ConfigTypeCommand { get; set; }
+
         #endregion
 
         #region ReactiveProperty
 
         public ReactiveProperty<NoteCategoryUiModel> SelectedNoteCategory { get; set; }
 
+        public ReactiveProperty<NoteCategoryTypeUiModel> SelectedNoteType { get; set; }
+
         #endregion
 
         #region Request
 
         public InteractionRequest<MethodNotification> AddNoteCategoryRequest { get; set; } = new InteractionRequest<MethodNotification>();
+
+        public InteractionRequest<Notification> ConfigTypeViewRequest { get; set; } = new InteractionRequest<Notification>();
 
         #endregion
 
@@ -69,6 +79,20 @@ namespace ReactiveDemo.ViewModels.MainWindow
             NoteCategoryCollection.AddRange(categoryList);
 
             SelectedNoteCategory.Value = NoteCategoryCollection.FirstOrDefault();
+
+            NoteTypeCollection.Add(new NoteCategoryTypeUiModel
+            {
+                TypeId = 1,
+                TypeName = "test1"
+            });
+
+            NoteTypeCollection.Add(new NoteCategoryTypeUiModel
+            {
+                TypeId = 2,
+                TypeName = "test2"
+            });
+
+            SelectedNoteType.Value = NoteTypeCollection.FirstOrDefault();
         }
 
         protected override void RegisterProperties()
@@ -76,6 +100,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
             base.RegisterProperties();
 
             SelectedNoteCategory = new ReactiveProperty<NoteCategoryUiModel>().AddTo(DisposablePool);
+            SelectedNoteType = new ReactiveProperty<NoteCategoryTypeUiModel>().AddTo(DisposablePool);
         }
 
         protected override void RegisterCommands()
@@ -93,6 +118,12 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
             SaveContentCommand = new AsyncReactiveCommand().AddTo(DisposablePool);
             SaveContentCommand.Subscribe(SaveContent).AddTo(DisposablePool);
+
+            SearchContentCommand = new ReactiveCommand().AddTo(DisposablePool);
+            SearchContentCommand.Subscribe(SearchContent).AddTo(DisposablePool);
+
+            ConfigTypeCommand = new ReactiveCommand().AddTo(DisposablePool);
+            ConfigTypeCommand.Subscribe(ConfigType).AddTo(DisposablePool);
         }
 
         protected override void RegisterPubEvents()
@@ -153,6 +184,18 @@ namespace ReactiveDemo.ViewModels.MainWindow
             if (SelectedNoteCategory.Value == null) return;
 
             await _noteModel.InsertOrUpdateNoteContent(SelectedNoteCategory.Value);
+        }
+
+        private void SearchContent()
+        {
+
+        }
+
+        private void ConfigType()
+        {
+            ConfigTypeViewRequest.Raise(new Notification(), o => {
+                
+            });
         }
 
         #endregion

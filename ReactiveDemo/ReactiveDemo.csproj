@@ -444,6 +444,7 @@
     <Compile Include="Models\UiModel\AccountUiModel.cs" />
     <Compile Include="Models\ReactiveDemoModel.cs" />
     <Compile Include="Models\TestMapperModel.cs" />
+    <Compile Include="Models\UiModel\NoteCategoryTypeUiModel.cs" />
     <Compile Include="Models\UiModel\NoteCategoryUiModel.cs" />
     <Compile Include="ReactiveDemoMapperProfile.cs" />
     <Compile Include="Schema\BaseSchema.cs" />
@@ -476,6 +477,7 @@
     <Compile Include="ViewModels\Component\ButtonGroupDragDropViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MainWindow\ConfigNoteTypeViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\DocumentViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\NoteViewModel.cs" />
@@ -502,6 +504,9 @@
     </Compile>
     <Compile Include="Views\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindow\ConfigNoteTypeView.xaml.cs">
+      <DependentUpon>ConfigNoteTypeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Observer\ObserverView.xaml.cs">
       <DependentUpon>ObserverView.xaml</DependentUpon>
@@ -602,6 +607,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow\ConfigNoteTypeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
