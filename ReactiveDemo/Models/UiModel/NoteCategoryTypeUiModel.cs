@@ -31,6 +31,34 @@ namespace ReactiveDemo.Models.UiModel
             set => SetProperty(ref _description, value);
         }
 
+        private int _createBy;
+        public int CreateBy
+        {
+            get => _createBy;
+            set => SetProperty(ref _createBy, value);
+        }
+
+        private string _createAt;
+        public string CreateAt
+        {
+            get => _createAt;
+            set => SetProperty(ref _createAt, value);
+        }
+
+        private int _updateBy;
+        public int UpdateBy
+        {
+            get => _updateBy;
+            set => SetProperty(ref _updateBy, value);
+        }
+
+        private string _updateAt;
+        public string UpdateAt
+        {
+            get => _updateAt;
+            set => SetProperty(ref _updateAt, value);
+        }
+
         private ObservableCollection<NoteCategoryUiModel> _categoryList = new ObservableCollection<NoteCategoryUiModel>();
         public ObservableCollection<NoteCategoryUiModel> CategoryList
         {

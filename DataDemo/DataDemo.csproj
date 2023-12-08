@@ -43,6 +43,7 @@
     <Compile Include="WebDto\Custom\NoteCategoryCustomWebDto.cs" />
     <Compile Include="WebDto\NoteCategoryWebDto.cs" />
     <Compile Include="WebDto\NoteContentWebDto.cs" />
+    <Compile Include="WebDto\NoteTypeWebDto.cs" />
     <Compile Include="WebDto\UserBasicInfoWebDto.cs" />
     <Compile Include="WebDto\WebDtoBase.cs" />
   </ItemGroup>

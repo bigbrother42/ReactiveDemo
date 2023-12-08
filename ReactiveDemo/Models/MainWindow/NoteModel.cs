@@ -90,5 +90,50 @@ namespace ReactiveDemo.Models.MainWindow
 
             await _noteService.InsertOrUpdateNoteContentAsync(wenDto);
         }
+
+        public async Task<List<NoteCategoryTypeUiModel>> SelectAllNoteTypeList()
+        {
+            var resultList = new List<NoteCategoryTypeUiModel>();
+
+            var webDtoList = await _noteService.SelectAllNoteTypeListAsync();
+            if (!webDtoList.IsNullOrEmpty())
+            {
+                foreach (var webDto in webDtoList)
+                {
+                    resultList.Add(new NoteCategoryTypeUiModel
+                    {
+                        TypeId = webDto.TypeId,
+                        TypeName = webDto.TypeName,
+                        Description = webDto.Description,
+                    });
+                }
+            }
+
+            return resultList;
+        }
+
+        public async Task<int> InsertOrUpdateNoteTypeList(List<NoteCategoryTypeUiModel> screenModelList)
+        {
+            if (screenModelList.IsNullOrEmpty()) return 0;
+
+            var webDtoList = new List<NoteTypeWebDto>();
+            foreach (var screenModel in screenModelList)
+            {
+                webDtoList.Add(new NoteTypeWebDto
+                {
+                    TypeId = screenModel.TypeId,
+                    TypeName = screenModel.TypeName,
+                    Description = screenModel.Description,
+                    CreateAt = DateTime.Now,
+                    UpdateAt = DateTime.Now,
+                    CreateBy = LoginInfo.UserBasicInfo.UserId,
+                    UpdateBy = LoginInfo.UserBasicInfo.UserId
+                });
+            }
+
+            var updateList = await _noteService.InsertOrUpdateNoteTypeListAsync(webDtoList);
+
+            return updateList.Count;
+        }
     }
 }

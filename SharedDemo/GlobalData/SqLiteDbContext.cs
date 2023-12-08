@@ -20,6 +20,8 @@ namespace SharedDemo.GlobalData
 
         public DbSet<NoteContentWebDto> NoteContent { get; set; }
 
+        public DbSet<NoteTypeWebDto> NoteType { get; set; }
+
         public SqLiteDbContext()
         {
 
@@ -79,6 +81,16 @@ namespace SharedDemo.GlobalData
                 e.Property(o => o.UserId).IsRequired();
                 e.Property(o => o.ContentId).IsRequired();
                 e.Property(o => o.CategoryId).IsRequired();
+            });
+
+            modelBuilder.Entity<NoteTypeWebDto>().HasKey(o => o.Id);
+            modelBuilder.Entity<NoteTypeWebDto>(e =>
+            {
+                e.Property(o => o.Id).IsRequired();
+                e.Property(o => o.UserId).IsRequired();
+                e.Property(o => o.TypeId).IsRequired();
+                e.Property(o => o.TypeName).IsRequired();
+                e.Property(o => o.Description).IsRequired();
             });
 
             modelBuilder.SetDefaultValueSql(GetType().GetAllSetProperties(), "CURRENT_TIMESTAMP", "CreatedAt", "UpdatedAt");

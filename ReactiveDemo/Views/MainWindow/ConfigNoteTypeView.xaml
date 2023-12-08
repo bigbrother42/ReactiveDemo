@@ -41,6 +41,10 @@
                 <DataGridTextColumn Binding="{Binding TypeId}" Header="Id" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding TypeName, UpdateSourceTrigger=PropertyChanged}" Header="TypeName"/>
                 <DataGridTextColumn Binding="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Header="Description"/>
+                <DataGridTextColumn Binding="{Binding CreateBy}" Header="CreateBy" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding CreateAt}" Header="CreateAt" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding UpdateBy}" Header="UpdateBy" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding UpdateAt}" Header="UpdateAt" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
 

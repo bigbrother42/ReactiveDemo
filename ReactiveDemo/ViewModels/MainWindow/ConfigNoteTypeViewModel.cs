@@ -1,5 +1,7 @@
-﻿using Reactive.Bindings;
+﻿using BaseDemo.Util.Extensions;
+using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
+using ReactiveDemo.Models.MainWindow;
 using ReactiveDemo.Models.UiModel;
 using System;
 using System.Collections.Generic;
@@ -20,7 +22,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         #region PrivateProperty
 
-
+        private NoteModel _noteModel = new NoteModel();
 
         #endregion
 
@@ -50,9 +52,15 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         #region Override
 
-        protected override void InitData()
+        protected override async void InitData()
         {
             base.InitData();
+
+            var dbList = await _noteModel.SelectAllNoteTypeList();
+            if (!dbList.IsNullOrEmpty())
+            {
+                NoteTypeCollection.AddRange(dbList);
+            }
 
             NoteTypeCollection.Add(new NoteCategoryTypeUiModel
             {

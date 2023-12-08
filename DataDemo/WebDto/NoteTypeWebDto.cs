@@ -7,20 +7,21 @@ using System.Threading.Tasks;
 
 namespace DataDemo.WebDto
 {
-    [JsonObject]
-    [Serializable]
-    public class NoteCategoryWebDto : WebDtoBase
+    public class NoteTypeWebDto : WebDtoBase
     {
+        [JsonProperty("Id")]
+        public int Id { get; set; }
+
         [JsonProperty("UserId")]
         public int UserId { get; set; }
 
         [JsonProperty("TypeId")]
         public int TypeId { get; set; }
 
-        [JsonProperty("CategoryId")]
-        public int CategoryId { get; set; }
+        [JsonProperty("TypeName")]
+        public string TypeName { get; set; }
 
-        [JsonProperty("CategoryName")]
-        public string CategoryName { get; set; }
+        [JsonProperty("Description")]
+        public string Description { get; set; }
     }
 }
