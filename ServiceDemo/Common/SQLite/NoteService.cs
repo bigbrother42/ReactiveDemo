@@ -38,7 +38,7 @@ namespace ServiceDemo.Common.SQLite
                 // update
                 var taskResult = await Task.Run(() =>
                 {
-                    var existItem = SqLiteDbContext.NoteCategory.FirstOrDefault(o => o.CategoryId == param.CategoryId);
+                    var existItem = SqLiteDbContext.NoteCategory.FirstOrDefault(o => o.TypeId == param.TypeId && o.CategoryId == param.CategoryId);
                     if (existItem != null)
                     {
                         existItem.CategoryName = param.CategoryName;
@@ -60,7 +60,7 @@ namespace ServiceDemo.Common.SQLite
         {
             if (param == null) return null;
 
-            var existContent = SqLiteDbContext.NoteContent.FirstOrDefault(o => o.CategoryId == param.CategoryId);
+            var existContent = SqLiteDbContext.NoteContent.FirstOrDefault(o => o.TypeId == param.TypeId && o.CategoryId == param.CategoryId);
             if (existContent == null)
             {
                 // insert
@@ -116,14 +116,14 @@ namespace ServiceDemo.Common.SQLite
         {
             if (param == null) return 0;
 
-            var deleteItem = SqLiteDbContext.NoteCategory.Find(param.CategoryId);
+            var deleteItem = SqLiteDbContext.NoteCategory.FirstOrDefault(o => o.TypeId == param.TypeId && o.CategoryId == param.CategoryId);
 
             if (deleteItem != null)
             {
                 SqLiteDbContext.NoteCategory.Remove(deleteItem);
 
                 // remove content
-                var deleteContentItem = SqLiteDbContext.NoteContent.FirstOrDefault(o => o.CategoryId == deleteItem.CategoryId);
+                var deleteContentItem = SqLiteDbContext.NoteContent.FirstOrDefault(o => o.TypeId == deleteItem.TypeId && o.CategoryId == deleteItem.CategoryId);
                 if (deleteContentItem != null)
                 {
                     SqLiteDbContext.NoteContent.Remove(deleteContentItem);
@@ -158,15 +158,21 @@ namespace ServiceDemo.Common.SQLite
                              nc.UpdateBy,
                              nc.UpdateAt
                             FROM NoteCategory nc
-                            WHERE nc.CategoryId = @CategoryId";
+                            WHERE nc.CategoryId = @CategoryId AND nc.TypeId = @TypeId";
 
                 var noteCategoryModelList = SqLiteDbContext.Database.ExecuteRawSqlQueryAutoMapper<NoteCategoryWebDto>(sql, dbCommand =>
                 {
-                    var userNameParam = dbCommand.CreateParameter();
-                    userNameParam.ParameterName = "@CategoryId";
-                    userNameParam.DbType = DbType.Int32;
-                    userNameParam.Value = param.CategoryId;
-                    dbCommand.Parameters.Add(userNameParam);
+                    var categoryIdParam = dbCommand.CreateParameter();
+                    categoryIdParam.ParameterName = "@CategoryId";
+                    categoryIdParam.DbType = DbType.Int32;
+                    categoryIdParam.Value = param.CategoryId;
+                    dbCommand.Parameters.Add(categoryIdParam);
+
+                    var typeIdParam = dbCommand.CreateParameter();
+                    typeIdParam.ParameterName = "@TypeId";
+                    typeIdParam.DbType = DbType.Int32;
+                    typeIdParam.Value = param.TypeId;
+                    dbCommand.Parameters.Add(typeIdParam);
                 });
 
                 return noteCategoryModelList;
@@ -195,7 +201,7 @@ namespace ServiceDemo.Common.SQLite
                              nc2.Content
                             FROM NoteCategory nc
                             LEFT JOIN NoteContent nc2
-                            ON nc.CategoryId = nc2.CategoryId";
+                            ON nc.CategoryId = nc2.CategoryId AND nc.TypeId = nc2.TypeId";
 
                 var noteCategoryModelList = SqLiteDbContext.Database.ExecuteRawSqlQueryAutoMapper<NoteCategoryCustomWebDto>(sql);
 

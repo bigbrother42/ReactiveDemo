@@ -21,6 +21,7 @@ namespace ReactiveDemo.Models.MainWindow
             var webDto = new NoteCategoryWebDto
             {
                 UserId = LoginInfo.UserBasicInfo.UserId,
+                TypeId = noteCategoryUiModel.TypeId,
                 CategoryId = noteCategoryUiModel.CategorySeq,
                 CategoryName = noteCategoryUiModel.CategoryName,
                 CreateAt = DateTime.Now,
@@ -37,6 +38,7 @@ namespace ReactiveDemo.Models.MainWindow
             var webDto = new NoteCategoryWebDto
             {
                 UserId = LoginInfo.UserBasicInfo.UserId,
+                TypeId = noteCategoryUiModel.TypeId,
                 CategoryId = noteCategoryUiModel.CategorySeq,
                 CategoryName = noteCategoryUiModel.CategoryName,
                 CreateAt = DateTime.Now,
@@ -59,6 +61,7 @@ namespace ReactiveDemo.Models.MainWindow
                 {
                     var uiModle = new NoteCategoryUiModel
                     {
+                        TypeId = noteCategoryWebDto.TypeId,
                         CategorySeq = noteCategoryWebDto.CategoryId,
                         CategoryName = noteCategoryWebDto.CategoryName
                     };

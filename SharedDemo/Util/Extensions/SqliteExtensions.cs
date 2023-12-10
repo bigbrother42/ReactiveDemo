@@ -29,17 +29,17 @@ namespace SharedDemo.Util
         /// <summary>
         /// SQLite path
         /// </summary>
-        public static readonly string DbPath = $@"{System.Windows.Forms.Application.StartupPath}\..\data\db\karte";
+        public static readonly string DbPath = $@"{System.Windows.Forms.Application.StartupPath}\..\data\db\note";
 
         /// <summary>
         /// SQLite Name
         /// </summary>
-        public static readonly string SQLiteName = "karte.sqlite3";
+        public static readonly string SQLiteName = "note.sqlite3";
 
         /// <summary>
         /// Password file name
         /// </summary>
-        public static readonly string Mpp = "karte.mpp";
+        public static readonly string Mpp = "note.mpp";
 
         /// <summary>
         /// Get sqlite password from local file

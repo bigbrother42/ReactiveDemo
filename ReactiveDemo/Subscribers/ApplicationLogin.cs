@@ -1,4 +1,5 @@
 ﻿using ReactiveDemo.Events;
+using ReactiveDemo.Views;
 using ReactiveDemo.Views.Login;
 using System;
 using Unity;
@@ -18,6 +19,7 @@ namespace ReactiveDemo.Subscribers
         private void ShowLogin(int args)
         {
             var window = Container.Resolve<LoginView>();
+            //var window = Container.Resolve<MainWindowView>();
             window.ShowDialog();
         }
     }

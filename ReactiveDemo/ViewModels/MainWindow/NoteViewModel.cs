@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
@@ -18,8 +19,6 @@ namespace ReactiveDemo.ViewModels.MainWindow
     public class NoteViewModel : ViewModelBase
     {
         #region Field
-
-        public ObservableCollection<NoteCategoryUiModel> NoteCategoryCollection { get; set; } = new ObservableCollection<NoteCategoryUiModel>();
 
         public ObservableCollection<NoteCategoryTypeUiModel> NoteTypeCollection { get; set; } = new ObservableCollection<NoteCategoryTypeUiModel>();
 
@@ -75,24 +74,23 @@ namespace ReactiveDemo.ViewModels.MainWindow
         {
             base.InitData();
 
-            var categoryList = await _noteModel.SelectAllNoteCategory();
-            NoteCategoryCollection.AddRange(categoryList);
-
-            SelectedNoteCategory.Value = NoteCategoryCollection.FirstOrDefault();
-
-            NoteTypeCollection.Add(new NoteCategoryTypeUiModel
+            var typeList = await _noteModel.SelectAllNoteTypeList();
+            if (!typeList.IsNullOrEmpty())
             {
-                TypeId = 1,
-                TypeName = "test1"
-            });
+                NoteTypeCollection.AddRange(typeList);
 
-            NoteTypeCollection.Add(new NoteCategoryTypeUiModel
-            {
-                TypeId = 2,
-                TypeName = "test2"
-            });
+                var categoryList = await _noteModel.SelectAllNoteCategory();
+                if (!categoryList.IsNullOrEmpty())
+                {
+                    foreach (var type in NoteTypeCollection)
+                    {
+                        type.CategoryList.AddRange(categoryList.Where(o => o.TypeId == type.TypeId));
+                    }
 
-            SelectedNoteType.Value = NoteTypeCollection.FirstOrDefault();
+                    SelectedNoteType.Value = NoteTypeCollection.FirstOrDefault();
+                    SelectedNoteCategory.Value = SelectedNoteType.Value.CategoryList.FirstOrDefault();
+                }
+            }
         }
 
         protected override void RegisterProperties()
@@ -101,6 +99,16 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
             SelectedNoteCategory = new ReactiveProperty<NoteCategoryUiModel>().AddTo(DisposablePool);
             SelectedNoteType = new ReactiveProperty<NoteCategoryTypeUiModel>().AddTo(DisposablePool);
+
+            SelectedNoteType.Skip(1).Subscribe(o =>
+            {
+                if (o == null) return;
+
+                if (!o.CategoryList.IsNullOrEmpty())
+                {
+                    SelectedNoteCategory.Value = o.CategoryList.FirstOrDefault();
+                }
+            }).AddTo(DisposablePool);
         }
 
         protected override void RegisterCommands()
@@ -142,15 +150,16 @@ namespace ReactiveDemo.ViewModels.MainWindow
                 SelectedNoteCategory.Value.IsEdit = false;
             }
 
-            var newCategorySeq = NoteCategoryCollection.Count() == 0 ? 1 : NoteCategoryCollection.Max(o => o.CategorySeq) + 1;
+            var newCategorySeq = SelectedNoteType.Value.CategoryList.Count() == 0 ? 1 : SelectedNoteType.Value.CategoryList.Max(o => o.CategorySeq) + 1;
 
             var newCategory = new NoteCategoryUiModel
             {
-                CategorySeq = newCategorySeq,
+                TypeId = SelectedNoteType.Value.TypeId,
+                //CategorySeq = newCategorySeq,
                 CategoryName = "New Category"
             };
 
-            NoteCategoryCollection.Add(newCategory);
+            SelectedNoteType.Value.CategoryList.Add(newCategory);
             SelectedNoteCategory.Value = newCategory;
 
             if (SelectedNoteCategory.Value != null)
@@ -168,7 +177,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
             var deleteNum = await _noteModel.DeleteNoteCategory(deleteItem);
             if (deleteNum > 0)
             {
-                NoteCategoryCollection.ExRemoveAll(o => o.CategorySeq == deleteItem.CategorySeq);
+                SelectedNoteType.Value.CategoryList.ExRemoveAll(o => o.TypeId == deleteItem.TypeId && o.CategorySeq == deleteItem.CategorySeq);
             }
         }
 

@@ -34,7 +34,8 @@
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Content="Reactive&#xa;  Demo"
-                    Command="{Binding ReactiveDemoCommand}"/>
+                    Command="{Binding ReactiveDemoCommand}"
+                    Visibility="Collapsed"/>
         </WrapPanel>
     </Grid>
 </UserControl>

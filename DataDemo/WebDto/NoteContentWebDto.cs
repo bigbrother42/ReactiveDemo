@@ -14,6 +14,9 @@ namespace DataDemo.WebDto
         [JsonProperty("UserId")]
         public int UserId { get; set; }
 
+        [JsonProperty("TypeId")]
+        public int TypeId { get; set; }
+
         [JsonProperty("ContentId")]
         public int ContentId { get; set; }
 

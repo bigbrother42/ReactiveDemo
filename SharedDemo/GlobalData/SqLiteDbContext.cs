@@ -79,6 +79,7 @@ namespace SharedDemo.GlobalData
             modelBuilder.Entity<NoteContentWebDto>(e =>
             {
                 e.Property(o => o.UserId).IsRequired();
+                e.Property(o => o.TypeId).IsRequired();
                 e.Property(o => o.ContentId).IsRequired();
                 e.Property(o => o.CategoryId).IsRequired();
             });

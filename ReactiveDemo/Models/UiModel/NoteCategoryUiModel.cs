@@ -10,6 +10,13 @@ namespace ReactiveDemo.Models.UiModel
 {
     public class NoteCategoryUiModel : BindableBase
     {
+        private int _typeId;
+        public int TypeId
+        {
+            get => _typeId;
+            set => SetProperty(ref _typeId, value);
+        }
+
         private int _categorySeq;
         public int CategorySeq
         {

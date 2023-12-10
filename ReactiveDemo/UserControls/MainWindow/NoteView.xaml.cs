@@ -29,6 +29,7 @@ namespace ReactiveDemo.UserControls.MainWindow
     public partial class NoteView : UserControl
     {
         private string _originalName = string.Empty;
+        private bool isInit;
 
         public NoteView()
         {
@@ -50,7 +51,7 @@ namespace ReactiveDemo.UserControls.MainWindow
             }
         }
 
-        private void EditTextBox_LostFocus(object sender, RoutedEventArgs e)
+        private async void EditTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (DataContext is NoteViewModel vm
                 && sender is TextBox textBox
@@ -64,7 +65,9 @@ namespace ReactiveDemo.UserControls.MainWindow
 
                 if (string.Equals(_originalName, textBox.Text) && !string.Equals("New Category", textBox.Text)) return;
 
-                new NoteModel().InsertOrUpdateNoteCategory(noteCategoryUiModel);
+                if (!isInit) return;
+
+                await new NoteModel().InsertOrUpdateNoteCategory(noteCategoryUiModel);
 
                 e.Handled = true;
                 noteCategoryUiModel.IsEdit = false;
@@ -138,15 +141,8 @@ namespace ReactiveDemo.UserControls.MainWindow
         {
             if (sender is TextBox textBox)
             {
-                if (textBox.Visibility == Visibility.Visible)
-                {
-                    textBox.Focus();
-                    textBox.SelectAll();
-                }
-                else if (textBox.Visibility == Visibility.Collapsed)
-                {
-                    textBox.RaiseEvent(new RoutedEventArgs(LostFocusEvent));
-                }
+                isInit = true;
+                _originalName = textBox.Text;
             }
         }
 
