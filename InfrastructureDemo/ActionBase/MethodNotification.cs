@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+﻿using Prism.Interactivity.InteractionRequest;
 using System;
 using System.Collections.Generic;
 using System.Linq;

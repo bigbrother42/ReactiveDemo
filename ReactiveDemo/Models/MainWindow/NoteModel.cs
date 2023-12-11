@@ -50,32 +50,44 @@ namespace ReactiveDemo.Models.MainWindow
             return await _noteService.DeleteNoteCategoryAsync(webDto);
         }
 
-        public async Task<List<NoteCategoryUiModel>> SelectAllNoteCategory()
+        public async Task<List<NoteCategoryTypeUiModel>> SelectAllNoteCategory()
         {
-            var noteCategoryWebDtoList = await _noteService.SelectAllNoteCategoryListAsync();
+            var noteCustomerWebDtoList = await _noteService.SelectAllNoteCategoryListAsync();
 
-            var customCategoryList = new List<NoteCategoryUiModel>();
-            if (!noteCategoryWebDtoList.IsNullOrEmpty())
+            var customTypeList = new List<NoteCategoryTypeUiModel>();
+            if (!noteCustomerWebDtoList.IsNullOrEmpty())
             {
-                foreach (var noteCategoryWebDto in noteCategoryWebDtoList)
+                var typeGroup = noteCustomerWebDtoList.GroupBy(o => new { o.TypeId, o.TypeName });
+
+                foreach (var type in typeGroup)
                 {
-                    var uiModle = new NoteCategoryUiModel
+                    var typeUiModel = new NoteCategoryTypeUiModel
                     {
-                        TypeId = noteCategoryWebDto.TypeId,
-                        CategorySeq = noteCategoryWebDto.CategoryId,
-                        CategoryName = noteCategoryWebDto.CategoryName
+                        TypeId = type.Key.TypeId,
+                        TypeName = type.Key.TypeName
                     };
 
-                    if (!noteCategoryWebDto.Content.IsNullOrEmpty())
+                    foreach (var typeItem in type.AsParallel())
                     {
-                        uiModle.Content = noteCategoryWebDto.Content;
+                        if (typeItem.CategoryId == 0) continue;
+                        
+                        var categoryUiModel = new NoteCategoryUiModel
+                        {
+                            TypeId = typeItem.TypeId,
+                            CategorySeq = typeItem.CategoryId,
+                            CategoryName = typeItem.CategoryName,
+                            ContentId = typeItem.ContentId,
+                            Content = typeItem.Content
+                        };
+
+                        typeUiModel.CategoryList.Add(categoryUiModel);
                     }
 
-                    customCategoryList.Add(uiModle);
+                    customTypeList.Add(typeUiModel);
                 }
             }
 
-            return customCategoryList;
+            return customTypeList;
         }
 
         public async Task InsertOrUpdateNoteContent(NoteCategoryUiModel noteCategoryUiModel)
@@ -84,6 +96,8 @@ namespace ReactiveDemo.Models.MainWindow
             {
                 UserId = LoginInfo.UserBasicInfo.UserId,
                 CategoryId = noteCategoryUiModel.CategorySeq,
+                TypeId = noteCategoryUiModel.TypeId,
+                ContentId = noteCategoryUiModel.ContentId,
                 Content = noteCategoryUiModel.Content,
                 CreateAt = DateTime.Now,
                 UpdateAt = DateTime.Now,

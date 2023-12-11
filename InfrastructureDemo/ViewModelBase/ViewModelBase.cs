@@ -1,15 +1,17 @@
-﻿namespace ReactiveDemo.ViewModels
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Reactive.Disposables;
-    using CommonServiceLocator;
-    using Prism.Commands;
-    using Prism.Events;
-    using Prism.Mvvm;
-    using Reactive.Bindings.Extensions;
-    using Unity;
+﻿using System;
+using System.Collections.Generic;
+using System.Reactive.Disposables;
+using CommonServiceLocator;
+using Newtonsoft.Json;
+using Prism.Commands;
+using Prism.Events;
+using Prism.Mvvm;
+using Prism.Interactivity.InteractionRequest;
+using Reactive.Bindings.Extensions;
+using Unity;
 
+namespace ReactiveDemo.ViewModels
+{
     public class ViewModelBase : BindableBase
     {
         public CompositeDisposable DisposablePool { get; }
@@ -22,6 +24,14 @@
 
         public DelegateCommand FinishInteractionCommand { get; set; }
         public Action FinishInteraction { get; set; }
+
+        private INotification _notification;
+        [JsonIgnore]
+        public INotification Notification
+        {
+            get => _notification;
+            set => SetProperty(ref _notification, value);
+        }
 
         public ViewModelBase()
         {

@@ -174,7 +174,7 @@
                                     Width="{TemplateBinding Width}"
                                     CornerRadius="5,0,0,5">
                                 <TextBlock x:Name="DisplayTextBlock"
-                                           Padding="5,11,0,0"
+                                           Padding="5,8,0,0"
                                            Height="{TemplateBinding Height}"
                                            Width="{TemplateBinding Width}"
                                            VerticalAlignment="{TemplateBinding VerticalAlignment}"

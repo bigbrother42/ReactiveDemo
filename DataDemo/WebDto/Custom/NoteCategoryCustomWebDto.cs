@@ -17,6 +17,9 @@ namespace DataDemo.WebDto.Custom
         [JsonProperty("TypeId")]
         public int TypeId { get; set; }
 
+        [JsonProperty("TypeName")]
+        public string TypeName { get; set; }
+
         [JsonProperty("CategoryId")]
         public int CategoryId { get; set; }
 

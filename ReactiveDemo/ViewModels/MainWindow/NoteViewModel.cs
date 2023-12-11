@@ -1,5 +1,5 @@
 ﻿using BaseDemo.Util.Extensions;
-using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+using Prism.Interactivity.InteractionRequest;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactiveDemo.Base.ActionBase;
@@ -74,22 +74,13 @@ namespace ReactiveDemo.ViewModels.MainWindow
         {
             base.InitData();
 
-            var typeList = await _noteModel.SelectAllNoteTypeList();
-            if (!typeList.IsNullOrEmpty())
+            var typeUiModelList = await _noteModel.SelectAllNoteCategory();
+            if (!typeUiModelList.IsNullOrEmpty())
             {
-                NoteTypeCollection.AddRange(typeList);
+                NoteTypeCollection.AddRange(typeUiModelList);
 
-                var categoryList = await _noteModel.SelectAllNoteCategory();
-                if (!categoryList.IsNullOrEmpty())
-                {
-                    foreach (var type in NoteTypeCollection)
-                    {
-                        type.CategoryList.AddRange(categoryList.Where(o => o.TypeId == type.TypeId));
-                    }
-
-                    SelectedNoteType.Value = NoteTypeCollection.FirstOrDefault();
-                    SelectedNoteCategory.Value = SelectedNoteType.Value.CategoryList.FirstOrDefault();
-                }
+                SelectedNoteType.Value = NoteTypeCollection.FirstOrDefault();
+                SelectedNoteCategory.Value = SelectedNoteType.Value.CategoryList.FirstOrDefault();
             }
         }
 
@@ -155,7 +146,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
             var newCategory = new NoteCategoryUiModel
             {
                 TypeId = SelectedNoteType.Value.TypeId,
-                //CategorySeq = newCategorySeq,
+                CategorySeq = newCategorySeq,
+                ContentId = newCategorySeq,
                 CategoryName = "New Category"
             };
 
@@ -202,8 +194,28 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         private void ConfigType()
         {
-            ConfigTypeViewRequest.Raise(new Notification(), o => {
-                
+            ConfigTypeViewRequest.Raise(new Notification(), notification => {
+                if (notification.Content is ObservableCollection<NoteCategoryTypeUiModel> typeUiModelList)
+                {
+                    var needAddTypeList = typeUiModelList.Where(o => NoteTypeCollection.All(x => o.TypeId != x.TypeId)).ToList();
+                    if (!needAddTypeList.IsNullOrEmpty())
+                    {
+                        NoteTypeCollection.AddRange(needAddTypeList);
+                    }
+
+                    var needUpdateTypeList = typeUiModelList.Where(o => NoteTypeCollection.Any(x => o.TypeId == x.TypeId && !string.Equals(o.TypeName, x.TypeName))).ToList();
+                    if (!needUpdateTypeList.IsNullOrEmpty())
+                    {
+                        foreach (var needUpdateType in needUpdateTypeList)
+                        {
+                            var screenItem = NoteTypeCollection.FirstOrDefault(o => o.TypeId == needUpdateType.TypeId);
+                            if (screenItem != null)
+                            {
+                                screenItem.TypeName = needUpdateType.TypeName;
+                            }
+                        }
+                    }
+                }
             });
         }
 

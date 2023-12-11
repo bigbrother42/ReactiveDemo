@@ -71,6 +71,7 @@ namespace SharedDemo.GlobalData
             modelBuilder.Entity<NoteCategoryWebDto>(e =>
             {
                 e.Property(o => o.UserId).IsRequired();
+                e.Property(o => o.TypeId).IsRequired();
                 e.Property(o => o.CategoryId).IsRequired();
                 e.Property(o => o.CategoryName).IsRequired();
             });
@@ -80,14 +81,14 @@ namespace SharedDemo.GlobalData
             {
                 e.Property(o => o.UserId).IsRequired();
                 e.Property(o => o.TypeId).IsRequired();
+                e.Property(o => o.CategoryId).IsRequired();
                 e.Property(o => o.ContentId).IsRequired();
                 e.Property(o => o.CategoryId).IsRequired();
             });
 
-            modelBuilder.Entity<NoteTypeWebDto>().HasKey(o => o.Id);
+            modelBuilder.Entity<NoteTypeWebDto>().HasKey(o => o.TypeId);
             modelBuilder.Entity<NoteTypeWebDto>(e =>
             {
-                e.Property(o => o.Id).IsRequired();
                 e.Property(o => o.UserId).IsRequired();
                 e.Property(o => o.TypeId).IsRequired();
                 e.Property(o => o.TypeName).IsRequired();

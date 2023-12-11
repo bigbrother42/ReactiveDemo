@@ -7,7 +7,9 @@
     using System.Windows.Controls;
     using System.Windows.Interactivity;
     using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+    using Prism.Interactivity.InteractionRequest;
     using ViewModels;
+    using InteractionRequestedEventArgs = Prism.Interactivity.InteractionRequest.InteractionRequestedEventArgs;
 
     public class AlertWindowAction : TriggerAction<FrameworkElement>
     {
@@ -37,6 +39,12 @@
 
         protected override void Invoke(object parameter)
         {
+            INotification notification = null;
+            if (parameter is InteractionRequestedEventArgs arg)
+            {
+                notification = arg.Context;
+            }
+
             Assembly ass = GetAssemblyByClassName(WindowName);
 
             if (ass != null)
@@ -51,6 +59,11 @@
 
                 if (win != null)
                 {
+                    if (win.DataContext is ViewModelBase vbb)
+                    {
+                        vbb.Notification = notification;
+                    }
+
                     AttachOtherProperties(win, parameter);
 
                     win.WindowState = WindowState.Normal;
@@ -63,9 +76,11 @@
         protected void AttachOtherProperties(Window win, object parameter)
         {
             Action callback = null;
+            INotification notification = null;
             if (parameter is InteractionRequestedEventArgs args)
             {
                 callback = args.Callback;
+                notification = args.Context;
             }
 
             if (callback != null)
@@ -82,6 +97,8 @@
 
             if (win.DataContext is ViewModelBase viewModelBase)
             {
+                viewModelBase.Notification = notification;
+
                 viewModelBase.FinishInteraction = () =>
                 {
                     win.Close();

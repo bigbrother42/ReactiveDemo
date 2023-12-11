@@ -94,6 +94,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
         {
             await _noteModel.InsertOrUpdateNoteTypeList(NoteTypeCollection.ToList());
 
+            Notification.Content = NoteTypeCollection;
+
             CloseWindow();
         }
 

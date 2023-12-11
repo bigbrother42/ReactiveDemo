@@ -1,6 +1,5 @@
 ﻿using BaseDemo.Util;
 using InfrastructureDemo.Util;
-using Prism.Services.Dialogs;
 using ReactiveDemo.Models.MainWindow;
 using ReactiveDemo.Models.UiModel;
 using ReactiveDemo.ViewModels.MainWindow;

@@ -38,6 +38,13 @@ namespace ReactiveDemo.Models.UiModel
             set => SetProperty(ref _isEdit, value);
         }
 
+        private int _contentId;
+        public int ContentId
+        {
+            get => _contentId;
+            set => SetProperty(ref _contentId, value);
+        }
+
         private string _content;
         public string Content
         {

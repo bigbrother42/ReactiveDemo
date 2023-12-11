@@ -9,9 +9,6 @@ namespace DataDemo.WebDto
 {
     public class NoteTypeWebDto : WebDtoBase
     {
-        [JsonProperty("Id")]
-        public int Id { get; set; }
-
         [JsonProperty("UserId")]
         public int UserId { get; set; }
 

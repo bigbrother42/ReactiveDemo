@@ -1,5 +1,5 @@
 ﻿using BaseDemo.Util;
-using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+using Prism.Interactivity.InteractionRequest;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactiveDemo.Base.ActionBase;

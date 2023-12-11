@@ -1,17 +1,18 @@
-﻿namespace ReactiveDemo.ViewModels
-{
-    using System;
-    using System.Reactive.Disposables;
-    using AutoMapper;
-    using BaseDemo.Util;
-    using Events;
-    using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
-    using Models;
-    using Reactive.Bindings;
-    using Reactive.Bindings.Extensions;
-    using ReactiveDemo.Base.ActionBase;
-    using ReactiveDemo.Util;
+﻿using System;
+using System.Reactive.Disposables;
+using AutoMapper;
+using BaseDemo.Util;
+using Infragistics.Windows.Controls.Events;
+using ReactiveDemo.Models;
+using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
+using ReactiveDemo.Base.ActionBase;
+using ReactiveDemo.Util;
+using Prism.Interactivity.InteractionRequest;
+using ReactiveDemo.Events;
 
+namespace ReactiveDemo.ViewModels
+{
     public class ReactiveDemoViewModel : ViewModelBase
     {
         #region ReactiveCommand

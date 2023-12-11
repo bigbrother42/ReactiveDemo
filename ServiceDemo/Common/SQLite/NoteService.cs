@@ -19,39 +19,29 @@ namespace ServiceDemo.Common.SQLite
         {
             if (param == null) return null;
 
-            var existCategoryList = await SelectNoteCategoryListAsync(param);
+            var existCategoryItem = SqLiteDbContext.NoteCategory.FirstOrDefault(o => o.TypeId == param.TypeId && o.CategoryId == param.CategoryId);
 
-            if (existCategoryList.IsNullOrEmpty())
+            if (existCategoryItem == null)
             {
                 // insert
                 SqLiteDbContext.NoteCategory.Add(param);
-
-                var taskResult = await Task.Run(() =>
-                {
-                    SqLiteDbContext.SaveChanges();
-
-                    return param;
-                });
             }
             else
             {
                 // update
-                var taskResult = await Task.Run(() =>
+                var existItem = SqLiteDbContext.NoteCategory.FirstOrDefault(o => o.TypeId == param.TypeId && o.CategoryId == param.CategoryId);
+                if (existItem != null)
                 {
-                    var existItem = SqLiteDbContext.NoteCategory.FirstOrDefault(o => o.TypeId == param.TypeId && o.CategoryId == param.CategoryId);
-                    if (existItem != null)
-                    {
-                        existItem.CategoryName = param.CategoryName;
-                        SqLiteDbContext.SaveChanges();
-
-                        return param;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                });
+                    existItem.CategoryName = param.CategoryName;
+                }
             }
+
+            var taskResult = await Task.Run(() =>
+            {
+                SqLiteDbContext.SaveChanges();
+
+                return param;
+            });
 
             return null;
         }
@@ -123,10 +113,10 @@ namespace ServiceDemo.Common.SQLite
                 SqLiteDbContext.NoteCategory.Remove(deleteItem);
 
                 // remove content
-                var deleteContentItem = SqLiteDbContext.NoteContent.FirstOrDefault(o => o.TypeId == deleteItem.TypeId && o.CategoryId == deleteItem.CategoryId);
-                if (deleteContentItem != null)
+                var deleteContentItemList = SqLiteDbContext.NoteContent.Where(o => o.TypeId == deleteItem.TypeId && o.CategoryId == deleteItem.CategoryId);
+                if (!deleteContentItemList.IsNullOrEmpty())
                 {
-                    SqLiteDbContext.NoteContent.Remove(deleteContentItem);
+                    SqLiteDbContext.NoteContent.RemoveRange(deleteContentItemList);
                 }
 
                 var taskResult = await Task.Run(() =>
@@ -140,52 +130,6 @@ namespace ServiceDemo.Common.SQLite
             return 0;
         }
 
-        public async Task<List<NoteCategoryWebDto>> SelectNoteCategoryListAsync(NoteCategoryWebDto param)
-        {
-            if (param == null) return new List<NoteCategoryWebDto>(); 
-
-            var noteCategoryList = new List<NoteCategoryWebDto>();
-
-            var taskResult = await Task.Run(() =>
-            {
-                var sql = @"SELECT 
-                             nc.UserId,
-                             nc.TypeId,
-                             nc.CategoryId,
-                             nc.CategoryName, 
-                             nc.CreateBy,
-                             nc.CreateAt,
-                             nc.UpdateBy,
-                             nc.UpdateAt
-                            FROM NoteCategory nc
-                            WHERE nc.CategoryId = @CategoryId AND nc.TypeId = @TypeId";
-
-                var noteCategoryModelList = SqLiteDbContext.Database.ExecuteRawSqlQueryAutoMapper<NoteCategoryWebDto>(sql, dbCommand =>
-                {
-                    var categoryIdParam = dbCommand.CreateParameter();
-                    categoryIdParam.ParameterName = "@CategoryId";
-                    categoryIdParam.DbType = DbType.Int32;
-                    categoryIdParam.Value = param.CategoryId;
-                    dbCommand.Parameters.Add(categoryIdParam);
-
-                    var typeIdParam = dbCommand.CreateParameter();
-                    typeIdParam.ParameterName = "@TypeId";
-                    typeIdParam.DbType = DbType.Int32;
-                    typeIdParam.Value = param.TypeId;
-                    dbCommand.Parameters.Add(typeIdParam);
-                });
-
-                return noteCategoryModelList;
-            });
-
-            if (!taskResult.IsNullOrEmpty())
-            {
-                noteCategoryList.AddRange(taskResult);
-            }
-
-            return noteCategoryList;
-        }
-
         public async Task<List<NoteCategoryCustomWebDto>> SelectAllNoteCategoryListAsync()
         {
             var noteCategoryList = new List<NoteCategoryCustomWebDto>();
@@ -193,17 +137,31 @@ namespace ServiceDemo.Common.SQLite
             var taskResult = await Task.Run(() =>
             {
                 var sql = @"SELECT 
-                             nc.UserId,
-                             nc.TypeId,
+                             nt.UserId,
+                             nt.TypeId,
+                             nt.TypeName,
                              nc.CategoryId,
                              nc.CategoryName, 
                              nc2.ContentId,
                              nc2.Content
-                            FROM NoteCategory nc
+                            FROM NoteType nt
+                            LEFT JOIN NoteCategory nc
+                            ON nc.UserId = nt.UserId
+                            AND nc.TypeId = nt.TypeId
                             LEFT JOIN NoteContent nc2
-                            ON nc.CategoryId = nc2.CategoryId AND nc.TypeId = nc2.TypeId";
+                            ON nc.UserId = nc2.UserId
+                            AND nc.CategoryId = nc2.CategoryId
+                            AND nc.TypeId = nc2.TypeId
+                            WHERE nt.UserId = @UserId";
 
-                var noteCategoryModelList = SqLiteDbContext.Database.ExecuteRawSqlQueryAutoMapper<NoteCategoryCustomWebDto>(sql);
+                var noteCategoryModelList = SqLiteDbContext.Database.ExecuteRawSqlQueryAutoMapper<NoteCategoryCustomWebDto>(sql, dbCommand =>
+                {
+                    var userIdParam = dbCommand.CreateParameter();
+                    userIdParam.ParameterName = "@UserId";
+                    userIdParam.DbType = DbType.Int32;
+                    userIdParam.Value =LoginInfo.UserBasicInfo.UserId;
+                    dbCommand.Parameters.Add(userIdParam);
+                });
 
                 return noteCategoryModelList;
             });
@@ -223,7 +181,6 @@ namespace ServiceDemo.Common.SQLite
             var taskResult = await Task.Run(() =>
             {
                 var sql = @"SELECT 
-                             nt.Id,
                              nt.UserId,
                              nt.TypeId,
                              nt.TypeName, 
