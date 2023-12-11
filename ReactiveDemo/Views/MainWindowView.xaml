@@ -11,7 +11,7 @@
         xmlns:controlzex="urn:controlzex"
         RenderOptions.ClearTypeHint="Enabled"
         TextOptions.TextFormattingMode="Display"
-        ResizeMode="NoResize"
+        ResizeMode="CanResizeWithGrip"
         xmlns:views="clr-namespace:ReactiveDemo.UserControls.MainWindow"
         mc:Ignorable="d"
         mvvm:ViewModelLocator.AutoWireViewModel="True"

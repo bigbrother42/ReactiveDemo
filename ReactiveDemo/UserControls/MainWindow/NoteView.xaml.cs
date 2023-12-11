@@ -147,7 +147,9 @@ namespace ReactiveDemo.UserControls.MainWindow
 
         private void NoteCategoryListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            NoteContentRichTextBox.Focus();
+            NoteContentRichTextBox.Dispatcher.BeginInvoke(new Action(() => {
+                NoteContentRichTextBox.Focus();
+            }), System.Windows.Threading.DispatcherPriority.Background, null);
         }
     }
 }
