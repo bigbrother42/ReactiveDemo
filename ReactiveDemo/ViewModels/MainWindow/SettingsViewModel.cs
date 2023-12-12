@@ -46,7 +46,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         #region ReactiveProperty
 
-
+        public ReactiveProperty<bool> IsProgress { get; set; }
 
         #endregion
 
@@ -72,6 +72,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
         protected override void RegisterProperties()
         {
             base.RegisterProperties();
+
+            IsProgress = new ReactiveProperty<bool>().AddTo(DisposablePool);
         }
 
         protected override void RegisterCommands()
@@ -104,29 +106,38 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         private async Task Export()
         {
-            using (var fbd = new FolderBrowserDialog())
+            try
             {
-                var result = fbd.ShowDialog();
-
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                using (var fbd = new FolderBrowserDialog())
                 {
-                    // note type
-                    var noteTypeList = await _noteModel.GetAllNoteTypeList();
-                    var noteTypeFile = CsvFileUtil<NoteTypeCsvModel>.CsvFileGenerate(noteTypeList, fbd.SelectedPath, "note_type");
+                    var result = fbd.ShowDialog();
 
-                    // note category
-                    var noteCategoryList = await _noteModel.GetAllNoteCategoryList();
-                    var noteCategoryFile = CsvFileUtil<NoteCategoryCsvModel>.CsvFileGenerate(noteCategoryList, fbd.SelectedPath, "note_category");
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    {
+                        IsProgress.Value = true;
 
-                    // note content
-                    var noteContentList = await _noteModel.GetAllNoteContentList();
-                    var noteContentFile = CsvFileUtil<NoteContentCsvModel>.CsvFileGenerate(noteContentList, fbd.SelectedPath, "note_content");
+                        // note type
+                        var noteTypeList = await _noteModel.GetAllNoteTypeList();
+                        var noteTypeFile = CsvFileUtil<NoteTypeCsvModel>.CsvFileGenerate(noteTypeList, fbd.SelectedPath, "note_type");
 
-                    // zip
-                    var zipPath = $@"{fbd.SelectedPath}\note.zip";
-                    var filePathList = new List<string> { noteTypeFile, noteCategoryFile, noteContentFile };
-                    ZipUtil.ZipFile(filePathList, zipPath);
+                        // note category
+                        var noteCategoryList = await _noteModel.GetAllNoteCategoryList();
+                        var noteCategoryFile = CsvFileUtil<NoteCategoryCsvModel>.CsvFileGenerate(noteCategoryList, fbd.SelectedPath, "note_category");
+
+                        // note content
+                        var noteContentList = await _noteModel.GetAllNoteContentList();
+                        var noteContentFile = CsvFileUtil<NoteContentCsvModel>.CsvFileGenerate(noteContentList, fbd.SelectedPath, "note_content");
+
+                        // zip
+                        var zipPath = $@"{fbd.SelectedPath}\note.zip";
+                        var filePathList = new List<string> { noteTypeFile, noteCategoryFile, noteContentFile };
+                        ZipUtil.ZipFile(filePathList, zipPath);
+                    }
                 }
+            }
+            finally
+            {
+                IsProgress.Value = false;
             }
         }
 
