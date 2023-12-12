@@ -1,4 +1,5 @@
-﻿using BaseDemo.Util.Extensions;
+﻿using AutoMapper;
+using BaseDemo.Util.Extensions;
 using DataDemo.WebDto;
 using ReactiveDemo.Models.Csv;
 using ReactiveDemo.Models.UiModel;
@@ -180,16 +181,24 @@ namespace ReactiveDemo.Models.MainWindow
             await _noteService.UpdateUpdateCategoryDisplayOrderAsync(webDtoList);
         }
 
-        public async Task<List<NoteTypeCsvModel>> GetAllNoteTypeWebDtoList()
+        public async Task<List<NoteTypeCsvModel>> GetAllNoteTypeList()
         {
             return (await _noteService.SelectAllNoteTypeWebDtoList())
-                .Select(o => new NoteTypeCsvModel
-                {
-                    UserId = o.UserId,
-                    TypeId = o.TypeId,
-                    TypeName = o.TypeName,
-                    Description = o.Description
-                })
+                .Select(o => Mapper.Map<NoteTypeCsvModel>(o))
+                .ToList();
+        }
+
+        public async Task<List<NoteCategoryCsvModel>> GetAllNoteCategoryList()
+        {
+            return (await _noteService.SelectAllNoteCategoryWebDtoList())
+                .Select(o => Mapper.Map<NoteCategoryCsvModel>(o))
+                .ToList();
+        }
+
+        public async Task<List<NoteContentCsvModel>> GetAllNoteContentList()
+        {
+            return (await _noteService.SelectAllNoteContentWebDtoList())
+                .Select(o => Mapper.Map<NoteContentCsvModel>(o))
                 .ToList();
         }
     }

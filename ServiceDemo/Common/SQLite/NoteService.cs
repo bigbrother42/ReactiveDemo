@@ -236,5 +236,25 @@ namespace ServiceDemo.Common.SQLite
 
             return taskRes;
         }
+
+        public async Task<List<NoteCategoryWebDto>> SelectAllNoteCategoryWebDtoList()
+        {
+            var taskRes = await Task.Run(() =>
+            {
+                return SqLiteDbContext.NoteCategory.ToList();
+            });
+
+            return taskRes;
+        }
+
+        public async Task<List<NoteContentWebDto>> SelectAllNoteContentWebDtoList()
+        {
+            var taskRes = await Task.Run(() =>
+            {
+                return SqLiteDbContext.NoteContent.ToList();
+            });
+
+            return taskRes;
+        }
     }
 }

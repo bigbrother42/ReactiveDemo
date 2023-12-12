@@ -26,6 +26,7 @@ namespace BaseDemo.Util
                     {
                         cia.ColumnName = item.Name;
                         map.Add(cia.Index, cia);
+
                         break;
                     }
                 }
@@ -83,8 +84,7 @@ namespace BaseDemo.Util
         }
 
         public static string CsvFileGenerate(List<T> genericList, string directory, string fileName,
-            bool isTitle = false, string TiContent = null,
-            bool isOpenCsvView = true, string width = "1000", string hight = "900", bool isHorizontal = true, bool isAdjust = true)
+            bool isTitle = false, string TiContent = null, string width = "1000", string hight = "900", bool isHorizontal = true, bool isAdjust = true)
         {
             string csvFile = GetCsvFilePath(directory, fileName);
 
@@ -103,10 +103,6 @@ namespace BaseDemo.Util
                     {
                         writer.WriteLine(GetCsvBodyLine(map, item));
                     }
-
-                    if (!isOpenCsvView) return csvFile;
-
-                    OpenCsvFile(csvFile, GetCsvColWidth(map), width, hight, isHorizontal, isAdjust);
                 }
             }
 
@@ -116,45 +112,6 @@ namespace BaseDemo.Util
         private static string PlusDoubleQuotationMark(string originStr)
         {
             return "\"" + originStr + "\"";
-        }
-
-        private static void OpenCsvFile(string csvFile, string columnWidth = "", string width = "1000", string hight = "900", bool isHorizontal = true, bool isAdjust = true)
-        {
-            var csvViewer = AppDomain.CurrentDomain.BaseDirectory + "CsvViewer.exe";
-            var arguments = PlusDoubleQuotationMark(csvFile);
-
-            if (!string.IsNullOrEmpty(columnWidth))
-            {
-                arguments = string.Concat(arguments, HALF_BLANK, "-ColumnWidth=", columnWidth);
-            }
-
-            if (isHorizontal)
-            {
-                arguments = string.Concat(arguments, HALF_BLANK, "-PrintDirection=Horizontal");
-            }
-
-            if (isAdjust)
-            {
-                arguments = string.Concat(arguments, HALF_BLANK, "-PrintAdjustment=Adjust");
-            }
-
-            if (!string.IsNullOrEmpty(width))
-            {
-                arguments = string.Concat(arguments, HALF_BLANK, "-Width=", width);
-            }
-
-            if (!string.IsNullOrEmpty(hight))
-            {
-                arguments = string.Concat(arguments, HALF_BLANK, "-Hight=", hight);
-            }
-
-            ProcessStartInfo info = new ProcessStartInfo
-            {
-                FileName = csvViewer,
-                Arguments = arguments
-            };
-
-            Process.Start(info);
         }
     }
 }

@@ -111,14 +111,21 @@ namespace ReactiveDemo.ViewModels.MainWindow
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
                     // note type
-                    var noteTypeList = await _noteModel.GetAllNoteTypeWebDtoList();
-                    CsvFileUtil<NoteTypeCsvModel>.CsvFileGenerate(noteTypeList, fbd.SelectedPath, "note_type");
+                    var noteTypeList = await _noteModel.GetAllNoteTypeList();
+                    var noteTypeFile = CsvFileUtil<NoteTypeCsvModel>.CsvFileGenerate(noteTypeList, fbd.SelectedPath, "note_type");
 
                     // note category
-
+                    var noteCategoryList = await _noteModel.GetAllNoteCategoryList();
+                    var noteCategoryFile = CsvFileUtil<NoteCategoryCsvModel>.CsvFileGenerate(noteCategoryList, fbd.SelectedPath, "note_category");
 
                     // note content
+                    var noteContentList = await _noteModel.GetAllNoteContentList();
+                    var noteContentFile = CsvFileUtil<NoteContentCsvModel>.CsvFileGenerate(noteContentList, fbd.SelectedPath, "note_content");
 
+                    // zip
+                    var zipPath = $@"{fbd.SelectedPath}\note.zip";
+                    var filePathList = new List<string> { noteTypeFile, noteCategoryFile, noteContentFile };
+                    ZipUtil.ZipFile(filePathList, zipPath);
                 }
             }
         }

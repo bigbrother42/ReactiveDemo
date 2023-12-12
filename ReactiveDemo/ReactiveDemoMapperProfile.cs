@@ -1,5 +1,7 @@
-﻿using ReactiveDemo.Base.ProfileBase;
+﻿using DataDemo.WebDto;
+using ReactiveDemo.Base.ProfileBase;
 using ReactiveDemo.Models;
+using ReactiveDemo.Models.Csv;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,9 @@ namespace ReactiveDemo
         protected override void CreateMaps()
         {
             CreateMap<TestMapperModel, TestMapperModel>();
+            CreateMap<NoteTypeWebDto, NoteTypeCsvModel>();
+            CreateMap<NoteCategoryWebDto, NoteCategoryCsvModel>();
+            CreateMap<NoteContentWebDto, NoteContentCsvModel>();
         }
     }
 }
