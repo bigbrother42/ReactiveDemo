@@ -58,7 +58,9 @@ namespace ReactiveDemo.UserControls.MainWindow
             {
                 if (textBox.Text.IsNullOrEmpty())
                 {
-                    MessageBox.Show("Please enter category name!", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    //MessageBox.Show("Please enter category name!", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    vm.SelectedNoteType.Value.CategoryList.Remove(noteCategoryUiModel);
+
                     return;
                 }
 
@@ -75,7 +77,10 @@ namespace ReactiveDemo.UserControls.MainWindow
 
         public void AddNoteCategory()
         {
-            
+            if (NoteCategoryListView.SelectedItem is NoteCategoryUiModel noteCategoryUiModel)
+            {
+                noteCategoryUiModel.IsEdit = true;
+            }
         }
 
         private void EditTextBox_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

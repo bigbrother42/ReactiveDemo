@@ -6,6 +6,8 @@
              xmlns:local="clr-namespace:ReactiveDemo.UserControls.MainWindow"
              xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              xmlns:controlzex="urn:controlzex"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              RenderOptions.ClearTypeHint="Enabled"
              TextOptions.TextFormattingMode="Display"
              mc:Ignorable="d" 
@@ -29,6 +31,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="300"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="10,10,0,0">
@@ -38,9 +41,9 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0"
-                       FontSize="14"
+                       FontSize="16"
                        VerticalAlignment="Center"
-                       Text="Change System Theme"/>
+                       Text="Change System Theme: "/>
 
             <ComboBox Grid.Column="1" x:Name="ThemeComboBox"
                       Margin="10,0,0,0"
@@ -52,5 +55,34 @@
                       DisplayMemberPath="Name"
                       ItemsSource="{Binding Source={StaticResource Themes}}"/>
         </Grid>
+
+        <Border x:Name="FunctionArea" Grid.Row="1"
+                Margin="5,10,0,0"
+                BorderThickness="0"
+                BorderBrush="{DynamicResource MahApps.Brushes.Gray4}">
+            <WrapPanel Margin="5,0,0,0">
+                <TextBlock Text="Function: "
+                           FontSize="16"
+                           VerticalAlignment="Center"/>
+
+                <WrapPanel>
+                    <Controls:Tile Title="Export"
+                                   Margin="0,3,3,3"
+                                   Width="100"
+                                   Height="100"
+                                   HorizontalAlignment="Left"
+                                   Visibility="{Binding IsAccountSettingShow.Value}"
+                                   Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+                                   Background="Teal"
+                                   HorizontalTitleAlignment="Right"
+                                   Click="Tile_Click">
+                        <iconPacks:PackIconModern Width="40"
+                                                  Height="40"
+                                                  Kind="ImageExport"/>
+
+                    </Controls:Tile>
+                </WrapPanel>
+            </WrapPanel>
+        </Border>
     </Grid>
 </UserControl>

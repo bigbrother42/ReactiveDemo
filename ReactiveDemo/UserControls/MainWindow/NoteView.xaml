@@ -54,7 +54,7 @@
                 <Setter Property="BorderBrush" Value="LightGray"/>
                 <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray4}"/>
                 <Setter Property="FontFamily" Value="Meiryo UI"/>
-                <Setter Property="Height" Value="30"/>
+                <Setter Property="Height" Value="35"/>
                 <Setter Property="Margin" Value="2,0,0,0"/>
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="ContextMenu" Value="{StaticResource CategoryContextMenu}"/>
@@ -75,13 +75,13 @@
                                                FontSize="{TemplateBinding FontSize}"
                                                Text="{Binding CategoryName}"
                                                FontFamily="{TemplateBinding FontFamily}"
-                                               Visibility="{Binding IsEdit, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ReverseBoolToVisibilityConverter}}"/>
+                                               Visibility="{Binding IsEdit, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource ReverseBoolToVisibilityConverter}}"/>
 
                                     <TextBox x:Name="EditTextBox"
                                              VerticalContentAlignment="Center"
                                              FontSize="{TemplateBinding FontSize}"
-                                             Visibility="{Binding IsEdit, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}"
-                                             BorderThickness="0"
+                                             Visibility="{Binding IsEdit, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                             BorderThickness="1"
                                              mah:ValidationHelper.CloseOnMouseLeftButtonDown="True"
                                              mah:ValidationHelper.ShowValidationErrorOnMouseOver="True"
                                              GotFocus="EditTextBox_GotFocus"
@@ -194,7 +194,7 @@
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter TargetName="DisplayTextBlock" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}"/>
                                     <Setter TargetName="DisplayTextBlock" Property="FontWeight" Value="Bold"/>
-                                    <Setter TargetName="DisplayTextBlock" Property="FontSize" Value="20"/>
+                                    <Setter TargetName="DisplayTextBlock" Property="FontSize" Value="18"/>
                                     <Setter TargetName="DisplayTextBlock" Property="Padding" Value="5,8,0,0"/>
                                     <Setter TargetName="ItemParentBorder" Property="BorderThickness" Value="2,2,0,2"/>
                                     <Setter TargetName="ItemParentBorder" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}"/>

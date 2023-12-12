@@ -43,7 +43,7 @@
                        HorizontalAlignment="Left"
                        Visibility="{Binding IsAccountSettingShow.Value}"
                        Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
-                       Background="Teal"
+                       Background="#CB6D29"
                        HorizontalTitleAlignment="Right"
                        Click="Tile_Click">
             <iconPacks:PackIconModern Width="40"

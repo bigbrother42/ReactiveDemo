@@ -158,11 +158,6 @@ namespace ReactiveDemo.ViewModels.MainWindow
             SelectedNoteType.Value.CategoryList.Add(newCategory);
             SelectedNoteCategory.Value = newCategory;
 
-            if (SelectedNoteCategory.Value != null)
-            {
-                SelectedNoteCategory.Value.IsEdit = true;
-            }
-
             AddNoteCategoryRequest.Raise(new MethodNotification());
         }
 

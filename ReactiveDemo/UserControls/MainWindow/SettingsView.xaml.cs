@@ -43,5 +43,10 @@ namespace ReactiveDemo.UserControls.MainWindow
                 ThemeManager.Current.ChangeTheme(Application.Current, selectedTheme);
             }
         }
+
+        private void Tile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
