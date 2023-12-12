@@ -49,6 +49,8 @@
     <Compile Include="Helpers\Log\CurrentProcessHelper.cs" />
     <Compile Include="Helpers\Log\GuiResourcesHelper.cs" />
     <Compile Include="Managers\CustomerLogManager.cs" />
+    <Compile Include="Util\Attribute\CsvInfoAttribute.cs" />
+    <Compile Include="Util\CsvFileUtil.cs" />
     <Compile Include="Util\Extensions\CollectionExtensions.cs" />
     <Compile Include="Util\EncryptionUtility.cs" />
     <Compile Include="Util\ExceptionUtil.cs" />

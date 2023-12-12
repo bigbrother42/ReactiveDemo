@@ -449,6 +449,7 @@
     <Compile Include="Filters\RegisterEventSubscribersFilter.cs" />
     <Compile Include="LauncherContext.cs" />
     <Compile Include="Models\Account\AccountModel.cs" />
+    <Compile Include="Models\Csv\NoteTypeCsvModel.cs" />
     <Compile Include="Models\Login\LoginModel.cs" />
     <Compile Include="Models\MainWindow\NoteModel.cs" />
     <Compile Include="Models\UiModel\AccountUiModel.cs" />

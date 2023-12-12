@@ -8,6 +8,7 @@
              xmlns:controlzex="urn:controlzex"
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              RenderOptions.ClearTypeHint="Enabled"
              TextOptions.TextFormattingMode="Display"
              mc:Ignorable="d" 
@@ -63,25 +64,61 @@
             <WrapPanel Margin="5,0,0,0">
                 <TextBlock Text="Function: "
                            FontSize="16"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Top"/>
 
-                <WrapPanel>
+                <StackPanel>
                     <Controls:Tile Title="Export"
                                    Margin="0,3,3,3"
                                    Width="100"
                                    Height="100"
                                    HorizontalAlignment="Left"
-                                   Visibility="{Binding IsAccountSettingShow.Value}"
                                    Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
                                    Background="Teal"
                                    HorizontalTitleAlignment="Right"
-                                   Click="Tile_Click">
+                                   Command="{Binding ExportCommand}">
                         <iconPacks:PackIconModern Width="40"
                                                   Height="40"
                                                   Kind="ImageExport"/>
 
                     </Controls:Tile>
-                </WrapPanel>
+
+                    <Border Margin="0,13,3,3"
+                            Width="400"
+                            Height="100"
+                            BorderThickness="2"
+                            CornerRadius="3"
+                            dd:DragDrop.IsDropTarget="True"
+                            dd:DragDrop.DropHandler="{Binding}">
+                        <Border.BorderBrush>
+                            <VisualBrush>
+                                <VisualBrush.Visual>
+                                    <Rectangle StrokeDashArray="2 2"
+                                               Stroke="{DynamicResource MahApps.Brushes.Gray6}"
+                                               StrokeThickness="2"
+                                               Width="{Binding RelativeSource={RelativeSource AncestorType=Border}, Path=ActualWidth}"
+                                               Height="{Binding RelativeSource={RelativeSource AncestorType=Border}, Path=ActualHeight}"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Border.BorderBrush>
+                        
+                        <Controls:Tile Title="Import"
+                                   Margin="0,3,3,3"
+                                   Width="400"
+                                   Height="100"
+                                   HorizontalAlignment="Left"
+                                   Background="Transparent"
+                                   Foreground="Teal"
+                                   HorizontalTitleAlignment="Right"
+                                   Command="{Binding ImportCommand}">
+                            <iconPacks:PackIconModern Width="40"
+                                                      Height="40"
+                                                      Foreground="Teal"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Kind="CabinetFiles"/>
+                        </Controls:Tile>
+                    </Border>
+                </StackPanel>
             </WrapPanel>
         </Border>
     </Grid>

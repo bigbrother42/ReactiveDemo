@@ -1,5 +1,6 @@
 ﻿using BaseDemo.Util.Extensions;
 using DataDemo.WebDto;
+using ReactiveDemo.Models.Csv;
 using ReactiveDemo.Models.UiModel;
 using ServiceDemo.Common.SQLite;
 using SharedDemo.GlobalData;
@@ -177,6 +178,19 @@ namespace ReactiveDemo.Models.MainWindow
             }
 
             await _noteService.UpdateUpdateCategoryDisplayOrderAsync(webDtoList);
+        }
+
+        public async Task<List<NoteTypeCsvModel>> GetAllNoteTypeWebDtoList()
+        {
+            return (await _noteService.SelectAllNoteTypeWebDtoList())
+                .Select(o => new NoteTypeCsvModel
+                {
+                    UserId = o.UserId,
+                    TypeId = o.TypeId,
+                    TypeName = o.TypeName,
+                    Description = o.Description
+                })
+                .ToList();
         }
     }
 }

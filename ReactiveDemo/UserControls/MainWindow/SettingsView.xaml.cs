@@ -44,9 +44,17 @@ namespace ReactiveDemo.UserControls.MainWindow
             }
         }
 
-        private void Tile_Click(object sender, RoutedEventArgs e)
+        private void ImportTile_Click(object sender, RoutedEventArgs e)
         {
+            using (var fbd = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                System.Windows.Forms.DialogResult result = fbd.ShowDialog();
 
+                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    
+                }
+            }
         }
     }
 }

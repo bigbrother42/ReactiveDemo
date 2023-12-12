@@ -226,5 +226,15 @@ namespace ServiceDemo.Common.SQLite
                 SqLiteDbContext.SaveChanges();
             });
         }
+
+        public async Task<List<NoteTypeWebDto>> SelectAllNoteTypeWebDtoList()
+        {
+            var taskRes = await Task.Run(() =>
+            {
+                return SqLiteDbContext.NoteType.ToList();
+            });
+
+            return taskRes;
+        }
     }
 }
