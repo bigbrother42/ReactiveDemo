@@ -15,6 +15,7 @@
              xmlns:validationrules="clr-namespace:InfrastructureDemo.ValidationRules;assembly=InfrastructureDemo"
              xmlns:helpers="clr-namespace:BaseDemo.Helpers.Component;assembly=BaseDemo"
              xmlns:actionBase1="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              mc:Ignorable="d" 
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -298,7 +299,10 @@
                   Style="{StaticResource Note.Category.ListView.Style}"
                   ItemsSource="{Binding SelectedNoteType.Value.CategoryList}"
                   SelectedItem="{Binding SelectedNoteCategory.Value}"
-                  SelectionChanged="NoteCategoryListView_SelectionChanged"/>
+                  SelectionChanged="NoteCategoryListView_SelectionChanged"
+                  dd:DragDrop.IsDragSource="True"
+                  dd:DragDrop.IsDropTarget="True"
+                  dd:DragDrop.DropHandler="{Binding}"/>
 
         <Border Grid.Row="2" Grid.Column="0"
                 BorderBrush="Gray"

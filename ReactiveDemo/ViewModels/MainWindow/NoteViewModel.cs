@@ -1,4 +1,5 @@
 ﻿using BaseDemo.Util.Extensions;
+using GongSolutions.Wpf.DragDrop;
 using Prism.Interactivity.InteractionRequest;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -12,11 +13,12 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Documents;
 
 namespace ReactiveDemo.ViewModels.MainWindow
 {
-    public class NoteViewModel : ViewModelBase
+    public class NoteViewModel : ViewModelBase, IDropTarget
     {
         #region Field
 
@@ -168,10 +170,14 @@ namespace ReactiveDemo.ViewModels.MainWindow
         {
             if (deleteItem == null) return;
 
-            var deleteNum = await _noteModel.DeleteNoteCategory(deleteItem);
-            if (deleteNum > 0)
+            var result = MessageBox.Show($"Do you want to delete this category? [{deleteItem.CategoryName}]", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
             {
-                SelectedNoteType.Value.CategoryList.ExRemoveAll(o => o.TypeId == deleteItem.TypeId && o.CategorySeq == deleteItem.CategorySeq);
+                var deleteNum = await _noteModel.DeleteNoteCategory(deleteItem);
+                if (deleteNum > 0)
+                {
+                    SelectedNoteType.Value.CategoryList.ExRemoveAll(o => o.TypeId == deleteItem.TypeId && o.CategorySeq == deleteItem.CategorySeq);
+                }
             }
         }
 
@@ -219,6 +225,38 @@ namespace ReactiveDemo.ViewModels.MainWindow
                     }
                 }
             });
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            dropInfo.Effects = DragDropEffects.Move;
+            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            var dragItem = dropInfo.Data as NoteCategoryUiModel;
+            var targetItem = dropInfo.TargetItem as NoteCategoryUiModel;
+
+            if (dragItem != null && targetItem != null)
+            {
+                if (dragItem.CategorySeq == targetItem.CategorySeq) return;
+
+                var sourceIndex = SelectedNoteType.Value.CategoryList.IndexOf(dragItem);
+                var targetIndex = SelectedNoteType.Value.CategoryList.IndexOf(targetItem);
+
+                SelectedNoteType.Value.CategoryList.Move(sourceIndex, targetIndex);
+
+                SelectedNoteCategory.Value = dragItem;
+
+                var displayOrder = 1;
+                foreach (var category in SelectedNoteType.Value.CategoryList)
+                {
+                    category.CategoryDisplayOrder = displayOrder++;
+                }
+
+                _noteModel.UpdateCategoryDisplayOrder(SelectedNoteType.Value.CategoryList.ToList());
+            }
         }
 
         #endregion

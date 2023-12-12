@@ -76,6 +76,9 @@
     <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
+    <Reference Include="GongSolutions.WPF.DragDrop, Version=2.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
+      <HintPath>..\packages\gong-wpf-dragdrop.2.3.2\lib\net46\GongSolutions.WPF.DragDrop.dll</HintPath>
+    </Reference>
     <Reference Include="InfragisticsWPF4.DragDrop.v18.1, Version=18.1.20181.82, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Infragistics\InfragisticsWPF4.DragDrop.v18.1.dll</HintPath>
@@ -429,6 +432,7 @@
     <Compile Include="ApplicationLauncher.cs" />
     <Compile Include="Behavior\ButtonBehavior\TestButtonBehavior.cs" />
     <Compile Include="Component\CustomerButton.cs" />
+    <Compile Include="Component\Handler\CustomDropHandler.cs" />
     <Compile Include="Component\SharedResourceDictionary.cs" />
     <Compile Include="Configure\AutoMapperConfigure.cs" />
     <Compile Include="Configure\IAppConfigure.cs" />

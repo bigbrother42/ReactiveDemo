@@ -204,5 +204,27 @@ namespace ServiceDemo.Common.SQLite
 
             return noteTypeList;
         }
+
+        public async Task UpdateUpdateCategoryDisplayOrderAsync(List<NoteCategoryWebDto> noteCategoryWebDtoList)
+        {
+            if (noteCategoryWebDtoList.IsNullOrEmpty()) return;
+
+            foreach (var noteCategoryWebDto in noteCategoryWebDtoList)
+            {
+                var existItem = SqLiteDbContext.NoteCategory.FirstOrDefault(o => o.UserId == noteCategoryWebDto.UserId
+                    && o.TypeId == noteCategoryWebDto.TypeId
+                    && o.CategoryId == noteCategoryWebDto.CategoryId);
+
+                if (existItem != null)
+                {
+                    existItem.DisplayOrder = noteCategoryWebDto.DisplayOrder;
+                }
+            }
+
+            await Task.Run(() =>
+            {
+                SqLiteDbContext.SaveChanges();
+            });
+        }
     }
 }

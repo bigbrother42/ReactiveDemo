@@ -159,5 +159,24 @@ namespace ReactiveDemo.Models.MainWindow
 
             return updateList.Count;
         }
+
+        public async Task UpdateCategoryDisplayOrder(List<NoteCategoryUiModel> categoryUiModelList)
+        {
+            if (categoryUiModelList.IsNullOrEmpty()) return;
+
+            var webDtoList = new List<NoteCategoryWebDto>();
+            foreach (var categoryUiModel in categoryUiModelList)
+            {
+                webDtoList.Add(new NoteCategoryWebDto
+                { 
+                    TypeId = categoryUiModel.TypeId,
+                    UserId = LoginInfo.UserBasicInfo.UserId,
+                    CategoryId = categoryUiModel.CategorySeq,
+                    DisplayOrder = categoryUiModel.CategoryDisplayOrder
+                });
+            }
+
+            await _noteService.UpdateUpdateCategoryDisplayOrderAsync(webDtoList);
+        }
     }
 }
