@@ -142,6 +142,7 @@ namespace ServiceDemo.Common.SQLite
                              nt.TypeName,
                              nc.CategoryId,
                              nc.CategoryName, 
+                             nc.DisplayOrder AS CategoryDisplayOrder,
                              nc2.ContentId,
                              nc2.Content
                             FROM NoteType nt

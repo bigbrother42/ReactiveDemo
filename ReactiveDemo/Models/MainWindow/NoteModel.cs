@@ -22,6 +22,7 @@ namespace ReactiveDemo.Models.MainWindow
             {
                 UserId = LoginInfo.UserBasicInfo.UserId,
                 TypeId = noteCategoryUiModel.TypeId,
+                DisplayOrder = noteCategoryUiModel.CategoryDisplayOrder,
                 CategoryId = noteCategoryUiModel.CategorySeq,
                 CategoryName = noteCategoryUiModel.CategoryName,
                 CreateAt = DateTime.Now,
@@ -67,17 +68,19 @@ namespace ReactiveDemo.Models.MainWindow
                         TypeName = type.Key.TypeName
                     };
 
-                    foreach (var typeItem in type.AsParallel())
+                    var categoryList = type.AsParallel().OrderBy(o => o.CategoryDisplayOrder).ToList();
+                    foreach (var category in categoryList)
                     {
-                        if (typeItem.CategoryId == 0) continue;
+                        if (category.CategoryId == 0) continue;
                         
                         var categoryUiModel = new NoteCategoryUiModel
                         {
-                            TypeId = typeItem.TypeId,
-                            CategorySeq = typeItem.CategoryId,
-                            CategoryName = typeItem.CategoryName,
-                            ContentId = typeItem.ContentId,
-                            Content = typeItem.Content
+                            TypeId = category.TypeId,
+                            CategoryDisplayOrder = category.CategoryDisplayOrder,
+                            CategorySeq = category.CategoryId,
+                            CategoryName = category.CategoryName,
+                            ContentId = category.ContentId,
+                            Content = category.Content
                         };
 
                         typeUiModel.CategoryList.Add(categoryUiModel);

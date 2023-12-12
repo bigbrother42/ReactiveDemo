@@ -142,10 +142,12 @@ namespace ReactiveDemo.ViewModels.MainWindow
             }
 
             var newCategorySeq = SelectedNoteType.Value.CategoryList.Count() == 0 ? 1 : SelectedNoteType.Value.CategoryList.Max(o => o.CategorySeq) + 1;
+            var displayOrder = SelectedNoteType.Value.CategoryList.Count() == 0 ? 1 : SelectedNoteType.Value.CategoryList.Max(o => o.CategoryDisplayOrder) + 1;
 
             var newCategory = new NoteCategoryUiModel
             {
                 TypeId = SelectedNoteType.Value.TypeId,
+                CategoryDisplayOrder = displayOrder,
                 CategorySeq = newCategorySeq,
                 ContentId = newCategorySeq,
                 CategoryName = "New Category"

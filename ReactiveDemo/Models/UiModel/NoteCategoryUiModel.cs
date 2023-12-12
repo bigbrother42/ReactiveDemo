@@ -17,6 +17,13 @@ namespace ReactiveDemo.Models.UiModel
             set => SetProperty(ref _typeId, value);
         }
 
+        private int _categoryDisplayOrder;
+        public int CategoryDisplayOrder
+        {
+            get => _categoryDisplayOrder;
+            set => SetProperty(ref _categoryDisplayOrder, value);
+        }
+
         private int _categorySeq;
         public int CategorySeq
         {
