@@ -1,20 +1,17 @@
 ﻿using BaseDemo.Util;
-using DataDemo.WebDto;
 using GongSolutions.Wpf.DragDrop;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactiveDemo.Models.Csv;
 using ReactiveDemo.Models.MainWindow;
-using SharedDemo.Util;
+using SharedDemo.GlobalData;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Data;
 using System.IO;
-using System.Linq;
-using System.Text;
+using System.IO.Compression;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Forms;
 
 namespace ReactiveDemo.ViewModels.MainWindow
@@ -24,7 +21,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         #region Field
 
-
+        
 
         #endregion
 
@@ -129,7 +126,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
                         var noteContentFile = CsvFileUtil<NoteContentCsvModel>.CsvFileGenerate(noteContentList, fbd.SelectedPath, "note_content");
 
                         // zip
-                        var zipPath = $@"{fbd.SelectedPath}\note.zip";
+                        var zipPath = $@"{fbd.SelectedPath}\note_{DateTime.Now:yyyyMMddHHmmss}.zip";
                         var filePathList = new List<string> { noteTypeFile, noteCategoryFile, noteContentFile };
                         ZipUtil.ZipFile(filePathList, zipPath);
                     }
@@ -143,14 +140,56 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         private void Import()
         {
-            using (var fbd = new FolderBrowserDialog())
+            using (var ofd = new OpenFileDialog())
             {
-                var result = fbd.ShowDialog();
+                var result = ofd.ShowDialog();
 
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(ofd.FileName))
                 {
-                    var importDbPath = Path.ChangeExtension(fbd.SelectedPath, ".sqlite3");
+                    ZipUtil.UnZipFile(ofd.FileName, GlobalData.CSV_PATH, out string errorMessage);
 
+                    var fileList = Directory.GetFiles(GlobalData.CSV_PATH);
+                    foreach (var file in fileList)
+                    {
+                        if (!_noteModel.ValidateImportFileName(file)) continue;
+
+                        var dataTable = FileUtil.ConvertCsvToDataTable(file);
+                        var fileName = Path.GetFileName(file);
+
+                        if (fileName.StartsWith(NoteModel.IMPORT_FILE_NAME_PREFIX_NOTE_TYPE))
+                        {
+                            for (var i = 0; i < dataTable.Rows.Count; i++)
+                            {
+                                var userIdStr = dataTable.Rows[i]["user_id"].ToString();
+                                var typeIdStr = dataTable.Rows[i]["type_id"].ToString();
+                                var typeNameStr = dataTable.Rows[i]["type_name"].ToString();
+                                var descriptionStr = dataTable.Rows[i]["description"].ToString();
+                            }
+                        }
+                        else if (fileName.StartsWith(NoteModel.IMPORT_FILE_NAME_PREFIX_NOTE_CATEGORY))
+                        {
+                            for (var i = 0; i < dataTable.Rows.Count; i++)
+                            {
+                                var userIdStr = dataTable.Rows[i]["user_id"].ToString();
+                                var typeIdStr = dataTable.Rows[i]["type_id"].ToString();
+                                var displayOrderStr = dataTable.Rows[i]["display_order"].ToString();
+                                var categoryIdStr = dataTable.Rows[i]["category_id"].ToString();
+                                var categoryNameStr = dataTable.Rows[i]["category_name"].ToString();
+                            }
+                        }
+                        else if (fileName.StartsWith(NoteModel.IMPORT_FILE_NAME_PREFIX_NOTE_CONTENT))
+                        {
+                            for (var i = 0; i < dataTable.Rows.Count; i++)
+                            {
+                                var userIdStr = dataTable.Rows[i]["user_id"].ToString();
+                                var typeIdStr = dataTable.Rows[i]["type_id"].ToString();
+                                var contentIdStr = dataTable.Rows[i]["content_id"].ToString();
+                                var categoryIdStr = dataTable.Rows[i]["category_id"].ToString();
+                                var contentStr = dataTable.Rows[i]["content"].ToString();
+                            }
+                        }
+                    }
+                    
                 }
             }
         }

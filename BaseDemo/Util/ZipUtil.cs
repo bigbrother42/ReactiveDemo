@@ -1,4 +1,5 @@
-﻿using ICSharpCode.SharpZipLib.Checksum;
+﻿using BaseDemo.Util.Extensions;
+using ICSharpCode.SharpZipLib.Checksum;
 using ICSharpCode.SharpZipLib.Zip;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace BaseDemo.Util
 {
     public class ZipUtil
     {
+        public const string DOUBLE_SLASH_RIGHT = "//";
+
         public static void ZipFile(List<string> filePathList, string zipFilePath)
         {
             using (ZipOutputStream outstream = new ZipOutputStream(File.Create(zipFilePath)))
@@ -51,7 +54,7 @@ namespace BaseDemo.Util
 
         public static bool UnZipFile(string zipFilePath, string unZipDir, out string err)
         {
-            err = "";
+            err = string.Empty;
             if (zipFilePath == string.Empty)
             {
                 err = "File can not be empty！";
@@ -64,27 +67,36 @@ namespace BaseDemo.Util
                 return false;
             }
 
-            if (unZipDir == string.Empty)
+            if (unZipDir.IsNullOrEmpty())
             {
                 unZipDir = zipFilePath.Replace(Path.GetFileName(zipFilePath), Path.GetFileNameWithoutExtension(zipFilePath));
             }
 
-            if (!unZipDir.EndsWith("//"))
+            if (!unZipDir.EndsWith(DOUBLE_SLASH_RIGHT))
             {
-                unZipDir += "//";
+                unZipDir += DOUBLE_SLASH_RIGHT;
             }
 
             if (!Directory.Exists(unZipDir))
             {
                 Directory.CreateDirectory(unZipDir);
             }
+            else
+            {
+                // if target unzip directory has import files, then clear
+                var fileList = Directory.GetFiles(unZipDir);
+                foreach (var file in fileList)
+                {
+                    File.Delete(file);
+                }
+            }
 
             try
             {
-                using (ZipInputStream s = new ZipInputStream(File.OpenRead(zipFilePath)))
+                using (ZipInputStream zipInputStream = new ZipInputStream(File.OpenRead(zipFilePath)))
                 {
                     ZipEntry theEntry;
-                    while ((theEntry = s.GetNextEntry()) != null)
+                    while ((theEntry = zipInputStream.GetNextEntry()) != null)
                     {
                         string directoryName = Path.GetDirectoryName(theEntry.Name);
                         string fileName = Path.GetFileName(theEntry.Name);
@@ -94,10 +106,12 @@ namespace BaseDemo.Util
                             Directory.CreateDirectory(unZipDir + directoryName);
                         }
 
-                        if (!directoryName.EndsWith("//"))
-                            directoryName += "//";
+                        if (!directoryName.EndsWith(DOUBLE_SLASH_RIGHT))
+                        {
+                            directoryName += DOUBLE_SLASH_RIGHT;
+                        }
 
-                        if (fileName != String.Empty)
+                        if (!fileName.IsNullOrEmpty())
                         {
                             using (FileStream streamWriter = File.Create(unZipDir + theEntry.Name))
                             {
@@ -105,7 +119,7 @@ namespace BaseDemo.Util
                                 byte[] data = new byte[2048];
                                 while (true)
                                 {
-                                    size = s.Read(data, 0, data.Length);
+                                    size = zipInputStream.Read(data, 0, data.Length);
                                     if (size > 0)
                                     {
                                         streamWriter.Write(data, 0, size);

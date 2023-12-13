@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BaseDemo.Util;
 using BaseDemo.Util.Extensions;
 using DataDemo.WebDto;
 using ReactiveDemo.Models.Csv;
@@ -7,6 +8,7 @@ using ServiceDemo.Common.SQLite;
 using SharedDemo.GlobalData;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,10 @@ namespace ReactiveDemo.Models.MainWindow
 {
     public class NoteModel
     {
+        public static readonly string IMPORT_FILE_NAME_PREFIX_NOTE_TYPE = "note_type";
+        public static readonly string IMPORT_FILE_NAME_PREFIX_NOTE_CATEGORY = "note_category";
+        public static readonly string IMPORT_FILE_NAME_PREFIX_NOTE_CONTENT = "note_content";
+
         private NoteService _noteService = new NoteService();
 
         public async Task<NoteCategoryWebDto> InsertOrUpdateNoteCategory(NoteCategoryUiModel noteCategoryUiModel)
@@ -200,6 +206,19 @@ namespace ReactiveDemo.Models.MainWindow
             return (await _noteService.SelectAllNoteContentWebDtoList())
                 .Select(o => Mapper.Map<NoteContentCsvModel>(o))
                 .ToList();
+        }
+
+        public bool ValidateImportFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+
+            if (!fileName.EndsWith(FileUtil.FILE_EXTENSION)) return false;
+
+            if (!fileName.StartsWith(IMPORT_FILE_NAME_PREFIX_NOTE_TYPE) 
+                && !fileName.StartsWith(IMPORT_FILE_NAME_PREFIX_NOTE_CATEGORY) 
+                && !fileName.StartsWith(IMPORT_FILE_NAME_PREFIX_NOTE_CONTENT)) return false;
+
+            return true;
         }
     }
 }

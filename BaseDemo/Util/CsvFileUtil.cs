@@ -1,6 +1,7 @@
 ﻿using BaseDemo.Util.Attribute;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -11,9 +12,6 @@ namespace BaseDemo.Util
 {
     public class CsvFileUtil<T>
     {
-        public static readonly string HALF_BLANK = " ";
-        public static readonly string EngComma = ",";
-
         private static Dictionary<int, CsvInfoAttribute> BuildRelationship(Type type)
         {
             Dictionary<int, CsvInfoAttribute> map = new Dictionary<int, CsvInfoAttribute>();
@@ -40,7 +38,7 @@ namespace BaseDemo.Util
             StringBuilder sb = new StringBuilder();
             foreach (var item in map)
             {
-                sb.Append(string.Concat(item.Value.TitleName, EngComma));
+                sb.Append(string.Concat(item.Value.TitleName, FileUtil.ENGLISH_COMMA));
             }
 
             return sb.Remove(sb.Length - 1, 1).ToString();
@@ -52,7 +50,7 @@ namespace BaseDemo.Util
             foreach (var kv in map)
             {
                 var item = t.GetType().GetProperties().FirstOrDefault(x => x.Name == kv.Value.ColumnName);
-                sb.Append(string.Concat(PlusDoubleQuotationMark(item.GetValue(t).ToString()), EngComma));
+                sb.Append(string.Concat(PlusDoubleQuotationMark(item.GetValue(t).ToString()), FileUtil.ENGLISH_COMMA));
             }
 
             return sb.Remove(sb.Length - 1, 1).ToString();
@@ -63,7 +61,7 @@ namespace BaseDemo.Util
             StringBuilder sb = new StringBuilder();
             foreach (var item in map)
             {
-                sb.Append(string.Concat(item.Value.ColumnWidth, EngComma));
+                sb.Append(string.Concat(item.Value.ColumnWidth, FileUtil.ENGLISH_COMMA));
             }
 
             return sb.Remove(sb.Length - 1, 1).ToString();
