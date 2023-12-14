@@ -1,4 +1,5 @@
 ﻿using BaseDemo.Util;
+using DataDemo.WebDto;
 using GongSolutions.Wpf.DragDrop;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Reactive.Bindings;
@@ -9,6 +10,7 @@ using SharedDemo.GlobalData;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
@@ -16,7 +18,7 @@ using System.Windows.Forms;
 
 namespace ReactiveDemo.ViewModels.MainWindow
 {
-    public class SettingsViewModel : ViewModelBase, GongSolutions.Wpf.DragDrop.IDropTarget
+    public class SettingsViewModel : ViewModelBase//, GongSolutions.Wpf.DragDrop.IDropTarget
     {
 
         #region Field
@@ -37,7 +39,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public AsyncReactiveCommand ExportCommand { get; set; }
 
-        public ReactiveCommand ImportCommand { get; set; }
+        public AsyncReactiveCommand ImportCommand { get; set; }
 
         #endregion
 
@@ -83,7 +85,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
             ExportCommand = new AsyncReactiveCommand().AddTo(DisposablePool);
             ExportCommand.Subscribe(Export).AddTo(DisposablePool);
 
-            ImportCommand = new ReactiveCommand().AddTo(DisposablePool);
+            ImportCommand = new AsyncReactiveCommand().AddTo(DisposablePool);
             ImportCommand.Subscribe(Import).AddTo(DisposablePool);
         }
 
@@ -138,59 +140,122 @@ namespace ReactiveDemo.ViewModels.MainWindow
             }
         }
 
-        private void Import()
+        private async Task Import()
         {
-            using (var ofd = new OpenFileDialog())
+            try
             {
-                var result = ofd.ShowDialog();
-
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(ofd.FileName))
+                using (var ofd = new OpenFileDialog())
                 {
-                    ZipUtil.UnZipFile(ofd.FileName, GlobalData.CSV_PATH, out string errorMessage);
+                    var result = ofd.ShowDialog();
 
-                    var fileList = Directory.GetFiles(GlobalData.CSV_PATH);
-                    foreach (var file in fileList)
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(ofd.FileName))
                     {
-                        if (!_noteModel.ValidateImportFileName(file)) continue;
+                        IsProgress.Value = true;
 
-                        var dataTable = FileUtil.ConvertCsvToDataTable(file);
-                        var fileName = Path.GetFileName(file);
+                        ZipUtil.UnZipFile(ofd.FileName, GlobalData.CSV_PATH, out string errorMessage);
 
-                        if (fileName.StartsWith(NoteModel.IMPORT_FILE_NAME_PREFIX_NOTE_TYPE))
+                        var fileList = Directory.GetFiles(GlobalData.CSV_PATH);
+                        var noteTypeWebDtoList = new List<NoteTypeWebDto>();
+                        var noteCategoryWebDtoList = new List<NoteCategoryWebDto>();
+                        var noteContentWebDtoList = new List<NoteContentWebDto>();
+                        var operateTime = DateTime.Now;
+                        foreach (var file in fileList)
                         {
-                            for (var i = 0; i < dataTable.Rows.Count; i++)
+                            if (!_noteModel.ValidateImportFileName(file)) continue;
+
+                            var dataTable = FileUtil.ConvertCsvToDataTable(file);
+                            var fileName = Path.GetFileName(file);
+
+                            if (fileName.StartsWith(NoteModel.IMPORT_FILE_NAME_PREFIX_NOTE_TYPE))
                             {
-                                var userIdStr = dataTable.Rows[i]["user_id"].ToString();
-                                var typeIdStr = dataTable.Rows[i]["type_id"].ToString();
-                                var typeNameStr = dataTable.Rows[i]["type_name"].ToString();
-                                var descriptionStr = dataTable.Rows[i]["description"].ToString();
+                                // note type
+                                for (var i = 0; i < dataTable.Rows.Count; i++)
+                                {
+                                    var userIdStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_USER_ID].ToString();
+                                    var typeIdStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_TYPE_ID].ToString();
+                                    var typeNameStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_TYPE_NAME].ToString();
+                                    var descriptionStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_DESCRIPTION].ToString();
+
+                                    noteTypeWebDtoList.Add(new NoteTypeWebDto
+                                    {
+                                        UserId = int.Parse(userIdStr),
+                                        TypeId = int.Parse(typeIdStr),
+                                        TypeName = typeNameStr,
+                                        Description = descriptionStr,
+                                        CreateAt = operateTime,
+                                        CreateBy = LoginInfo.UserBasicInfo.UserId,
+                                        UpdateAt = operateTime,
+                                        UpdateBy = LoginInfo.UserBasicInfo.UserId,
+                                    });
+                                }
+                            }
+                            else if (fileName.StartsWith(NoteModel.IMPORT_FILE_NAME_PREFIX_NOTE_CATEGORY))
+                            {
+                                // note category
+                                for (var i = 0; i < dataTable.Rows.Count; i++)
+                                {
+                                    var userIdStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_USER_ID].ToString();
+                                    var typeIdStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_TYPE_ID].ToString();
+                                    var displayOrderStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_DISPLAY_ORDER].ToString();
+                                    var categoryIdStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_CATEGORY_ID].ToString();
+                                    var categoryNameStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_CATEGORY_NAME].ToString();
+
+                                    noteCategoryWebDtoList.Add(new NoteCategoryWebDto
+                                    {
+                                        UserId = int.Parse(userIdStr),
+                                        TypeId = int.Parse(typeIdStr),
+                                        DisplayOrder = int.Parse(displayOrderStr),
+                                        CategoryId = int.Parse(categoryIdStr),
+                                        CategoryName = categoryNameStr,
+                                        CreateAt = operateTime,
+                                        CreateBy = LoginInfo.UserBasicInfo.UserId,
+                                        UpdateAt = operateTime,
+                                        UpdateBy = LoginInfo.UserBasicInfo.UserId,
+                                    });
+                                }
+                            }
+                            else if (fileName.StartsWith(NoteModel.IMPORT_FILE_NAME_PREFIX_NOTE_CONTENT))
+                            {
+                                // note content
+                                for (var i = 0; i < dataTable.Rows.Count; i++)
+                                {
+                                    var userIdStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_USER_ID].ToString();
+                                    var typeIdStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_TYPE_ID].ToString();
+                                    var contentIdStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_CONTENT_ID].ToString();
+                                    var categoryIdStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_CATEGORY_ID].ToString();
+                                    var contentStr = dataTable.Rows[i][NoteModel.FIELD_NAME_IN_IMPORT_FILE_CONTENT].ToString();
+
+                                    noteContentWebDtoList.Add(new NoteContentWebDto
+                                    {
+                                        UserId = int.Parse(userIdStr),
+                                        TypeId = int.Parse(typeIdStr),
+                                        CategoryId = int.Parse(categoryIdStr),
+                                        ContentId = int.Parse(contentIdStr),
+                                        Content = contentStr,
+                                        CreateAt = operateTime,
+                                        CreateBy = LoginInfo.UserBasicInfo.UserId,
+                                        UpdateAt = operateTime,
+                                        UpdateBy = LoginInfo.UserBasicInfo.UserId,
+                                    });
+                                }
                             }
                         }
-                        else if (fileName.StartsWith(NoteModel.IMPORT_FILE_NAME_PREFIX_NOTE_CATEGORY))
+
+                        await _noteModel.ConvertImportFileContentToDb(noteTypeWebDtoList, noteCategoryWebDtoList, noteContentWebDtoList);
+
+                        // need to restart application
+                        System.Windows.Application.Current.Shutdown();
+                        var processModule = Process.GetCurrentProcess().MainModule;
+                        if (processModule != null)
                         {
-                            for (var i = 0; i < dataTable.Rows.Count; i++)
-                            {
-                                var userIdStr = dataTable.Rows[i]["user_id"].ToString();
-                                var typeIdStr = dataTable.Rows[i]["type_id"].ToString();
-                                var displayOrderStr = dataTable.Rows[i]["display_order"].ToString();
-                                var categoryIdStr = dataTable.Rows[i]["category_id"].ToString();
-                                var categoryNameStr = dataTable.Rows[i]["category_name"].ToString();
-                            }
-                        }
-                        else if (fileName.StartsWith(NoteModel.IMPORT_FILE_NAME_PREFIX_NOTE_CONTENT))
-                        {
-                            for (var i = 0; i < dataTable.Rows.Count; i++)
-                            {
-                                var userIdStr = dataTable.Rows[i]["user_id"].ToString();
-                                var typeIdStr = dataTable.Rows[i]["type_id"].ToString();
-                                var contentIdStr = dataTable.Rows[i]["content_id"].ToString();
-                                var categoryIdStr = dataTable.Rows[i]["category_id"].ToString();
-                                var contentStr = dataTable.Rows[i]["content"].ToString();
-                            }
+                            Process.Start(processModule.FileName, "ReStart");
                         }
                     }
-                    
                 }
+            }
+            finally
+            {
+                IsProgress.Value = false;
             }
         }
 
@@ -202,7 +267,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public void Drop(IDropInfo dropInfo)
         {
-            
+            // do nothing
         }
 
         #endregion

@@ -57,7 +57,7 @@ namespace SharedDemo.GlobalData
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<UserBasicInfoWebDto>().HasKey(o => o.UserId);
+            modelBuilder.Entity<UserBasicInfoWebDto>().HasKey(o => new { o.UserId });
             modelBuilder.Entity<UserBasicInfoWebDto>(e =>
             {
                 // Disable identity (auto-incrementing) on integer primary key
@@ -67,7 +67,7 @@ namespace SharedDemo.GlobalData
                 e.Property(o => o.Password).IsRequired();
             });
 
-            modelBuilder.Entity<NoteCategoryWebDto>().HasKey(o => o.CategoryId);
+            modelBuilder.Entity<NoteCategoryWebDto>().HasKey(o => new { o.UserId, o.TypeId, o.CategoryId });
             modelBuilder.Entity<NoteCategoryWebDto>(e =>
             {
                 e.Property(o => o.UserId).IsRequired();
@@ -77,7 +77,7 @@ namespace SharedDemo.GlobalData
                 e.Property(o => o.CategoryName).IsRequired();
             });
 
-            modelBuilder.Entity<NoteContentWebDto>().HasKey(o => o.ContentId);
+            modelBuilder.Entity<NoteContentWebDto>().HasKey(o => new { o.UserId, o.TypeId, o.CategoryId, o.ContentId });
             modelBuilder.Entity<NoteContentWebDto>(e =>
             {
                 e.Property(o => o.UserId).IsRequired();
@@ -87,7 +87,7 @@ namespace SharedDemo.GlobalData
                 e.Property(o => o.CategoryId).IsRequired();
             });
 
-            modelBuilder.Entity<NoteTypeWebDto>().HasKey(o => o.TypeId);
+            modelBuilder.Entity<NoteTypeWebDto>().HasKey(o => new { o.UserId, o.TypeId });
             modelBuilder.Entity<NoteTypeWebDto>(e =>
             {
                 e.Property(o => o.UserId).IsRequired();
@@ -96,7 +96,7 @@ namespace SharedDemo.GlobalData
                 e.Property(o => o.Description).IsRequired();
             });
 
-            modelBuilder.SetDefaultValueSql(GetType().GetAllSetProperties(), "CURRENT_TIMESTAMP", "CreatedAt", "UpdatedAt");
+           // modelBuilder.SetDefaultValueSql(GetType().GetAllSetProperties(), "CURRENT_TIMESTAMP", "CreatedAt", "UpdatedAt");
         }
 
         private static SqliteConnection InitializeSqliteConnection(string dbFilePath)

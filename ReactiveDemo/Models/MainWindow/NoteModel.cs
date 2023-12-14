@@ -22,6 +22,20 @@ namespace ReactiveDemo.Models.MainWindow
         public static readonly string IMPORT_FILE_NAME_PREFIX_NOTE_CATEGORY = "note_category";
         public static readonly string IMPORT_FILE_NAME_PREFIX_NOTE_CONTENT = "note_content";
 
+        #region field name in import file(csv)
+
+        public static readonly string FIELD_NAME_IN_IMPORT_FILE_USER_ID = "user_id";
+        public static readonly string FIELD_NAME_IN_IMPORT_FILE_TYPE_ID = "type_id";
+        public static readonly string FIELD_NAME_IN_IMPORT_FILE_TYPE_NAME = "type_name";
+        public static readonly string FIELD_NAME_IN_IMPORT_FILE_DESCRIPTION = "description";
+        public static readonly string FIELD_NAME_IN_IMPORT_FILE_CATEGORY_ID = "category_id";
+        public static readonly string FIELD_NAME_IN_IMPORT_FILE_CATEGORY_NAME = "category_name";
+        public static readonly string FIELD_NAME_IN_IMPORT_FILE_DISPLAY_ORDER = "display_order";
+        public static readonly string FIELD_NAME_IN_IMPORT_FILE_CONTENT_ID = "content_id";
+        public static readonly string FIELD_NAME_IN_IMPORT_FILE_CONTENT = "content";
+
+        #endregion
+
         private NoteService _noteService = new NoteService();
 
         public async Task<NoteCategoryWebDto> InsertOrUpdateNoteCategory(NoteCategoryUiModel noteCategoryUiModel)
@@ -184,7 +198,7 @@ namespace ReactiveDemo.Models.MainWindow
                 });
             }
 
-            await _noteService.UpdateUpdateCategoryDisplayOrderAsync(webDtoList);
+            await _noteService.UpdateCategoryDisplayOrderAsync(webDtoList);
         }
 
         public async Task<List<NoteTypeCsvModel>> GetAllNoteTypeList()
@@ -219,6 +233,12 @@ namespace ReactiveDemo.Models.MainWindow
                 && !fileName.StartsWith(IMPORT_FILE_NAME_PREFIX_NOTE_CONTENT)) return false;
 
             return true;
+        }
+
+        public async Task ConvertImportFileContentToDb(List<NoteTypeWebDto> noteTypeWebDtoList,
+            List<NoteCategoryWebDto> noteCategoryWebDtoList, List<NoteContentWebDto> noteContentWebDtoList)
+        {
+            await _noteService.ConvertImportFileContentToDbAsync(noteTypeWebDtoList, noteCategoryWebDtoList, noteContentWebDtoList);
         }
     }
 }

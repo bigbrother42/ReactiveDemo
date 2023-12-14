@@ -24,7 +24,7 @@ namespace ServiceDemo.Common.SQLite
             if (existCategoryItem == null)
             {
                 // insert
-                SqLiteDbContext.NoteCategory.Add(param);
+                await SqLiteDbContext.NoteCategory.AddAsync(param);
             }
             else
             {
@@ -54,7 +54,7 @@ namespace ServiceDemo.Common.SQLite
             if (existContent == null)
             {
                 // insert
-                SqLiteDbContext.NoteContent.Add(param);
+                await SqLiteDbContext.NoteContent.AddAsync(param);
             }
             else
             {
@@ -82,7 +82,7 @@ namespace ServiceDemo.Common.SQLite
                 if (existContent == null)
                 {
                     // insert
-                    SqLiteDbContext.NoteType.Add(param);
+                    await SqLiteDbContext.NoteType.AddAsync(param);
                 }
                 else
                 {
@@ -205,7 +205,7 @@ namespace ServiceDemo.Common.SQLite
             return noteTypeList;
         }
 
-        public async Task UpdateUpdateCategoryDisplayOrderAsync(List<NoteCategoryWebDto> noteCategoryWebDtoList)
+        public async Task UpdateCategoryDisplayOrderAsync(List<NoteCategoryWebDto> noteCategoryWebDtoList)
         {
             if (noteCategoryWebDtoList.IsNullOrEmpty()) return;
 
@@ -255,6 +255,45 @@ namespace ServiceDemo.Common.SQLite
             });
 
             return taskRes;
+        }
+
+        public async Task ConvertImportFileContentToDbAsync(List<NoteTypeWebDto> noteTypeWebDtoList,
+            List<NoteCategoryWebDto> noteCategoryWebDtoList, List<NoteContentWebDto> noteContentWebDtoList)
+        {
+            if (!noteTypeWebDtoList.IsNullOrEmpty())
+            {
+                foreach (var item in SqLiteDbContext.NoteType)
+                {
+                    SqLiteDbContext.NoteType.Remove(item);
+                }
+
+                await SqLiteDbContext.NoteType.AddRangeAsync(noteTypeWebDtoList);
+            }
+
+            if (!noteCategoryWebDtoList.IsNullOrEmpty())
+            {
+                foreach (var item in SqLiteDbContext.NoteCategory)
+                {
+                    SqLiteDbContext.NoteCategory.Remove(item);
+                }
+
+                await SqLiteDbContext.NoteCategory.AddRangeAsync(noteCategoryWebDtoList);
+            }
+
+            if (!noteContentWebDtoList.IsNullOrEmpty())
+            {
+                foreach (var item in SqLiteDbContext.NoteContent)
+                {
+                    SqLiteDbContext.NoteContent.Remove(item);
+                }
+
+                await SqLiteDbContext.NoteContent.AddRangeAsync(noteContentWebDtoList);
+            }
+
+            await Task.Run(() =>
+            {
+                SqLiteDbContext.SaveChanges();
+            });
         }
     }
 }

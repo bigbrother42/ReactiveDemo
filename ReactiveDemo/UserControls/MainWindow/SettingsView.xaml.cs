@@ -1,4 +1,5 @@
 ﻿using ControlzEx.Theming;
+using InfrastructureDemo.Util;
 using ReactiveDemo.ViewModels.MainWindow;
 using SharedDemo.GlobalData;
 using System;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static InfrastructureDemo.Constans.Enum.EnumConstants;
 
 namespace ReactiveDemo.UserControls.MainWindow
 {
@@ -54,6 +56,29 @@ namespace ReactiveDemo.UserControls.MainWindow
                 {
                     
                 }
+            }
+        }
+
+        private void Border_Drop(object sender, DragEventArgs e)
+        {
+            if (DataContext is SettingsViewModel vm)
+            {
+                var data = e.Data as DataObject;
+                var text = data?.GetText();
+                var fileDropList = data?.GetFileDropList();
+
+                if (fileDropList == null || fileDropList.Count == 0)
+                {
+                    return;
+                }
+
+                if (fileDropList.Count > 1)
+                {
+                    MessageBox.Show($"Allow only one file.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                var fileName = fileDropList[0];
             }
         }
     }

@@ -97,8 +97,8 @@
                             Height="100"
                             BorderThickness="2"
                             CornerRadius="3"
-                            dd:DragDrop.IsDropTarget="True"
-                            dd:DragDrop.DropHandler="{Binding}">
+                            AllowDrop="True"
+                            Drop="Border_Drop">
                         <Border.BorderBrush>
                             <VisualBrush>
                                 <VisualBrush.Visual>
