@@ -4,6 +4,7 @@ using Prism.Interactivity.InteractionRequest;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactiveDemo.Base.ActionBase;
+using ReactiveDemo.Constants;
 using ReactiveDemo.Models.MainWindow;
 using ReactiveDemo.Models.UiModel;
 using System;
@@ -152,7 +153,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
                 CategoryDisplayOrder = displayOrder,
                 CategorySeq = newCategorySeq,
                 ContentId = newCategorySeq,
-                CategoryName = "New Category"
+                CategoryName = "NewCategory"
             };
 
             SelectedNoteType.Value.CategoryList.Add(newCategory);
@@ -165,7 +166,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
         {
             if (deleteItem == null) return;
 
-            var result = MessageBox.Show($"Do you want to delete this category? [{deleteItem.CategoryName}]", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            var result = MessageBox.Show(string.Format(MessageBoxConstant.DELETE_CATEGORY_CONFIRM_MESSAGE, deleteItem.CategoryName), MessageBoxConstant.TITLE_WARNING, MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
                 var deleteNum = await _noteModel.DeleteNoteCategory(deleteItem);

@@ -1,5 +1,6 @@
 ﻿using ControlzEx.Theming;
 using InfrastructureDemo.Util;
+using ReactiveDemo.Constants;
 using ReactiveDemo.ViewModels.MainWindow;
 using SharedDemo.GlobalData;
 using System;
@@ -59,7 +60,7 @@ namespace ReactiveDemo.UserControls.MainWindow
             }
         }
 
-        private void Border_Drop(object sender, DragEventArgs e)
+        private async void Border_Drop(object sender, DragEventArgs e)
         {
             if (DataContext is SettingsViewModel vm)
             {
@@ -72,13 +73,18 @@ namespace ReactiveDemo.UserControls.MainWindow
                     return;
                 }
 
-                if (fileDropList.Count > 1)
+                var res = MessageBox.Show(MessageBoxConstant.IMPORT_FILE_CONFIRM_MESSAGE, MessageBoxConstant.TITLE_WARNING, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (res == MessageBoxResult.Yes)
                 {
-                    MessageBox.Show($"Allow only one file.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
+                    if (fileDropList.Count > 1)
+                    {
+                        MessageBox.Show(MessageBoxConstant.IMPORT_FILE_LIMIT_ONE_FILE_MESSAGE, MessageBoxConstant.TITLE_WARNING, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
 
-                var fileName = fileDropList[0];
+                    var fileName = fileDropList[0];
+                    await vm.ImportForDrop(fileName);
+                }
             }
         }
     }

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BaseDemo.Util
@@ -27,7 +29,7 @@ namespace BaseDemo.Util
             {
                 using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                 {
-                    using (var sr = new StreamReader(fs, Encoding.UTF8))
+                    using (var sr = new StreamReader(fs, Encoding.Default))
                     {
                         while ((strLine = sr.ReadLine()) != null)
                         {
@@ -49,9 +51,30 @@ namespace BaseDemo.Util
                                 aryLine = strLine.Split(',');
 
                                 DataRow dr = dt.NewRow();
-                                for (int j = 0; j < columnCount; j++)
+                                var val = string.Empty;
+                                var col = 0;
+                                for (int j = 0; j < aryLine.Length; j++)
                                 {
-                                    dr[j] = aryLine[j].Replace("\"", string.Empty);
+                                    if (aryLine[j].StartsWith("\"") && !aryLine[j].EndsWith("\""))
+                                    {
+                                        val = aryLine[j];
+                                    }
+                                    else if (!aryLine[j].StartsWith("\""))
+                                    {
+                                        val = $"{val},{aryLine[j]}";
+
+                                        if (aryLine[j].EndsWith("\""))
+                                        {
+                                            dr[col] = val.Trim('\"');
+                                            col++;
+                                            val = string.Empty;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        dr[col] = aryLine[j].Trim('\"');
+                                        col++;
+                                    }
                                 }
 
                                 dt.Rows.Add(dr);
@@ -60,7 +83,7 @@ namespace BaseDemo.Util
 
                         if (aryLine != null && aryLine.Length > 0)
                         {
-                            dt.DefaultView.Sort = tableHead[0].Replace("\"", string.Empty) + " " + "desc";
+                            dt.DefaultView.Sort = tableHead[0].Replace("\"", string.Empty) + HALF_BLANK + "desc";
                         }
                     }
                 }
