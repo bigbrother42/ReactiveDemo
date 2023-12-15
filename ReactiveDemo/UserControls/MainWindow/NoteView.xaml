@@ -399,7 +399,7 @@
                                Foreground="{DynamicResource MahApps.Brushes.Gray4}"
                                FontSize="14"/>
                 </WrapPanel>
-                
+
                 <RichTextBox x:Name="NoteContentRichTextBox"
                              Grid.Row="1"
                              Margin="2,2,2,0"
@@ -407,10 +407,12 @@
                              BorderBrush="LightGray"
                              AcceptsReturn="True"
                              FontSize="16"
+                             IsEnabled="{Binding IsTextBoxEnable.Value}"
                              KeyUp="NoteContentRichTextBox_KeyUp"
                              VerticalScrollBarVisibility="Auto"
                              HorizontalScrollBarVisibility="Disabled"
                              helpers:RichTextBoxHelper.DocumentXaml="{Binding SelectedNoteCategory.Value.Content}"/>
+
             </Grid>
         </Border>
 

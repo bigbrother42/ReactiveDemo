@@ -55,6 +55,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public ReactiveProperty<NoteCategoryTypeUiModel> SelectedNoteType { get; set; }
 
+        public ReactiveProperty<bool> IsTextBoxEnable { get; set; }
+
         #endregion
 
         #region Request
@@ -93,6 +95,10 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
             SelectedNoteCategory = new ReactiveProperty<NoteCategoryUiModel>().AddTo(DisposablePool);
             SelectedNoteType = new ReactiveProperty<NoteCategoryTypeUiModel>().AddTo(DisposablePool);
+
+            IsTextBoxEnable = new[] {
+                SelectedNoteCategory.ObserveProperty(o => o.Value).Select(o => o != null),
+            }.CombineLatest(x => x.Any(y => y)).ToReactiveProperty().AddTo(DisposablePool);
 
             SelectedNoteType.Skip(1).Subscribe(o =>
             {
