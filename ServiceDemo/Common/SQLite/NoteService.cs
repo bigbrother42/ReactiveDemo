@@ -36,14 +36,9 @@ namespace ServiceDemo.Common.SQLite
                 }
             }
 
-            var taskResult = await Task.Run(() =>
-            {
-                SqLiteDbContext.SaveChanges();
+            await SqLiteDbContext.SaveChangesAsync();
 
-                return param;
-            });
-
-            return null;
+            return param;
         }
 
         public async Task<NoteContentWebDto> InsertOrUpdateNoteContentAsync(NoteContentWebDto param)
@@ -62,14 +57,9 @@ namespace ServiceDemo.Common.SQLite
                 existContent.Content = param.Content;
             }
 
-            await Task.Run(() =>
-            {
-                SqLiteDbContext.SaveChanges();
+            await SqLiteDbContext.SaveChangesAsync();
 
-                return param;
-            });
-
-            return null;
+            return param;
         }
 
         public async Task<List<NoteTypeWebDto>> InsertOrUpdateNoteTypeListAsync(List<NoteTypeWebDto> paramList)
@@ -92,14 +82,9 @@ namespace ServiceDemo.Common.SQLite
                 }
             }
 
-            await Task.Run(() =>
-            {
-                SqLiteDbContext.SaveChanges();
+            await SqLiteDbContext.SaveChangesAsync();
 
-                return paramList;
-            });
-
-            return new List<NoteTypeWebDto>();
+            return paramList;
         }
 
         public async Task<int> DeleteNoteCategoryAsync(NoteCategoryWebDto param)
@@ -119,12 +104,7 @@ namespace ServiceDemo.Common.SQLite
                     SqLiteDbContext.NoteContent.RemoveRange(deleteContentItemList);
                 }
 
-                var taskResult = await Task.Run(() =>
-                {
-                    return SqLiteDbContext.SaveChanges();
-                });
-
-                return taskResult;
+                return await SqLiteDbContext.SaveChangesAsync();
             }
 
             return 0;
@@ -221,10 +201,7 @@ namespace ServiceDemo.Common.SQLite
                 }
             }
 
-            await Task.Run(() =>
-            {
-                SqLiteDbContext.SaveChanges();
-            });
+            await SqLiteDbContext.SaveChangesAsync();
         }
 
         public async Task<List<NoteTypeWebDto>> SelectAllNoteTypeWebDtoList()
@@ -290,10 +267,7 @@ namespace ServiceDemo.Common.SQLite
                 await SqLiteDbContext.NoteContent.AddRangeAsync(noteContentWebDtoList);
             }
 
-            await Task.Run(() =>
-            {
-                SqLiteDbContext.SaveChanges();
-            });
+            await SqLiteDbContext.SaveChangesAsync();
         }
     }
 }

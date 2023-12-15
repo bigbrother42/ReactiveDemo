@@ -57,7 +57,8 @@
                          mah:TextBoxHelper.Watermark="Please enter password."
                          BorderBrush="{StaticResource Common.LightGray}"
                          Style="{StaticResource MahApps.Styles.PasswordBox.Button.Revealed}"
-                         mah:PasswordBoxBindingBehavior.Password="{Binding Password.Value}"/>
+                         mah:PasswordBoxBindingBehavior.Password="{Binding Password.Value}"
+                         KeyUp="PasswordTextBox_KeyUp"/>
 
             <Button x:Name="LoginButton"
                     Margin="0,20,0,0"

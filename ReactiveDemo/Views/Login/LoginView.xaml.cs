@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using ReactiveDemo.ViewModels.Login;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,17 @@ namespace ReactiveDemo.Views.Login
             InitializeComponent();
 
             UserNameTextBox.Focus();
+        }
+
+        private void PasswordTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (DataContext is LoginViewModel vm)
+                {
+                    vm.LoginCommand.Execute();
+                }
+            }
         }
     }
 }

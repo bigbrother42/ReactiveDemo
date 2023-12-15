@@ -17,6 +17,12 @@
                 Owner="{Binding ElementName=MainWindowView}"
                 WindowName="ReactiveDemo.Views.ReactiveDemoView" />
         </interactionRequest:InteractionRequestTrigger>
+
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding OpenViewport3DViewRequest}">
+            <actionBase:AlertWindowAction
+                Owner="{Binding ElementName=MainWindowView}"
+                WindowName="ReactiveDemo.Views.MainWindow._3DGraphics.Viewport3DView" />
+        </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
     <Grid>
@@ -34,8 +40,18 @@
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Content="Reactive&#xa;  Demo"
-                    Command="{Binding ReactiveDemoCommand}"
-                    Visibility="Collapsed"/>
+                    Command="{Binding ReactiveDemoCommand}"/>
+
+            <Button x:Name="Viewport3DButton"
+                    Margin="10,0,0,0"
+                    Width="150"
+                    Height="150"
+                    FontSize="16"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Content="Viewport3D"
+                    Command="{Binding OpenViewport3DViewCommand}"/>
         </WrapPanel>
     </Grid>
 </UserControl>

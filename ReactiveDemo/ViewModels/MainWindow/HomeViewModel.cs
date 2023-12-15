@@ -27,6 +27,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public ReactiveCommand ReactiveDemoCommand { get; set; }
 
+        public ReactiveCommand OpenViewport3DViewCommand { get; set; }
+
         #endregion
 
         #region ReactiveProperty
@@ -38,6 +40,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
         #region Request
 
         public InteractionRequest<Notification> ReactiveDemoRequest { get; set; } = new InteractionRequest<Notification>();
+
+        public InteractionRequest<Notification> OpenViewport3DViewRequest { get; set; } = new InteractionRequest<Notification>();
 
         #endregion
 
@@ -66,6 +70,9 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
             ReactiveDemoCommand = new ReactiveCommand().AddTo(DisposablePool);
             ReactiveDemoCommand.Subscribe(ReactiveDemoMethod).AddTo(DisposablePool);
+
+            OpenViewport3DViewCommand = new ReactiveCommand().AddTo(DisposablePool);
+            OpenViewport3DViewCommand.Subscribe(OpenViewport3DView).AddTo(DisposablePool);
         }
 
         protected override void RegisterPubEvents()
@@ -80,6 +87,11 @@ namespace ReactiveDemo.ViewModels.MainWindow
         private void ReactiveDemoMethod()
         {
             ReactiveDemoRequest.Raise(new Notification(), notification => { });
+        }
+
+        private void OpenViewport3DView()
+        {
+            OpenViewport3DViewRequest.Raise(new Notification(), notification => { });
         }
 
         #endregion

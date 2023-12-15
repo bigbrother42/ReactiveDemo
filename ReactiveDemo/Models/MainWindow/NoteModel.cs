@@ -101,7 +101,7 @@ namespace ReactiveDemo.Models.MainWindow
                             CategoryDisplayOrder = category.CategoryDisplayOrder,
                             CategorySeq = category.CategoryId,
                             CategoryName = category.CategoryName,
-                            ContentId = category.ContentId,
+                            //ContentId = category.CategoryId,
                             Content = category.Content
                         };
 
@@ -335,7 +335,7 @@ namespace ReactiveDemo.Models.MainWindow
                             UserId = int.Parse(userIdStr),
                             TypeId = int.Parse(typeIdStr),
                             CategoryId = int.Parse(categoryIdStr),
-                            ContentId = int.Parse(contentIdStr),
+                            //ContentId = int.Parse(contentIdStr),
                             Content = contentStr,
                             CreateAt = operateTime,
                             CreateBy = LoginInfo.UserBasicInfo.UserId,

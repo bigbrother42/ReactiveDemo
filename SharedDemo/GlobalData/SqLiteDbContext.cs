@@ -83,7 +83,7 @@ namespace SharedDemo.GlobalData
                 e.Property(o => o.UserId).IsRequired();
                 e.Property(o => o.TypeId).IsRequired();
                 e.Property(o => o.CategoryId).IsRequired();
-                e.Property(o => o.ContentId).IsRequired();
+                e.Property(o => o.ContentId).IsRequired().ValueGeneratedOnAdd();
                 e.Property(o => o.CategoryId).IsRequired();
             });
 
