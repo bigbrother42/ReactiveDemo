@@ -225,6 +225,12 @@ namespace ReactiveDemo.ViewModels.MainWindow
                             }
                         }
                     }
+
+                    var needADeleteTypeList = NoteTypeCollection.Where(o => typeUiModelList.All(x => o.TypeId != x.TypeId)).ToList();
+                    if (!needADeleteTypeList.IsNullOrEmpty())
+                    {
+                        NoteTypeCollection.ExRemoveAll(o => needADeleteTypeList.Any(x => x.TypeId == o.TypeId));
+                    }
                 }
             });
         }

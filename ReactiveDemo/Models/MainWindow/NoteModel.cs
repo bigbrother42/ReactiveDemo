@@ -182,6 +182,28 @@ namespace ReactiveDemo.Models.MainWindow
             return updateList.Count;
         }
 
+        public async Task<int> DeleteNoteTypeList(List<NoteCategoryTypeUiModel> deleteItemList)
+        {
+            if (deleteItemList.IsNullOrEmpty()) return 0;
+
+            var deleteWebDtoList = new List<NoteTypeWebDto>();
+            foreach(var deleteItem in deleteItemList)
+            {
+                deleteWebDtoList.Add(new NoteTypeWebDto
+                {
+                    TypeId = deleteItem.TypeId,
+                    TypeName = deleteItem.TypeName,
+                    Description = deleteItem.Description,
+                    CreateAt = DateTime.Now,
+                    UpdateAt = DateTime.Now,
+                    CreateBy = LoginInfo.UserBasicInfo.UserId,
+                    UpdateBy = LoginInfo.UserBasicInfo.UserId
+                });
+            }
+
+            return await _noteService.DeleteNoteTypeListAsync(deleteWebDtoList);
+        }
+
         public async Task UpdateCategoryDisplayOrder(List<NoteCategoryUiModel> categoryUiModelList)
         {
             if (categoryUiModelList.IsNullOrEmpty()) return;

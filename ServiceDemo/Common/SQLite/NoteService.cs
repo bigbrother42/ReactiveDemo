@@ -87,6 +87,22 @@ namespace ServiceDemo.Common.SQLite
             return paramList;
         }
 
+        public async Task<int> DeleteNoteTypeListAsync(List<NoteTypeWebDto> paramList)
+        {
+            if (paramList.IsNullOrEmpty()) return 0;
+
+            foreach(var param in paramList)
+            {
+                var existContent = SqLiteDbContext.NoteType.FirstOrDefault(o => o.TypeId == param.TypeId);
+                if (existContent != null)
+                {
+                    SqLiteDbContext.NoteType.Remove(existContent);
+                }
+            }
+
+            return await SqLiteDbContext.SaveChangesAsync();
+        }
+
         public async Task<int> DeleteNoteCategoryAsync(NoteCategoryWebDto param)
         {
             if (param == null) return 0;

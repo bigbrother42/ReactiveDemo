@@ -9,6 +9,7 @@
                  mc:Ignorable="d"
                  mvvm:ViewModelLocator.AutoWireViewModel="True"
                  WindowStartupLocation="CenterScreen"
+                 ResizeMode="NoResize"
                  Title="Config Note Type"
                  Height="450"
                  Width="800">
@@ -37,6 +38,18 @@
                   TextOptions.TextFormattingMode="Display"
                   BeginningEdit="AccountDataGrid_BeginningEdit"
                   RowEditEnding="AccountDataGrid_RowEditEnding">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
+                    <Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                <MenuItem Header="delete" Command="{Binding RelativeSource={RelativeSource AncestorType=local:ConfigNoteTypeView}, Path=DataContext.DeleteCommand}" CommandParameter="{Binding}"/>
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.RowStyle>
+            
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TypeId}" Header="Id" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding TypeName, UpdateSourceTrigger=PropertyChanged}" Header="TypeName"/>

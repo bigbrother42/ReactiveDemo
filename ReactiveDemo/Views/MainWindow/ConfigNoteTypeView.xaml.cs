@@ -37,7 +37,11 @@ namespace ReactiveDemo.Views.MainWindow
                 {
                     if (uiModel.TypeName.IsNullOrEmpty())
                     {
-                        vm.NoteTypeCollection.ExRemoveAll(o => o.TypeId == uiModel.TypeId);
+                        var needDeleteItem = vm.NoteTypeCollection.FirstOrDefault(o => o.TypeId == uiModel.TypeId);
+                        if (needDeleteItem != null)
+                        {
+                            vm.NoteTypeCollection.Remove(needDeleteItem);
+                        }
                     }
                 }
             }
@@ -49,7 +53,10 @@ namespace ReactiveDemo.Views.MainWindow
             {
                 if (e.Row.DataContext is NoteCategoryTypeUiModel uiModel)
                 {
-                    uiModel.TypeId = vm.NoteTypeCollection.Count() == 0 ? 1 :  vm.NoteTypeCollection.Max(o => o.TypeId) + 1;
+                    if (string.IsNullOrEmpty(uiModel.TypeName))
+                    {
+                        uiModel.TypeId = vm.NoteTypeCollection.Count() == 0 ? 1 : vm.NoteTypeCollection.Max(o => o.TypeId) + 1;
+                    }
                 }
             }
         }

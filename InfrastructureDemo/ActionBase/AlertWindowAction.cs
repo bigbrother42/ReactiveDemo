@@ -7,6 +7,7 @@
     using System.Windows.Controls;
     using System.Windows.Interactivity;
     using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+    using Prism.Common;
     using Prism.Interactivity.InteractionRequest;
     using ViewModels;
     using InteractionRequestedEventArgs = Prism.Interactivity.InteractionRequest.InteractionRequestedEventArgs;
@@ -63,6 +64,18 @@
                     {
                         vbb.Notification = notification;
                     }
+
+                    Action<IInteractionRequestAware> action = null;
+                    action = o =>
+                    {
+                        o.Notification = notification;
+
+                        o.FinishInteraction = async () =>
+                        {
+                            await System.Windows.Threading.Dispatcher.Yield();
+                        };
+                    };
+                    MvvmHelpers.ViewAndViewModelAction(win, action);
 
                     AttachOtherProperties(win, parameter);
 
