@@ -16,7 +16,7 @@
         mc:Ignorable="d"
         mvvm:ViewModelLocator.AutoWireViewModel="True"
         WindowStartupLocation="CenterScreen"
-        Icon="{StaticResource NoteLogo}"
+        Icon="{StaticResource NoteLogo2}"
         Name="MainWindow"
         Title="MainWindow"
         MinWidth="1200"

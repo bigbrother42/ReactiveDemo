@@ -12,7 +12,7 @@
         mc:Ignorable="d"
         mvvm:ViewModelLocator.AutoWireViewModel="True"
         WindowStartupLocation="CenterScreen"
-        Icon="{StaticResource NoteLogo}"
+        Icon="{StaticResource NoteLogo2}"
         Title="Login"
         Height="450"
         Width="350">
@@ -35,7 +35,7 @@
 
         <Grid Grid.Row="0">
             <Image Width="100" Height="100"
-                   Source="{StaticResource NoteLogo}"/>
+                   Source="{StaticResource NoteLogo2}"/>
         </Grid>
 
         <StackPanel Grid.Row="1">

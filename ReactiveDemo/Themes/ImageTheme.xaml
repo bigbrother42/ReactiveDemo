@@ -3,4 +3,6 @@
     <ImageSource x:Key="TestImage">pack://application:,,,/ReactiveDemo;component/Assets/Images/1.jpg</ImageSource>
 
     <ImageSource x:Key="NoteLogo">pack://application:,,,/ReactiveDemo;component/Assets/Images/note-logo.png</ImageSource>
+
+    <ImageSource x:Key="NoteLogo2">pack://application:,,,/ReactiveDemo;component/Assets/Images/note-logo-2.png</ImageSource>
 </ResourceDictionary>
