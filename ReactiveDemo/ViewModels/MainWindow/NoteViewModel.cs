@@ -57,6 +57,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public ReactiveProperty<bool> IsTextBoxEnable { get; set; }
 
+        public ReactiveProperty<bool> IsBoldChecked { get; set; }
+
         #endregion
 
         #region Request
@@ -111,6 +113,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
                     SelectedNoteCategory.Value = o.CategoryList.FirstOrDefault();
                 }
             }).AddTo(DisposablePool);
+
+            IsBoldChecked = new ReactiveProperty<bool>().AddTo(DisposablePool);
         }
 
         protected override void RegisterCommands()

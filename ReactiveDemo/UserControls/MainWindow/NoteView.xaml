@@ -269,7 +269,7 @@
                        FontSize="16"
                        VerticalAlignment="Center"/>
 
-            <mah:ColorPicker Width="220" Height="40"
+            <!--<mah:ColorPicker Width="220" Height="40"
                              Margin="10,2,0,0"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center"
@@ -277,25 +277,155 @@
                              mah:TextBoxHelper.UseFloatingWatermark="True"
                              mah:TextBoxHelper.Watermark="Select a color"
                              AddToRecentColorsTrigger="SelectedColorChanged"
-                             SelectedColorChanged="ColorPicker_SelectedColorChanged"/>
+                             SelectedColorChanged="ColorPicker_SelectedColorChanged"/>-->
+            <Grid Margin="10,2,0,0">
+                <Button Width="40" Height="40" Margin="0,0,0,0"
+                        HorizontalAlignment="Left"
+                        Background="{Binding ElementName=ColorPiker, Path=SelectedColor, Converter={x:Static mah:ColorToSolidColorBrushConverter.DefaultInstance}}"
+                        Panel.ZIndex="1"
+                        Click="Button_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
+                                    Background="{TemplateBinding Background}"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <mah:ColorPicker x:Name="ColorPiker"
+                                 Width="64" Height="40"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 AddToRecentColorsTrigger="SelectedColorChanged"
+                                 SelectedColorChanged="ColorPicker_SelectedColorChanged">
+                    <mah:ColorPicker.SelectedColorTemplate>
+                        <DataTemplate>
+                            <Grid x:Name="RootGrid" Width="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                                    <Setter TargetName="RootGrid" Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </mah:ColorPicker.SelectedColorTemplate>
+                </mah:ColorPicker>
+            </Grid>
+            
 
             <TextBlock Margin="10,0,0,0"
                        Text="Font Size: "
                        FontSize="16"
                        VerticalAlignment="Center"/>
 
-            <ComboBox Width="60" Height="40"
-                      Margin="10,1,0,0"
-                      FontSize="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedItem.Content}"
-                      VerticalAlignment="Center"
-                      SelectionChanged="ComboBox_SelectionChanged">
-                <ComboBoxItem Content="12" FontSize="12"/>
-                <ComboBoxItem Content="14" FontSize="14"/>
-                <ComboBoxItem Content="16" FontSize="16"/>
-                <ComboBoxItem Content="18" FontSize="18"/>
-                <ComboBoxItem Content="20" FontSize="20"/>
-                <ComboBoxItem Content="22" FontSize="22"/>
-            </ComboBox>
+            <Grid Margin="10,1,0,0">
+                <Button x:Name="FontSizeButton"
+                        Width="40" Height="40" Margin="0,0,0,0"
+                        HorizontalAlignment="Left"
+                        Panel.ZIndex="1"
+                        Click="FontSizeButton_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Control.Border}">
+                                <TextBlock Margin="4,5,0,0"
+                                           FontSize="{Binding ElementName=FontSizeComboBox, Path=SelectedItem.Content}"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                
+                <ComboBox x:Name="FontSizeComboBox"
+                          Width="62" Height="40"
+                          FontSize="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedItem.Content}"
+                          VerticalAlignment="Center"
+                          SelectionChanged="ComboBox_SelectionChanged">
+                    <ComboBoxItem Content="12" FontSize="12"/>
+                    <ComboBoxItem Content="14" FontSize="14"/>
+                    <ComboBoxItem Content="16" FontSize="16"/>
+                    <ComboBoxItem Content="18" FontSize="18"/>
+                    <ComboBoxItem Content="20" FontSize="20"/>
+                    <ComboBoxItem Content="22" FontSize="22"/>
+                </ComboBox>
+            </Grid>
+
+            <CheckBox x:Name="BoldCheckBox"
+                      Margin="10,0,0,0"
+                      Width="40"
+                      Height="40"
+                      Checked="BoldCheckBox_Checked"
+                      Unchecked="BoldCheckBox_Unchecked">
+                <CheckBox.Template>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border x:Name="Border"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                BorderBrush="{DynamicResource MahApps.Brushes.Button.Border}">
+                            <Label Content="B"
+                                   Width="{TemplateBinding Width}"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   HorizontalContentAlignment="Center"
+                                   VerticalContentAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Black"/>
+                                <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </CheckBox.Template>
+            </CheckBox>
+
+            <CheckBox x:Name="ItelicCheckBox"
+                      Margin="10,0,0,0"
+                      Width="40"
+                      Height="40"
+                      Checked="ItelicCheckBox_Checked"
+                      Unchecked="ItelicCheckBox_Unchecked">
+                <CheckBox.Template>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border x:Name="Border"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                BorderBrush="{DynamicResource MahApps.Brushes.Button.Border}">
+                            <Label Content="I"
+                                   Width="{TemplateBinding Width}"
+                                   FontSize="22"
+                                   FontStyle="Italic"
+                                   HorizontalContentAlignment="Center"
+                                   VerticalContentAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Black"/>
+                                <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </CheckBox.Template>
+            </CheckBox>
+
+            <!--<Button x:Name="UnderlineButton"
+                    Margin="10,0,0,0"
+                    Padding="0"
+                    Width="40"
+                    FontSize="21"
+                    FontWeight="Normal"
+                    Click="UnderlineButton_Click">
+                <TextBlock TextDecorations="Underline" Text="U"/>
+            </Button>-->
 
         </WrapPanel>
 

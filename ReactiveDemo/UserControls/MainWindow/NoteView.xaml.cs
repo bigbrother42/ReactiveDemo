@@ -156,5 +156,47 @@ namespace ReactiveDemo.UserControls.MainWindow
                 NoteContentRichTextBox.Focus();
             }), System.Windows.Threading.DispatcherPriority.Background, null);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (ColorPiker.SelectedColor != null)
+            {
+                var brusher = new SolidColorBrush((Color)ColorPiker.SelectedColor);
+                NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, brusher);
+            }
+        }
+
+        private void FontSizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (FontSizeComboBox.SelectedItem is ComboBoxItem comboBoxItem)
+            {
+                NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, double.Parse(comboBoxItem.Content.ToString()));
+            }
+        }
+
+        private void UnderlineButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void BoldCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
+        }
+
+        private void BoldCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Normal);
+        }
+
+        private void ItelicCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Italic);
+        }
+
+        private void ItelicCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Normal);
+        }
     }
 }
