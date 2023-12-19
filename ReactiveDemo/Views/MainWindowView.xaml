@@ -26,9 +26,19 @@
 
     <mah:MetroWindow.Resources>
         <ResourceDictionary>
-
+            
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
+
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Image Margin="4"
+                   Width="20"
+                   Height="20"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Source="{Binding}" />
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
 
     <Grid>
         <Grid.Resources>

@@ -11,6 +11,7 @@
         xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo"
         mvvm:ViewModelLocator.AutoWireViewModel="True"
         WindowStartupLocation="CenterScreen"
+        Icon="{StaticResource NoteLogo2}"
         mc:Ignorable="d"
         Title="AccountView"
         Height="450"
@@ -109,6 +110,16 @@
 
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
+
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Image Margin="4"
+                   Width="20"
+                   Height="20"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Source="{Binding}" />
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
 
     <i:Interaction.Triggers>
         <interactionRequest:InteractionRequestTrigger SourceObject="{Binding CreateAccountRequest}">

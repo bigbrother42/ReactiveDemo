@@ -9,6 +9,7 @@
                  mc:Ignorable="d"
                  mvvm:ViewModelLocator.AutoWireViewModel="True"
                  WindowStartupLocation="CenterScreen"
+                 Icon="{StaticResource NoteLogo2}"
                  ResizeMode="NoResize"
                  Title="Config Note Type"
                  Height="450"
@@ -21,6 +22,16 @@
 
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
+
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Image Margin="4"
+                   Width="20"
+                   Height="20"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Source="{Binding}" />
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
 
     <Grid>
         <Grid.RowDefinitions>

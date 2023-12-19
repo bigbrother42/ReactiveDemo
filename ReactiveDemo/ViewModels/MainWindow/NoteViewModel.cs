@@ -65,6 +65,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public InteractionRequest<Notification> ConfigTypeViewRequest { get; set; } = new InteractionRequest<Notification>();
 
+        public InteractionRequest<Notification> OpenSearchNoteViewRequest { get; set; } = new InteractionRequest<Notification>();
+
         #endregion
 
         #region Events
@@ -199,7 +201,14 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         private void SearchContent()
         {
-
+            OpenSearchNoteViewRequest.Raise(new Notification(), notification =>
+            {
+                if (notification.Content is NoteSearchUiModel noteSearchUiModel)
+                {
+                    SelectedNoteType.Value = NoteTypeCollection.FirstOrDefault(o => o.TypeId == noteSearchUiModel.TypeId);
+                    SelectedNoteCategory.Value = SelectedNoteType.Value.CategoryList.FirstOrDefault(o => o.CategorySeq == noteSearchUiModel.CategoryId);
+                }
+            });
         }
 
         private void ConfigType()

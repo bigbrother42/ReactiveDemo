@@ -13,6 +13,7 @@
         mvvm:ViewModelLocator.AutoWireViewModel="True"
         Title="CreateAccountView"
         WindowStartupLocation="CenterScreen"
+        Icon="{StaticResource NoteLogo2}"
         Height="450"
         Width="400"
         MinHeight="450"
@@ -23,6 +24,16 @@
             <actionBase:InvokeMethodAction MethodName="UserExist" />
         </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>
+
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Image Margin="4"
+                   Width="20"
+                   Height="20"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Source="{Binding}" />
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
 
     <Grid>
         <Grid.RowDefinitions>

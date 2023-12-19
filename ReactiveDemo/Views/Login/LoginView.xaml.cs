@@ -38,5 +38,10 @@ namespace ReactiveDemo.Views.Login
                 }
             }
         }
+
+        public void FocusPasswordTextBox()
+        {
+            PasswordTextBox.Focus();
+        }
     }
 }

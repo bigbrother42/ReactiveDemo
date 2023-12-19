@@ -21,6 +21,18 @@
                 <component:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Olive.xaml" />
                 
                 <component:SharedResourceDictionary Source="pack://application:,,,/ReactiveDemo;component/Themes/Generic.xaml"/>
+
+                <component:SharedResourceDictionary xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
+                    <Style TargetType="mah:MetroWindow" BasedOn="{StaticResource {x:Type mah:MetroWindow}}">
+                        <Setter Property="IconTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <Image Width="24" Height="24" Source="{StaticResource NoteLogo2}"/>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </component:SharedResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

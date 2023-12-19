@@ -370,5 +370,21 @@ namespace ReactiveDemo.Models.MainWindow
 
             await _noteService.ConvertImportFileContentToDbAsync(noteTypeWebDtoList, noteCategoryWebDtoList, noteContentWebDtoList);
         }
+
+        public async Task<List<NoteSearchUiModel>> SelectSearchMatchedList(NoteSearchCondition noteSearchCondition)
+        {
+            var resultWebDtoList = await _noteService.SelectSearchMatchedListAsync(
+                noteSearchCondition.TypeName, noteSearchCondition.CategoryName, noteSearchCondition.Content);
+
+            return resultWebDtoList.Select(o => new NoteSearchUiModel
+            {
+                UserId = o.UserId,
+                TypeId = o.TypeId,
+                TypeName = o.TypeName,
+                TypeDescription = o.TypeDescription,
+                CategoryId = o.CategoryId,
+                CategoryName = o.CategoryName
+            }).ToList();
+        }
     }
 }

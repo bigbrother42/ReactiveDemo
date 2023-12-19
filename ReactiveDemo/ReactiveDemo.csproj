@@ -460,6 +460,8 @@
     <Compile Include="Models\TestMapperModel.cs" />
     <Compile Include="Models\UiModel\NoteCategoryTypeUiModel.cs" />
     <Compile Include="Models\UiModel\NoteCategoryUiModel.cs" />
+    <Compile Include="Models\UiModel\NoteSearchCondition.cs" />
+    <Compile Include="Models\UiModel\NoteSearchUiModel.cs" />
     <Compile Include="ReactiveDemoMapperProfile.cs" />
     <Compile Include="Schema\BaseSchema.cs" />
     <Compile Include="Schema\ISchema.cs" />
@@ -497,6 +499,7 @@
     <Compile Include="ViewModels\MainWindow\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\NoteViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\PrivateViewModel.cs" />
+    <Compile Include="ViewModels\MainWindow\SearchNoteViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\SettingsViewModel.cs" />
     <Compile Include="ViewModels\Observer\ObserverViewModel.cs" />
     <Compile Include="ViewModels\ReactiveDemoViewModel.cs" />
@@ -525,6 +528,9 @@
     </Compile>
     <Compile Include="Views\MainWindow\ConfigNoteTypeView.xaml.cs">
       <DependentUpon>ConfigNoteTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindow\SearchNoteView.xaml.cs">
+      <DependentUpon>SearchNoteView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Observer\ObserverView.xaml.cs">
       <DependentUpon>ObserverView.xaml</DependentUpon>
@@ -633,6 +639,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow\ConfigNoteTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow\SearchNoteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

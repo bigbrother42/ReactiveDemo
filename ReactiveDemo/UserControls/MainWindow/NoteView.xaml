@@ -30,6 +30,12 @@
                 Owner="{Binding ElementName=MainWindowView}"
                 WindowName="ReactiveDemo.Views.MainWindow.ConfigNoteTypeView" />
         </interactionRequest:InteractionRequestTrigger>
+
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding OpenSearchNoteViewRequest}">
+            <actionBase1:AlertWindowAction
+                Owner="{Binding ElementName=MainWindowView}"
+                WindowName="ReactiveDemo.Views.MainWindow.SearchNoteView" />
+        </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
     <UserControl.Resources>

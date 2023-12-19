@@ -285,5 +285,65 @@ namespace ServiceDemo.Common.SQLite
 
             await SqLiteDbContext.SaveChangesAsync();
         }
+
+        public async Task<List<NoteCategoryCustomWebDto>> SelectSearchMatchedListAsync(string typeName, string categoryName, string content)
+        {
+            var noteCategoryList = new List<NoteCategoryCustomWebDto>();
+
+            var taskResult = await Task.Run(() =>
+            {
+                var sql = @"SELECT 
+                             nt.UserId,
+                             nt.TypeId,
+                             nt.TypeName,
+                             nc.CategoryId,
+                             nc.CategoryName, 
+                             nc.DisplayOrder AS CategoryDisplayOrder,
+                             nc2.ContentId,
+                             nt.Description AS TypeDescription
+                            FROM NoteType nt
+                            LEFT JOIN NoteCategory nc
+                            ON nc.UserId = nt.UserId
+                            AND nc.TypeId = nt.TypeId
+                            LEFT JOIN NoteContent nc2
+                            ON nc.UserId = nc2.UserId
+                            AND nc.CategoryId = nc2.CategoryId
+                            AND nc.TypeId = nc2.TypeId
+                            WHERE nt.UserId = @UserId";
+
+                if (!typeName.IsNullOrEmpty())
+                {
+                    sql += $" AND nt.TypeName LIKE '%{typeName}%'";
+                }
+
+                if (!categoryName.IsNullOrEmpty())
+                {
+                    sql += $" AND nc.CategoryName LIKE '%{categoryName}%'";
+                }
+
+                if (!content.IsNullOrEmpty())
+                {
+                    sql += $" AND nc2.Content LIKE '%{content}%'";
+                }
+
+                var noteCategoryModelList = SqLiteDbContext.Database.ExecuteRawSqlQueryAutoMapper<NoteCategoryCustomWebDto>(sql, dbCommand =>
+                {
+                    var userIdParam = dbCommand.CreateParameter();
+                    userIdParam.ParameterName = "@UserId";
+                    userIdParam.DbType = DbType.Int32;
+                    userIdParam.Value = LoginInfo.UserBasicInfo.UserId;
+                    dbCommand.Parameters.Add(userIdParam);
+                });
+
+                return noteCategoryModelList;
+            });
+
+            if (!taskResult.IsNullOrEmpty())
+            {
+                noteCategoryList.AddRange(taskResult);
+            }
+
+            return noteCategoryList;
+        }
     }
 }

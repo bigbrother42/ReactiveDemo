@@ -1,0 +1,141 @@
+﻿<mah:MetroWindow x:Class="ReactiveDemo.Views.MainWindow.SearchNoteView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:local="clr-namespace:ReactiveDemo.Views.MainWindow"
+                 xmlns:mvvm="http://prismlibrary.com/"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                 xmlns:interactionRequest="http://www.codeplex.com/prism"
+                 xmlns:actionBase="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo"
+                 xmlns:actionBase1="clr-namespace:ReactiveDemo.Base.ActionBase;assembly=InfrastructureDemo"
+                 mc:Ignorable="d"
+                 Title="SearchNoteView"
+                 mvvm:ViewModelLocator.AutoWireViewModel="True"
+                 WindowStartupLocation="CenterScreen"
+                 Icon="{StaticResource NoteLogo2}"
+                 GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+                 Height="550"
+                 Width="980">
+
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Image Margin="4"
+                   Width="20"
+                   Height="20"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Source="{Binding}" />
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+
+    <i:Interaction.Triggers>
+        
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="900"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+
+            <WrapPanel Grid.Column="0" Margin="10,0,0,0">
+                <TextBlock Margin="10,10,0,0"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="type name: "/>
+
+                <TextBox Margin="5,10,0,0"
+                         x:Name="SearchConditionTypeName"
+                         Width="200"
+                         Height="35"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding SearchTypeName.Value}"/>
+
+                <TextBlock Margin="10,10,0,0"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="category name: "/>
+
+                <TextBox Margin="5,10,0,0"
+                         x:Name="SearchConditionCategoryName"
+                         Width="200"
+                         Height="35"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding SearchCategoryName.Value}"/>
+
+                <TextBlock Margin="10,10,0,0"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="content:  "/>
+
+                <TextBox Margin="5,10,0,0"
+                         x:Name="SearchConditionNoteName"
+                         Width="200"
+                         Height="35"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding SearcContent.Value}"/>
+            </WrapPanel>
+
+            <Button Grid.Column="1" Margin="10,0,0,0"
+                    Height="30"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center"
+                    Content="Search"
+                    Command="{Binding SearchCommand}"/>
+        </Grid>
+
+        <Border Grid.Row="1" Margin="0,10,0,0"
+                BorderThickness="0,1,0,0"
+                BorderBrush="{DynamicResource MahApps.Brushes.Control.Border}">
+            <DataGrid x:Name="AccountDataGrid"
+                      Grid.Row="1"
+                      Margin="2"
+                      Style="{DynamicResource MahApps.Styles.DataGrid.Azure}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      SelectionMode="Single"
+                      ItemsSource="{Binding SearchResultCollection}"
+                      SelectedItem="{Binding SelectedSearchResult.Value}"
+                      RenderOptions.ClearTypeHint="Enabled"
+                      TextOptions.TextFormattingMode="Display">
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
+                        <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridRow_PreviewMouseDoubleClick"/>
+                    </Style>
+                </DataGrid.RowStyle>
+
+                <DataGrid.Columns>
+                    <!--<DataGridTextColumn Binding="{Binding UserId}" Header="User Id" IsReadOnly="True" />-->
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding TypeId}" Header="Type Id" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding TypeName}" Header="Type Name"  IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding CategoryId}" Header="Category Id"  IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding CategoryName}" Header="Category Name"  IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding TypeDescription}" Header="Type Description"  IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <Border Grid.Row="2" BorderThickness="0,1,0,0"
+                BorderBrush="{DynamicResource MahApps.Brushes.Control.Border}">
+            <Button Margin="0,0,10,0"
+                    Width="50"
+                    Height="36"
+                    HorizontalAlignment="Right"
+                    Content="OK"
+                    Command="{Binding ExecuteCommand}"/>
+        </Border>
+        
+    </Grid>
+</mah:MetroWindow>

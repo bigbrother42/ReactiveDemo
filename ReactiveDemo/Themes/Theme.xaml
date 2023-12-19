@@ -11,4 +11,5 @@
     <SolidColorBrush x:Key="Common.Blue" Color="{StaticResource System.Color.003}" o:Freeze="True"/>
 
     <SolidColorBrush x:Key="Common.LightGray" Color="{StaticResource System.Color.004}" o:Freeze="True"/>
+    <SolidColorBrush x:Key="Common.Incorrect" Color="{StaticResource System.Color.005}" o:Freeze="True"/>
 </ResourceDictionary>
