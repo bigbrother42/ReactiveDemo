@@ -36,6 +36,8 @@ namespace ReactiveDemo.Models.MainWindow
 
         #endregion
 
+        public static readonly string NEW_CATEGORY_NAME = "NewCategory";
+
         private NoteService _noteService = new NoteService();
 
         public async Task<NoteCategoryWebDto> InsertOrUpdateNoteCategory(NoteCategoryUiModel noteCategoryUiModel)

@@ -64,7 +64,7 @@ namespace ReactiveDemo.UserControls.MainWindow
                     return;
                 }
 
-                if (string.Equals(_originalName, textBox.Text) && !string.Equals("New Category", textBox.Text))
+                if (string.Equals(_originalName, textBox.Text) && !string.Equals(NoteModel.NEW_CATEGORY_NAME, textBox.Text))
                 {
                     noteCategoryUiModel.IsEdit = false;
                     return;
@@ -81,7 +81,7 @@ namespace ReactiveDemo.UserControls.MainWindow
 
         public void AddNoteCategory()
         {
-            if (NoteCategoryListView.SelectedItem is NoteCategoryUiModel noteCategoryUiModel)
+            if (NoteCategoryTabControl.SelectedItem is NoteCategoryUiModel noteCategoryUiModel)
             {
                 noteCategoryUiModel.IsEdit = true;
             }
@@ -114,12 +114,24 @@ namespace ReactiveDemo.UserControls.MainWindow
             }
         }
 
+        private RichTextBox GetSelectedTabItemRichTextBox()
+        {
+            var selectedTabItemContentPresenter = NoteCategoryTabControl.Template.FindName("PART_SelectedContentHost", NoteCategoryTabControl) as ContentPresenter;
+            if (selectedTabItemContentPresenter != null)
+            {
+                return selectedTabItemContentPresenter.FindVisualChild<RichTextBox>();
+            }
+
+            return null;
+        }
+
         private void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
             if (e.NewValue != null)
             {
                 var brusher = new SolidColorBrush(e.NewValue.Value);
-                NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, brusher);
+                var richTextBox = GetSelectedTabItemRichTextBox();
+                richTextBox?.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, brusher);
             }
         }
 
@@ -127,7 +139,8 @@ namespace ReactiveDemo.UserControls.MainWindow
         {
             if (sender is ComboBox comboBox && comboBox.SelectedItem is ComboBoxItem comboBoxItem)
             {
-                NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, double.Parse(comboBoxItem.Content.ToString()));
+                var richTextBox = GetSelectedTabItemRichTextBox();
+                richTextBox?.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, double.Parse(comboBoxItem.Content.ToString()));
             }
         }
 
@@ -160,19 +173,13 @@ namespace ReactiveDemo.UserControls.MainWindow
             }
         }
 
-        private void NoteCategoryListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            NoteContentRichTextBox.Dispatcher.BeginInvoke(new Action(() => {
-                //NoteContentRichTextBox.Focus();
-            }), System.Windows.Threading.DispatcherPriority.Background, null);
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (ColorPiker.SelectedColor != null)
             {
                 var brusher = new SolidColorBrush((Color)ColorPiker.SelectedColor);
-                NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, brusher);
+                var richTextBox = GetSelectedTabItemRichTextBox();
+                richTextBox?.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, brusher);
             }
         }
 
@@ -180,7 +187,8 @@ namespace ReactiveDemo.UserControls.MainWindow
         {
             if (FontSizeComboBox.SelectedItem is ComboBoxItem comboBoxItem)
             {
-                NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, double.Parse(comboBoxItem.Content.ToString()));
+                var richTextBox = GetSelectedTabItemRichTextBox();
+                richTextBox?.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, double.Parse(comboBoxItem.Content.ToString()));
             }
         }
 
@@ -191,22 +199,26 @@ namespace ReactiveDemo.UserControls.MainWindow
 
         private void BoldCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
+            var richTextBox = GetSelectedTabItemRichTextBox();
+            richTextBox?.Selection.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
         }
 
         private void BoldCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Normal);
+            var richTextBox = GetSelectedTabItemRichTextBox();
+            richTextBox?.Selection.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Normal);
         }
 
         private void ItelicCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Italic);
+            var richTextBox = GetSelectedTabItemRichTextBox();
+            richTextBox?.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Italic);
         }
 
         private void ItelicCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            NoteContentRichTextBox.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Normal);
+            var richTextBox = GetSelectedTabItemRichTextBox();
+            richTextBox?.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Normal);
         }
     }
 }

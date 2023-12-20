@@ -58,7 +58,8 @@
                          Width="200"
                          Height="35"
                          VerticalContentAlignment="Center"
-                         Text="{Binding SearchTypeName.Value}"/>
+                         Text="{Binding SearchTypeName.Value, UpdateSourceTrigger=PropertyChanged}"
+                         KeyUp="SearchCondition_KeyUp"/>
 
                 <TextBlock Margin="10,10,0,0"
                            VerticalAlignment="Center"
@@ -70,7 +71,8 @@
                          Width="200"
                          Height="35"
                          VerticalContentAlignment="Center"
-                         Text="{Binding SearchCategoryName.Value}"/>
+                         Text="{Binding SearchCategoryName.Value, UpdateSourceTrigger=PropertyChanged}"
+                         KeyUp="SearchCondition_KeyUp"/>
 
                 <TextBlock Margin="10,10,0,0"
                            VerticalAlignment="Center"
@@ -82,7 +84,8 @@
                          Width="200"
                          Height="35"
                          VerticalContentAlignment="Center"
-                         Text="{Binding SearcContent.Value}"/>
+                         Text="{Binding SearcContent.Value, UpdateSourceTrigger=PropertyChanged}"
+                         KeyUp="SearchCondition_KeyUp"/>
             </WrapPanel>
 
             <Button Grid.Column="1" Margin="10,0,0,0"

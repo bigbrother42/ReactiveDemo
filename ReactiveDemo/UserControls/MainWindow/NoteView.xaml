@@ -128,36 +128,10 @@
 
                                     <Setter TargetName="DisplayTextBlock" Property="Foreground" Value="Black"/>
                                 </MultiTrigger>
-                                
-                                
+
+
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style x:Key="Note.Category.ListView.Style" TargetType="{x:Type ListView}">
-                <Style.Resources>
-                    <Style BasedOn="{StaticResource ListViewItemStyle}" TargetType="{x:Type ListViewItem}" />
-                </Style.Resources>
-                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                <Setter Property="ItemContainerStyle" Value="{StaticResource ListViewItemStyle}" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ListView">
-                            <ScrollViewer Template="{DynamicResource MahApps.Templates.ScrollViewer.AnimatedSingleRow}"
-                                          HorizontalScrollBarVisibility="Auto"
-                                          VerticalScrollBarVisibility="Disabled">
-                                <ItemsPresenter/>
-                            </ScrollViewer>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="ItemsPanel">
-                    <Setter.Value>
-                        <ItemsPanelTemplate>
-                            <WrapPanel IsItemsHost="True" />
-                        </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
@@ -272,6 +246,13 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
+        <mah:ProgressRing Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="3"
+                          Margin="4"
+                          Foreground="{DynamicResource AccentColorBrush}"
+                          Panel.ZIndex="1"
+                          IsActive="{Binding IsProgress.Value}"
+                          Visibility="{Binding IsProgress.Value, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
         <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                    VerticalAlignment="Center">
             <TextBlock Margin="10,0,0,0"
@@ -324,7 +305,7 @@
                     </mah:ColorPicker.SelectedColorTemplate>
                 </mah:ColorPicker>
             </Grid>
-            
+
 
             <TextBlock Margin="10,0,0,0"
                        Text="Font Size: "
@@ -346,7 +327,7 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                
+
                 <ComboBox x:Name="FontSizeComboBox"
                           Width="62" Height="40"
                           FontSize="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedItem.Content}"
@@ -433,16 +414,167 @@
 
         </WrapPanel>
 
-        <ListView x:Name="NoteCategoryListView" Grid.Row="1" Grid.Column="1"
-                  BorderThickness="0"
-                  VerticalAlignment="Bottom"
-                  Style="{StaticResource Note.Category.ListView.Style}"
-                  ItemsSource="{Binding SelectedNoteType.Value.CategoryList}"
-                  SelectedItem="{Binding SelectedNoteCategory.Value}"
-                  SelectionChanged="NoteCategoryListView_SelectionChanged"
-                  dd:DragDrop.IsDragSource="True"
-                  dd:DragDrop.IsDropTarget="True"
-                  dd:DragDrop.DropHandler="{Binding}"/>
+        <TabControl x:Name="NoteCategoryTabControl"
+                    Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
+                    Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}"
+                    ItemsSource="{Binding SelectedNoteType.Value.CategoryList}"
+                    SelectedItem="{Binding SelectedNoteCategory.Value}"
+                    dd:DragDrop.IsDragSource="True"
+                    dd:DragDrop.IsDropTarget="True"
+                    dd:DragDrop.DropHandler="{Binding}">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="TabItem" BasedOn="{StaticResource MahApps.Styles.TabItem}">
+                    <Setter Property="ContextMenu" Value="{StaticResource CategoryContextMenu}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray4}"/>
+                    <Setter Property="FontFamily" Value="Meiryo UI"/>
+                    <Setter Property="Height" Value="35"/>
+                    <Setter Property="Margin" Value="2,0,0,0"/>
+                    <Setter Property="FontSize" Value="16"/>
+
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border x:Name="ItemParentBorder"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Margin="{TemplateBinding Margin}"
+                                        Height="{TemplateBinding Height}"
+                                        CornerRadius="5,5,0,0">
+                                    <Border.InputBindings>
+                                        <MouseBinding MouseAction="LeftDoubleClick"
+                                                      Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1,AncestorType=local:NoteView}, Path=DataContext.EditNoteCategoryNameCommand}"
+                                                      CommandParameter="{Binding}"/>
+                                    </Border.InputBindings>
+
+                                    <Grid Margin="5,0,5,0">
+                                        <TextBlock x:Name="DisplayTextBlock"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="{TemplateBinding Foreground}"
+                                                   FontSize="{TemplateBinding FontSize}"
+                                                   Text="{Binding CategoryName}"
+                                                   FontFamily="{TemplateBinding FontFamily}"
+                                                   Visibility="{Binding IsEdit, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource ReverseBoolToVisibilityConverter}}"/>
+
+                                        <TextBox x:Name="EditTextBox"
+                                                 VerticalContentAlignment="Center"
+                                                 FontSize="{TemplateBinding FontSize}"
+                                                 Visibility="{Binding IsEdit, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                 BorderThickness="1"
+                                                 mah:ValidationHelper.CloseOnMouseLeftButtonDown="True"
+                                                 mah:ValidationHelper.ShowValidationErrorOnMouseOver="True"
+                                                 GotFocus="EditTextBox_GotFocus"
+                                                 LostFocus="EditTextBox_LostFocus"
+                                                 IsVisibleChanged="EditTextBox_IsVisibleChanged"
+                                                 KeyUp="EditTextBox_KeyUp"
+                                                 Loaded="EditTextBox_Loaded">
+                                            <TextBox.Text>
+                                                <Binding Path="CategoryName" UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <validationrules:NoteCategoryNameValidationRule/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </Grid>
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="DisplayTextBlock" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}"/>
+                                        <Setter TargetName="DisplayTextBlock" Property="FontWeight" Value="Bold"/>
+                                        <Setter TargetName="DisplayTextBlock" Property="FontSize" Value="20"/>
+                                    </Trigger>
+
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="IsMouseOver" Value="True"/>
+                                            <Condition Property="IsSelected" Value="False"/>
+                                        </MultiTrigger.Conditions>
+
+                                        <Setter TargetName="DisplayTextBlock" Property="Foreground" Value="Black"/>
+                                    </MultiTrigger>
+
+
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.ItemContainerStyle>
+            
+            <!--<TabControl.ItemTemplate>
+                <DataTemplate DataType="NoteCategoryUiModel">
+                    <TextBlock Text="{Binding CategoryName}"
+                               FontSize="22"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>-->
+
+            <TabControl.ContentTemplate>
+                <DataTemplate DataType="NoteCategoryUiModel">
+                    <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                            Margin="0,0,0,0"
+                            BorderThickness="0,1,0,0"
+                            BorderBrush="Gray">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <WrapPanel Grid.Row="0"
+                                       VerticalAlignment="Center">
+                                <iconPacks:PackIconModern Margin="5,0,5,0"
+                                                          Kind="Question"
+                                                          VerticalAlignment="Center">
+                                    <iconPacks:PackIconModern.ToolTip>
+                                        <ToolTip controlzex:ToolTipAssist.AutoMove="True">
+                                            <ToolTip.Template>
+                                                <ControlTemplate>
+                                                    <Grid>
+                                                        <Border Background="White"
+                                                                BorderBrush="Black"
+                                                                BorderThickness="1"
+                                                                Opacity="0.9"
+                                                                SnapsToDevicePixels="True" />
+                                                        <StackPanel Orientation="Vertical">
+                                                            <TextBlock Margin="2"
+                                                                       FontSize="16"
+                                                                       Foreground="Black"
+                                                                       Text=" Click 'SAVE' button or press 'Ctrl+S' can save the content! "
+                                                                       TextOptions.TextFormattingMode="Display"
+                                                                       TextOptions.TextRenderingMode="ClearType" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </ToolTip.Template>
+                                        </ToolTip>
+                                    </iconPacks:PackIconModern.ToolTip>
+                                </iconPacks:PackIconModern>
+
+                                <TextBlock Text="You can click 'SAVE' button or press 'Ctrl+S' to save the content!"
+                                           Foreground="{DynamicResource MahApps.Brushes.Gray4}"
+                                           FontSize="14"/>
+                            </WrapPanel>
+
+                            <RichTextBox x:Name="NoteContentRichTextBox"
+                                         Grid.Row="1"
+                                         Margin="2,2,2,0"
+                                         BorderThickness="2"
+                                         BorderBrush="LightGray"
+                                         AcceptsReturn="True"
+                                         FontSize="16"
+                                         IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1,AncestorType=local:NoteView}, Path=DataContext.IsTextBoxEnable.Value}"
+                                         KeyUp="NoteContentRichTextBox_KeyUp"
+                                         VerticalScrollBarVisibility="Auto"
+                                         HorizontalScrollBarVisibility="Disabled"
+                                         helpers:RichTextBoxHelper.DocumentXaml="{Binding Content}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
 
         <Border Grid.Row="2" Grid.Column="0"
                 BorderBrush="Gray"
@@ -457,7 +589,9 @@
         </Border>
 
 
-        <WrapPanel Margin="10,10,10,0" Grid.Row="1" Grid.Column="2">
+        <WrapPanel Margin="0,0,3,0" Grid.Row="1" Grid.Column="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
             <Button Grid.Row="1" Grid.Column="2"
                     Padding="0,0,0,0"
                     Width="30"
@@ -494,67 +628,6 @@
                 </Button.ToolTip>
             </Button>
         </WrapPanel>
-
-        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
-                Margin="0,0,0,0"
-                BorderThickness="0,1,0,0"
-                BorderBrush="Gray">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <WrapPanel Grid.Row="0"
-                           VerticalAlignment="Center">
-                    <iconPacks:PackIconModern Margin="5,0,5,0"
-                                              Kind="Question"
-                                              VerticalAlignment="Center">
-                        <iconPacks:PackIconModern.ToolTip>
-                            <ToolTip controlzex:ToolTipAssist.AutoMove="True">
-                                <ToolTip.Template>
-                                    <ControlTemplate>
-                                        <Grid>
-                                            <Border Background="White"
-                                            BorderBrush="Black"
-                                            BorderThickness="1"
-                                            Opacity="0.9"
-                                            SnapsToDevicePixels="True" />
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Margin="2"
-                                                   FontSize="16"
-                                                   Foreground="Black"
-                                                   Text=" Click 'SAVE' button or press 'Ctrl+S' can save the content! "
-                                                   TextOptions.TextFormattingMode="Display"
-                                                   TextOptions.TextRenderingMode="ClearType" />
-                                            </StackPanel>
-                                        </Grid>
-                                    </ControlTemplate>
-                                </ToolTip.Template>
-                            </ToolTip>
-                        </iconPacks:PackIconModern.ToolTip>
-                    </iconPacks:PackIconModern>
-
-                    <TextBlock Text="You can click 'SAVE' button or press 'Ctrl+S' to save the content!"
-                               Foreground="{DynamicResource MahApps.Brushes.Gray4}"
-                               FontSize="14"/>
-                </WrapPanel>
-
-                <RichTextBox x:Name="NoteContentRichTextBox"
-                             Grid.Row="1"
-                             Margin="2,2,2,0"
-                             BorderThickness="2"
-                             BorderBrush="LightGray"
-                             AcceptsReturn="True"
-                             FontSize="16"
-                             IsEnabled="{Binding IsTextBoxEnable.Value}"
-                             KeyUp="NoteContentRichTextBox_KeyUp"
-                             VerticalScrollBarVisibility="Auto"
-                             HorizontalScrollBarVisibility="Disabled"
-                             helpers:RichTextBoxHelper.DocumentXaml="{Binding SelectedNoteCategory.Value.Content}"/>
-
-            </Grid>
-        </Border>
 
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
             <Button x:Name="ConfigypeButton"

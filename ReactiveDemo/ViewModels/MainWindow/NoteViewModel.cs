@@ -59,6 +59,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public ReactiveProperty<bool> IsBoldChecked { get; set; }
 
+        public ReactiveProperty<bool> IsProgress { get; set; }
+
         #endregion
 
         #region Request
@@ -115,6 +117,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
             }).AddTo(DisposablePool);
 
             IsBoldChecked = new ReactiveProperty<bool>().AddTo(DisposablePool);
+            IsProgress = new ReactiveProperty<bool>().AddTo(DisposablePool);
         }
 
         protected override void RegisterCommands()
@@ -165,7 +168,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
                 CategoryDisplayOrder = displayOrder,
                 CategorySeq = newCategorySeq,
                 //ContentId = newCategorySeq,
-                CategoryName = "NewCategory"
+                CategoryName = NoteModel.NEW_CATEGORY_NAME
             };
 
             SelectedNoteType.Value.CategoryList.Add(newCategory);
@@ -206,14 +209,23 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         private void SearchContent()
         {
-            OpenSearchNoteViewRequest.Raise(new Notification(), notification =>
+            IsProgress.Value = true;
+
+            try
             {
-                if (notification.Content is NoteSearchUiModel noteSearchUiModel)
+                OpenSearchNoteViewRequest.Raise(new Notification(), notification =>
                 {
-                    SelectedNoteType.Value = NoteTypeCollection.FirstOrDefault(o => o.TypeId == noteSearchUiModel.TypeId);
-                    SelectedNoteCategory.Value = SelectedNoteType.Value.CategoryList.FirstOrDefault(o => o.CategorySeq == noteSearchUiModel.CategoryId);
-                }
-            });
+                    if (notification.Content is NoteSearchUiModel noteSearchUiModel)
+                    {
+                        SelectedNoteType.Value = NoteTypeCollection.FirstOrDefault(o => o.TypeId == noteSearchUiModel.TypeId);
+                        SelectedNoteCategory.Value = SelectedNoteType.Value.CategoryList.FirstOrDefault(o => o.CategorySeq == noteSearchUiModel.CategoryId);
+                    }
+                });
+            }
+            finally
+            {
+                IsProgress.Value = false;
+            }
         }
 
         private void ConfigType()

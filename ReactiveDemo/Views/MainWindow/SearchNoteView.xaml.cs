@@ -33,5 +33,16 @@ namespace ReactiveDemo.Views.MainWindow
                 vm.ExecuteCommand.Execute();
             }
         }
+
+        private void SearchCondition_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (DataContext is SearchNoteViewModel vm)
+                {
+                    vm.SearchCommand.Execute();
+                }
+            }
+        }
     }
 }
