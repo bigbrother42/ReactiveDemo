@@ -3,8 +3,10 @@ using InfrastructureDemo.Util;
 using ReactiveDemo.Models.MainWindow;
 using ReactiveDemo.Models.UiModel;
 using ReactiveDemo.ViewModels.MainWindow;
+using SharedDemo.GlobalData;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +39,92 @@ namespace ReactiveDemo.UserControls.MainWindow
             if (this.DataContext == null)
             {
                 this.DataContext = new NoteViewModel();
+            }
+
+            DataObject.AddPastingHandler(this, OnPaste);
+        }
+
+        private void OnPaste(object sender, DataObjectPastingEventArgs e)
+        {
+            var richTextBox = GetSelectedTabItemRichTextBox();
+            if (richTextBox != null)
+            {
+                richTextBox.Focus();
+
+                var dataFormats = e.DataObject.GetFormats();
+                object data;
+
+                richTextBox.BeginChange();
+
+                for (int i = dataFormats.Length - 1; i >= 0; i--)
+                {
+                    string format = dataFormats[i];
+                    switch (format)
+                    {
+                        case "Xaml":
+                            data = e.DataObject.GetData(DataFormats.Xaml);
+                            if (data != null)
+                            {
+                                // TODO
+                            }
+
+                            break;
+                        case "DeviceIndependentBitmap":
+                        case "System.Windows.Media.Imaging.BitmapSource":
+                        case "System.Drawing.Bitmap":
+                        case "Bitmap":
+                            if (e.DataObject.GetDataPresent(DataFormats.Bitmap))
+                            {
+                                BitmapSource image = Clipboard.GetImage();
+
+                                if (!Directory.Exists(GlobalData.IMAGE_PATH))
+                                {
+                                    Directory.CreateDirectory(GlobalData.IMAGE_PATH);
+                                }
+
+                                var filePath = $@"{GlobalData.IMAGE_PATH}\{Guid.NewGuid()}";
+                                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                                {
+                                    BitmapEncoder encoder = new PngBitmapEncoder();
+                                    encoder.Frames.Add(BitmapFrame.Create(image));
+                                    encoder.Save(fileStream);
+                                }
+
+                                InlineUIContainer uIContainer = new InlineUIContainer();
+                                uIContainer.Child = new Image
+                                {
+                                    Source = new BitmapImage(new Uri(filePath)),
+                                    Width = image.Width,
+                                    Height = image.Height
+                                };
+
+                                Paragraph imageParagraph = new Paragraph();
+                                imageParagraph.Inlines.Add(uIContainer);
+                                richTextBox.Document.Blocks.Add(imageParagraph);
+                                var ss = XamlWriter.Save(richTextBox.Document);
+
+                                e.CancelCommand();
+                            }
+
+                            break;
+                        case "System.String":
+                            data = e.DataObject.GetData(DataFormats.StringFormat);
+                            richTextBox.Selection.Text = data?.ToString();
+                            e.CancelCommand();
+
+                            break;
+                        case "Text":
+                            data = e.DataObject.GetData(DataFormats.StringFormat);
+                            richTextBox.Selection.Text = data?.ToString();
+                            e.CancelCommand();
+
+                            break;
+                    }
+                }
+
+                richTextBox.EndChange();
+
+                e.Handled = true;
             }
         }
 
@@ -219,6 +307,25 @@ namespace ReactiveDemo.UserControls.MainWindow
         {
             var richTextBox = GetSelectedTabItemRichTextBox();
             richTextBox?.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Normal);
+        }
+
+        private void NoteContentRichTextBox_PreviewDrop(object sender, DragEventArgs e)
+        {
+            if (DataContext is NoteViewModel vm)
+            {
+                var data = e.Data as DataObject;
+                var fileDropList = data?.GetFileDropList();
+
+                if (fileDropList == null || fileDropList.Count != 1)
+                {
+                    return;
+                }
+
+                var fileName = fileDropList[0];
+
+                e.Handled = true;
+
+            }
         }
     }
 }

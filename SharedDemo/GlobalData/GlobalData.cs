@@ -14,5 +14,7 @@ namespace SharedDemo.GlobalData
         public static string SystemTheme { get; set; } = "Light.Olive";
 
         public static readonly string CSV_PATH = $@"{System.Windows.Forms.Application.StartupPath}\..\data\csv\note";
+
+        public static readonly string IMAGE_PATH = $@"{System.Windows.Forms.Application.StartupPath}\..\data\image\note";
     }
 }

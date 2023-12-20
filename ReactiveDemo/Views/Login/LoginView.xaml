@@ -111,11 +111,10 @@
                           Fill="White"
                           Stroke="{StaticResource Common.Incorrect}" />
 
-                    <StackPanel Margin="8,23,8,8"
+                    <StackPanel Margin="8,18,8,3"
                                 VerticalAlignment="Center">
                         <TextBlock
-                            FontSize="16"
-                            FontWeight="Bold"
+                            FontSize="14"
                             Foreground="{StaticResource Common.Incorrect}">
                             Password is incorrect!
                         </TextBlock>

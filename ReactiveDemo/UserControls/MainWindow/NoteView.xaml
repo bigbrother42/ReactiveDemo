@@ -569,7 +569,10 @@
                                          KeyUp="NoteContentRichTextBox_KeyUp"
                                          VerticalScrollBarVisibility="Auto"
                                          HorizontalScrollBarVisibility="Disabled"
-                                         helpers:RichTextBoxHelper.DocumentXaml="{Binding Content}"/>
+                                         
+                                         helpers:RichTextBoxHelper.DocumentXaml="{Binding Content}">
+                                
+                            </RichTextBox>
                         </Grid>
                     </Border>
                 </DataTemplate>
