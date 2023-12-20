@@ -569,7 +569,7 @@
                                          KeyUp="NoteContentRichTextBox_KeyUp"
                                          VerticalScrollBarVisibility="Auto"
                                          HorizontalScrollBarVisibility="Disabled"
-                                         
+                                         LostFocus="NoteContentRichTextBox_LostFocus"
                                          helpers:RichTextBoxHelper.DocumentXaml="{Binding Content}">
                                 
                             </RichTextBox>

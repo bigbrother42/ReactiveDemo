@@ -1,4 +1,5 @@
-﻿using BaseDemo.Util;
+﻿using BaseDemo.Helpers.Component;
+using BaseDemo.Util;
 using InfrastructureDemo.Util;
 using ReactiveDemo.Models.MainWindow;
 using ReactiveDemo.Models.UiModel;
@@ -238,8 +239,10 @@ namespace ReactiveDemo.UserControls.MainWindow
             {
                 if (Keyboard.IsKeyUp(Key.S))
                 {
-                    if (DataContext is NoteViewModel vm)
+                    if (DataContext is NoteViewModel vm && sender is RichTextBox richTextBox)
                     {
+                        RichTextBoxHelper.SetDocumentXaml(richTextBox, XamlWriter.Save(richTextBox.Document));
+
                         vm.SaveContentCommand.Execute();
                     }
                 }
@@ -325,6 +328,14 @@ namespace ReactiveDemo.UserControls.MainWindow
 
                 e.Handled = true;
 
+            }
+        }
+
+        private void NoteContentRichTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is RichTextBox richTextBox)
+            {
+                RichTextBoxHelper.SetDocumentXaml(richTextBox, XamlWriter.Save(richTextBox.Document));
             }
         }
     }

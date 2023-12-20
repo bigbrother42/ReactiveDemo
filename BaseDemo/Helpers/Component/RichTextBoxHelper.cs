@@ -61,7 +61,16 @@ namespace BaseDemo.Helpers.Component
                         }
 
                         // When the document changes update the source
-                        richTextBox.TextChanged += (obj2, e2) =>
+                        //richTextBox.TextChanged += (obj2, e2) =>
+                        //{
+                        //    RichTextBox richTextBox2 = obj2 as RichTextBox;
+                        //    if (richTextBox2 != null)
+                        //    {
+                        //        SetDocumentXaml(richTextBox, XamlWriter.Save(richTextBox.Document));
+                        //    }
+                        //};
+
+                        richTextBox.LostFocus += (obj2, e2) =>
                         {
                             RichTextBox richTextBox2 = obj2 as RichTextBox;
                             if (richTextBox2 != null)
