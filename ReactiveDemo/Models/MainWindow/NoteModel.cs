@@ -276,12 +276,37 @@ namespace ReactiveDemo.Models.MainWindow
             // zip
             var zipPath = $@"{filePath}\note_{DateTime.Now:yyyyMMddHHmmss}.zip";
             var filePathList = new List<string> { noteTypeFile, noteCategoryFile, noteContentFile };
+            // image
+            var imageFileList = Directory.GetFiles(GlobalData.IMAGE_PATH);
+            foreach (var imageFile in imageFileList)
+            {
+                var imageFileName = imageFile.Substring(imageFile.LastIndexOf("\\") + 1);
+                var imageFilePath = $@"{filePath}\{imageFileName}";
+                File.Copy(imageFile, imageFilePath);
+
+                filePathList.Add(imageFilePath);
+            }
+
             ZipUtil.ZipFile(filePathList, zipPath);
         }
 
         public async Task ImportLocalZip(string filePath)
         {
-            ZipUtil.UnZipFile(filePath, GlobalData.CSV_PATH, out string errorMessage);
+            // clear exist images
+            var existImageList = Directory.GetFiles(GlobalData.IMAGE_PATH);
+            foreach (var existImage in existImageList)
+            {
+                try
+                {
+                    File.Delete(existImage);
+                }
+                catch (Exception e)
+                {
+                    // do nothing
+                }
+            }
+
+            ZipUtil.UnZipFile(filePath, GlobalData.CSV_PATH, GlobalData.IMAGE_PATH, out string errorMessage);
 
             var fileList = Directory.GetFiles(GlobalData.CSV_PATH);
             var noteTypeWebDtoList = new List<NoteTypeWebDto>();

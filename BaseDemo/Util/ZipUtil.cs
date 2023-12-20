@@ -52,7 +52,7 @@ namespace BaseDemo.Util
             }
         }
 
-        public static bool UnZipFile(string zipFilePath, string unZipDir, out string err)
+        public static bool UnZipFile(string zipFilePath, string unZipDir, string applicationImagePath, out string err)
         {
             err = string.Empty;
             if (zipFilePath == string.Empty)
@@ -111,25 +111,32 @@ namespace BaseDemo.Util
                             directoryName += DOUBLE_SLASH_RIGHT;
                         }
 
-                        if (!fileName.IsNullOrEmpty())
+                        if (string.Equals(Path.GetExtension(fileName), ".csv"))
                         {
-                            using (FileStream streamWriter = File.Create(unZipDir + theEntry.Name))
+                            if (!fileName.IsNullOrEmpty())
                             {
-                                int size = 2048;
-                                byte[] data = new byte[2048];
-                                while (true)
+                                using (FileStream streamWriter = File.Create(unZipDir + theEntry.Name))
                                 {
-                                    size = zipInputStream.Read(data, 0, data.Length);
-                                    if (size > 0)
+                                    int size = 2048;
+                                    byte[] data = new byte[2048];
+                                    while (true)
                                     {
-                                        streamWriter.Write(data, 0, size);
-                                    }
-                                    else
-                                    {
-                                        break;
+                                        size = zipInputStream.Read(data, 0, data.Length);
+                                        if (size > 0)
+                                        {
+                                            streamWriter.Write(data, 0, size);
+                                        }
+                                        else
+                                        {
+                                            break;
+                                        }
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            File.Copy(theEntry.Name, applicationImagePath);
                         }
                     }
                 }
