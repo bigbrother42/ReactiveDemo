@@ -64,7 +64,11 @@ namespace ReactiveDemo.UserControls.MainWindow
                     return;
                 }
 
-                if (string.Equals(_originalName, textBox.Text) && !string.Equals("New Category", textBox.Text)) return;
+                if (string.Equals(_originalName, textBox.Text) && !string.Equals("New Category", textBox.Text))
+                {
+                    noteCategoryUiModel.IsEdit = false;
+                    return;
+                };
 
                 if (!isInit) return;
 
@@ -147,13 +151,19 @@ namespace ReactiveDemo.UserControls.MainWindow
             {
                 isInit = true;
                 _originalName = textBox.Text;
+
+                if (textBox.Visibility == Visibility.Visible)
+                {
+                    textBox.Focus();
+                    textBox.SelectAll();
+                }
             }
         }
 
         private void NoteCategoryListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             NoteContentRichTextBox.Dispatcher.BeginInvoke(new Action(() => {
-                NoteContentRichTextBox.Focus();
+                //NoteContentRichTextBox.Focus();
             }), System.Windows.Threading.DispatcherPriority.Background, null);
         }
 

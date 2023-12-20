@@ -164,7 +164,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
                 TypeId = SelectedNoteType.Value.TypeId,
                 CategoryDisplayOrder = displayOrder,
                 CategorySeq = newCategorySeq,
-                ContentId = newCategorySeq,
+                //ContentId = newCategorySeq,
                 CategoryName = "NewCategory"
             };
 
@@ -185,6 +185,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
                 if (deleteNum > 0)
                 {
                     SelectedNoteType.Value.CategoryList.ExRemoveAll(o => o.TypeId == deleteItem.TypeId && o.CategorySeq == deleteItem.CategorySeq);
+                    SelectedNoteCategory.Value = SelectedNoteType.Value.CategoryList.FirstOrDefault();
                 }
             }
         }
