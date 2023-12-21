@@ -6,6 +6,7 @@ using ReactiveDemo.Models.Csv;
 using ReactiveDemo.Models.UiModel;
 using ServiceDemo.Common.SQLite;
 using SharedDemo.GlobalData;
+using SharedDemo.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -259,144 +260,213 @@ namespace ReactiveDemo.Models.MainWindow
             return true;
         }
 
-        public async Task ExportToLocal(string filePath)
+        public void ExportToLocal(string filePath)
         {
-            // note type
-            var noteTypeList = await GetAllNoteTypeList();
-            var noteTypeFile = CsvFileUtil<NoteTypeCsvModel>.CsvFileGenerate(noteTypeList, filePath, IMPORT_FILE_NAME_PREFIX_NOTE_TYPE);
+            //// note type
+            //var noteTypeList = await GetAllNoteTypeList();
+            //var noteTypeFile = CsvFileUtil<NoteTypeCsvModel>.CsvFileGenerate(noteTypeList, filePath, IMPORT_FILE_NAME_PREFIX_NOTE_TYPE);
 
-            // note category
-            var noteCategoryList = await GetAllNoteCategoryList();
-            var noteCategoryFile = CsvFileUtil<NoteCategoryCsvModel>.CsvFileGenerate(noteCategoryList, filePath, IMPORT_FILE_NAME_PREFIX_NOTE_CATEGORY);
+            //// note category
+            //var noteCategoryList = await GetAllNoteCategoryList();
+            //var noteCategoryFile = CsvFileUtil<NoteCategoryCsvModel>.CsvFileGenerate(noteCategoryList, filePath, IMPORT_FILE_NAME_PREFIX_NOTE_CATEGORY);
 
-            // note content
-            var noteContentList = await GetAllNoteContentList();
-            var noteContentFile = CsvFileUtil<NoteContentCsvModel>.CsvFileGenerate(noteContentList, filePath, IMPORT_FILE_NAME_PREFIX_NOTE_CONTENT);
+            //// note content
+            //var noteContentList = await GetAllNoteContentList();
+            //var noteContentFile = CsvFileUtil<NoteContentCsvModel>.CsvFileGenerate(noteContentList, filePath, IMPORT_FILE_NAME_PREFIX_NOTE_CONTENT);
 
-            // zip
-            var zipPath = $@"{filePath}\note_{DateTime.Now:yyyyMMddHHmmss}.zip";
-            var filePathList = new List<string> { noteTypeFile, noteCategoryFile, noteContentFile };
-            // image
-            var imageFileList = Directory.GetFiles(GlobalData.IMAGE_PATH);
-            foreach (var imageFile in imageFileList)
+            //// zip
+            //var zipPath = $@"{filePath}\note_{DateTime.Now:yyyyMMddHHmmss}.zip";
+            //var filePathList = new List<string> { noteTypeFile, noteCategoryFile, noteContentFile };
+            //// image
+            //var imageFileList = Directory.GetFiles(GlobalData.IMAGE_PATH);
+            //foreach (var imageFile in imageFileList)
+            //{
+            //    var imageFileName = imageFile.Substring(imageFile.LastIndexOf("\\") + 1);
+            //    var imageFilePath = $@"{filePath}\{imageFileName}";
+            //    File.Copy(imageFile, imageFilePath);
+
+            //    filePathList.Add(imageFilePath);
+            //}
+
+            //ZipUtil.ZipFile(filePathList, zipPath);
+
+            // db
+            var dbFolderPath = $@"{filePath}\note_db";
+            if (!Directory.Exists(dbFolderPath))
             {
-                var imageFileName = imageFile.Substring(imageFile.LastIndexOf("\\") + 1);
-                var imageFilePath = $@"{filePath}\{imageFileName}";
-                File.Copy(imageFile, imageFilePath);
+                Directory.CreateDirectory(dbFolderPath);
 
-                filePathList.Add(imageFilePath);
-            }
-
-            ZipUtil.ZipFile(filePathList, zipPath);
-        }
-
-        public async Task ImportLocalZip(string filePath)
-        {
-            // clear exist images
-            var existImageList = Directory.GetFiles(GlobalData.IMAGE_PATH);
-            foreach (var existImage in existImageList)
-            {
                 try
                 {
-                    File.Delete(existImage);
+                    var sourcePath = $@"{SqliteExtensions.DbPath}\{SqliteExtensions.SQLiteName}";
+                    var targetPath = $@"{dbFolderPath}\{SqliteExtensions.SQLiteName}";
+                    if (File.Exists(targetPath))
+                    {
+                        File.Delete(targetPath);
+                    }
+
+                    File.Copy(sourcePath, targetPath);
                 }
                 catch (Exception e)
                 {
-                    // do nothing
+                    LogUtil.Instance.Error($@"Export db file failed!", e);
                 }
             }
 
-            ZipUtil.UnZipFile(filePath, GlobalData.CSV_PATH, GlobalData.IMAGE_PATH, out string errorMessage);
-
-            var fileList = Directory.GetFiles(GlobalData.CSV_PATH);
-            var noteTypeWebDtoList = new List<NoteTypeWebDto>();
-            var noteCategoryWebDtoList = new List<NoteCategoryWebDto>();
-            var noteContentWebDtoList = new List<NoteContentWebDto>();
-            var operateTime = DateTime.Now;
-            foreach (var file in fileList)
+            // image
+            var imageFolderPath = $@"{filePath}\note_image";
+            if (!Directory.Exists(imageFolderPath))
             {
-                if (!ValidateImportFileName(file)) continue;
+                Directory.CreateDirectory(imageFolderPath);
 
-                var dataTable = FileUtil.ConvertCsvToDataTable(file);
-                var fileName = Path.GetFileName(file);
-
-                if (fileName.StartsWith(IMPORT_FILE_NAME_PREFIX_NOTE_TYPE))
+                var imageFileList = Directory.GetFiles(GlobalData.IMAGE_PATH);
+                foreach (var imageFile in imageFileList)
                 {
-                    // note type
-                    for (var i = 0; i < dataTable.Rows.Count; i++)
-                    {
-                        var userIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_USER_ID].ToString();
-                        var typeIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_TYPE_ID].ToString();
-                        var typeNameStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_TYPE_NAME].ToString();
-                        var descriptionStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_DESCRIPTION].ToString();
+                    var fileName = Path.GetFileName(imageFile);
 
-                        noteTypeWebDtoList.Add(new NoteTypeWebDto
+                    try
+                    {
+                        var targetPath = $@"{imageFolderPath}\{fileName}";
+                        if (File.Exists(targetPath))
                         {
-                            UserId = int.Parse(userIdStr),
-                            TypeId = int.Parse(typeIdStr),
-                            TypeName = typeNameStr,
-                            Description = descriptionStr,
-                            CreateAt = operateTime,
-                            CreateBy = LoginInfo.UserBasicInfo.UserId,
-                            UpdateAt = operateTime,
-                            UpdateBy = LoginInfo.UserBasicInfo.UserId,
-                        });
+                            File.Delete(targetPath);
+                        }
+
+                        File.Copy(imageFile, targetPath);
                     }
-                }
-                else if (fileName.StartsWith(IMPORT_FILE_NAME_PREFIX_NOTE_CATEGORY))
-                {
-                    // note category
-                    for (var i = 0; i < dataTable.Rows.Count; i++)
+                    catch (Exception e)
                     {
-                        var userIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_USER_ID].ToString();
-                        var typeIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_TYPE_ID].ToString();
-                        var displayOrderStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_DISPLAY_ORDER].ToString();
-                        var categoryIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_CATEGORY_ID].ToString();
-                        var categoryNameStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_CATEGORY_NAME].ToString();
-
-                        noteCategoryWebDtoList.Add(new NoteCategoryWebDto
-                        {
-                            UserId = int.Parse(userIdStr),
-                            TypeId = int.Parse(typeIdStr),
-                            DisplayOrder = int.Parse(displayOrderStr),
-                            CategoryId = int.Parse(categoryIdStr),
-                            CategoryName = categoryNameStr,
-                            CreateAt = operateTime,
-                            CreateBy = LoginInfo.UserBasicInfo.UserId,
-                            UpdateAt = operateTime,
-                            UpdateBy = LoginInfo.UserBasicInfo.UserId,
-                        });
-                    }
-                }
-                else if (fileName.StartsWith(IMPORT_FILE_NAME_PREFIX_NOTE_CONTENT))
-                {
-                    // note content
-                    for (var i = 0; i < dataTable.Rows.Count; i++)
-                    {
-                        var userIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_USER_ID].ToString();
-                        var typeIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_TYPE_ID].ToString();
-                        var contentIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_CONTENT_ID].ToString();
-                        var categoryIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_CATEGORY_ID].ToString();
-                        var contentStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_CONTENT].ToString();
-
-                        noteContentWebDtoList.Add(new NoteContentWebDto
-                        {
-                            UserId = int.Parse(userIdStr),
-                            TypeId = int.Parse(typeIdStr),
-                            CategoryId = int.Parse(categoryIdStr),
-                            //ContentId = int.Parse(contentIdStr),
-                            Content = contentStr,
-                            CreateAt = operateTime,
-                            CreateBy = LoginInfo.UserBasicInfo.UserId,
-                            UpdateAt = operateTime,
-                            UpdateBy = LoginInfo.UserBasicInfo.UserId,
-                        });
+                        LogUtil.Instance.Error($@"Export image file failed!", e);
                     }
                 }
             }
 
-            await _noteService.ConvertImportFileContentToDbAsync(noteTypeWebDtoList, noteCategoryWebDtoList, noteContentWebDtoList);
+            var folderPathList = new List<string> { dbFolderPath, imageFolderPath };
+            var zipPath = $@"{filePath}\note_{DateTime.Now:yyyyMMddHHmmss}.zip";
+            ZipUtil.ZipFile(folderPathList, zipPath);
+
+            var dbFiles = Directory.GetFiles(dbFolderPath);
+            foreach (var dbFile in dbFiles)
+            {
+                File.Delete(dbFile);
+            }
+            Directory.Delete(dbFolderPath);
+
+            var imageFiles = Directory.GetFiles(imageFolderPath);
+            foreach (var imageFile in imageFiles)
+            {
+                File.Delete(imageFile);
+            }
+            Directory.Delete(imageFolderPath);
         }
+
+        //public async Task ImportLocalZip(string filePath)
+        //{
+        //    // clear exist images
+        //    var existImageList = Directory.GetFiles(GlobalData.IMAGE_PATH);
+        //    foreach (var existImage in existImageList)
+        //    {
+        //        try
+        //        {
+        //            File.Delete(existImage);
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            // do nothing
+        //        }
+        //    }
+
+        //    ZipUtil.UnZipFile(filePath, GlobalData.CSV_PATH, GlobalData.IMAGE_PATH, out string errorMessage);
+
+        //    var fileList = Directory.GetFiles(GlobalData.CSV_PATH);
+        //    var noteTypeWebDtoList = new List<NoteTypeWebDto>();
+        //    var noteCategoryWebDtoList = new List<NoteCategoryWebDto>();
+        //    var noteContentWebDtoList = new List<NoteContentWebDto>();
+        //    var operateTime = DateTime.Now;
+        //    foreach (var file in fileList)
+        //    {
+        //        if (!ValidateImportFileName(file)) continue;
+
+        //        var dataTable = FileUtil.ConvertCsvToDataTable(file);
+        //        var fileName = Path.GetFileName(file);
+
+        //        if (fileName.StartsWith(IMPORT_FILE_NAME_PREFIX_NOTE_TYPE))
+        //        {
+        //            // note type
+        //            for (var i = 0; i < dataTable.Rows.Count; i++)
+        //            {
+        //                var userIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_USER_ID].ToString();
+        //                var typeIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_TYPE_ID].ToString();
+        //                var typeNameStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_TYPE_NAME].ToString();
+        //                var descriptionStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_DESCRIPTION].ToString();
+
+        //                noteTypeWebDtoList.Add(new NoteTypeWebDto
+        //                {
+        //                    UserId = int.Parse(userIdStr),
+        //                    TypeId = int.Parse(typeIdStr),
+        //                    TypeName = typeNameStr,
+        //                    Description = descriptionStr,
+        //                    CreateAt = operateTime,
+        //                    CreateBy = LoginInfo.UserBasicInfo.UserId,
+        //                    UpdateAt = operateTime,
+        //                    UpdateBy = LoginInfo.UserBasicInfo.UserId,
+        //                });
+        //            }
+        //        }
+        //        else if (fileName.StartsWith(IMPORT_FILE_NAME_PREFIX_NOTE_CATEGORY))
+        //        {
+        //            // note category
+        //            for (var i = 0; i < dataTable.Rows.Count; i++)
+        //            {
+        //                var userIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_USER_ID].ToString();
+        //                var typeIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_TYPE_ID].ToString();
+        //                var displayOrderStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_DISPLAY_ORDER].ToString();
+        //                var categoryIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_CATEGORY_ID].ToString();
+        //                var categoryNameStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_CATEGORY_NAME].ToString();
+
+        //                noteCategoryWebDtoList.Add(new NoteCategoryWebDto
+        //                {
+        //                    UserId = int.Parse(userIdStr),
+        //                    TypeId = int.Parse(typeIdStr),
+        //                    DisplayOrder = int.Parse(displayOrderStr),
+        //                    CategoryId = int.Parse(categoryIdStr),
+        //                    CategoryName = categoryNameStr,
+        //                    CreateAt = operateTime,
+        //                    CreateBy = LoginInfo.UserBasicInfo.UserId,
+        //                    UpdateAt = operateTime,
+        //                    UpdateBy = LoginInfo.UserBasicInfo.UserId,
+        //                });
+        //            }
+        //        }
+        //        else if (fileName.StartsWith(IMPORT_FILE_NAME_PREFIX_NOTE_CONTENT))
+        //        {
+        //            // note content
+        //            for (var i = 0; i < dataTable.Rows.Count; i++)
+        //            {
+        //                var userIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_USER_ID].ToString();
+        //                var typeIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_TYPE_ID].ToString();
+        //                var contentIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_CONTENT_ID].ToString();
+        //                var categoryIdStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_CATEGORY_ID].ToString();
+        //                var contentStr = dataTable.Rows[i][FIELD_NAME_IN_IMPORT_FILE_CONTENT].ToString();
+
+        //                noteContentWebDtoList.Add(new NoteContentWebDto
+        //                {
+        //                    UserId = int.Parse(userIdStr),
+        //                    TypeId = int.Parse(typeIdStr),
+        //                    CategoryId = int.Parse(categoryIdStr),
+        //                    //ContentId = int.Parse(contentIdStr),
+        //                    Content = contentStr,
+        //                    CreateAt = operateTime,
+        //                    CreateBy = LoginInfo.UserBasicInfo.UserId,
+        //                    UpdateAt = operateTime,
+        //                    UpdateBy = LoginInfo.UserBasicInfo.UserId,
+        //                });
+        //            }
+        //        }
+        //    }
+
+        //    await _noteService.ConvertImportFileContentToDbAsync(noteTypeWebDtoList, noteCategoryWebDtoList, noteContentWebDtoList);
+        //}
 
         public async Task<List<NoteSearchUiModel>> SelectSearchMatchedList(NoteSearchCondition noteSearchCondition)
         {

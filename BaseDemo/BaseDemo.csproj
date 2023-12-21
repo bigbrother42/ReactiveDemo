@@ -55,6 +55,7 @@
     <Compile Include="Util\EncryptionUtility.cs" />
     <Compile Include="Util\ExceptionUtil.cs" />
     <Compile Include="Util\Extensions\EnumerableExtension.cs" />
+    <Compile Include="Util\Extensions\StringExtensions.cs" />
     <Compile Include="Util\FileUtil.cs" />
     <Compile Include="Util\FindChildControlUtility.cs" />
     <Compile Include="Util\FindParentControlUtility.cs" />

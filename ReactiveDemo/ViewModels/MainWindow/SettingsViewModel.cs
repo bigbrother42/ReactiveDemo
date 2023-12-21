@@ -117,7 +117,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
                     {
                         IsProgress.Value = true;
 
-                        await _noteModel.ExportToLocal(fbd.SelectedPath);
+                        _noteModel.ExportToLocal(fbd.SelectedPath);
                     }
                 }
             }
@@ -142,7 +142,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
                         {
                             IsProgress.Value = true;
 
-                            await _noteModel.ImportLocalZip(ofd.FileName);
+                            //await _noteModel.ImportLocalZip(ofd.FileName);
 
                             // need to restart application
                             RestartApplication();
@@ -162,7 +162,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
             {
                 IsProgress.Value = true;
 
-                await _noteModel.ImportLocalZip(zipFilePath);
+                //await _noteModel.ImportLocalZip(zipFilePath);
 
                 RestartApplication();
             }

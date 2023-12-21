@@ -97,6 +97,7 @@
                             Height="100"
                             BorderThickness="2"
                             CornerRadius="3"
+                            Visibility="Collapsed"
                             AllowDrop="True"
                             Drop="Border_Drop">
                         <Border.BorderBrush>
