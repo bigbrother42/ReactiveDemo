@@ -14,6 +14,7 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:validationrules="clr-namespace:InfrastructureDemo.ValidationRules;assembly=InfrastructureDemo"
              xmlns:helpers="clr-namespace:BaseDemo.Helpers.Component;assembly=BaseDemo"
+             xmlns:data="clr-namespace:SharedDemo.GlobalData;assembly=SharedDemo"
              xmlns:actionBase1="clr-namespace:ReactiveDemo.ActionBase;assembly=InfrastructureDemo"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:common="clr-namespace:ReactiveDemo.Common;assembly=InfrastructureDemo"
@@ -558,7 +559,8 @@
                                          LostFocus="NoteContentRichTextBox_LostFocus"
                                          SelectionChanged="NoteContentRichTextBox_SelectionChanged"
                                          PreviewMouseLeftButtonUp="NoteContentRichTextBox_PreviewMouseLeftButtonUp"
-                                         helpers:RichTextBoxHelper.DocumentXaml="{Binding Content}">
+                                         helpers:RichTextBoxHelper.DocumentXaml="{Binding Content}"
+                                         helpers:RichTextBoxHelper.LocalImagePath="{x:Static data:GlobalData.IMAGE_PATH}">
                                 
                             </RichTextBox>
                         </Grid>

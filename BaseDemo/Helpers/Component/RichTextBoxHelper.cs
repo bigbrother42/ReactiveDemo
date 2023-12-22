@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -50,12 +51,19 @@ namespace BaseDemo.Helpers.Component
                         {
                             // Parse the XAML to a document (or use XamlReader.Parse())
                             var xaml = GetDocumentXaml(richTextBox);
-                            var doc = (FlowDocument)XamlReader.Parse(xaml);
+
+                            var newXaml = xaml;
+                            if (!GetLocalImagePath(richTextBox).IsNullOrEmpty() && xaml.Contains("<Image"))
+                            {
+                                newXaml = Regex.Replace(xaml, @"^<Image Source.*/image/note+$", GetLocalImagePath(richTextBox));
+                            }
+
+                            var doc = (FlowDocument)XamlReader.Parse(newXaml);
                             var range = new TextRange(doc.ContentStart, doc.ContentEnd);
                             // Set the document
                             richTextBox.Document = doc;
                         }
-                        catch(Exception)
+                        catch(Exception ex)
                         {
                             richTextBox.Document = new FlowDocument { LineHeight = 3 };
                         }
@@ -83,5 +91,20 @@ namespace BaseDemo.Helpers.Component
             );
 
         #endregion
+
+
+        public static string GetLocalImagePath(DependencyObject obj)
+        {
+            return (string)obj.GetValue(LocalImagePathProperty);
+        }
+        public static void SetLocalImagePath(DependencyObject obj, string value)
+        {
+            obj.SetValue(LocalImagePathProperty, value);
+        }
+
+        public static readonly DependencyProperty LocalImagePathProperty =
+            DependencyProperty.Register("LocalImagePath", typeof(string), typeof(RichTextBoxHelper), new PropertyMetadata(string.Empty));
+
+
     }
 }
