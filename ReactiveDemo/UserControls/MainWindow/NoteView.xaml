@@ -661,7 +661,7 @@
             <Grid Width="400"
                   Background="White">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
@@ -673,7 +673,7 @@
                                   Margin="3,0,0,0"
                                   Width="30"
                                   Height="30"
-                                  FontSize="14"
+                                  FontSize="16"
                                   FontWeight="Bold"
                                   Content="B"
                                   Checked="BoldCheckBox_Checked"
@@ -690,6 +690,21 @@
                                   Checked="ItelicCheckBox_Checked"
                                   Unchecked="ItelicCheckBox_Unchecked"
                                   Template="{StaticResource Checkbox.Template}"/>
+
+                        <ComboBox x:Name="PopupFontSizeComboBox"
+                                  Margin="3,0,0,0"
+                                  Padding="5,-1,0,0"
+                                  Width="62" Height="30"
+                                  FontSize="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedItem.Content}"
+                                  VerticalAlignment="Center"
+                                  SelectionChanged="ComboBox_SelectionChanged">
+                            <ComboBoxItem Content="12" FontSize="12"/>
+                            <ComboBoxItem Content="14" FontSize="14"/>
+                            <ComboBoxItem Content="16" FontSize="16"/>
+                            <ComboBoxItem Content="18" FontSize="18"/>
+                            <ComboBoxItem Content="20" FontSize="20"/>
+                            <ComboBoxItem Content="22" FontSize="22"/>
+                        </ComboBox>
                     </WrapPanel>
                 </Border>
 

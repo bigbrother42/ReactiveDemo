@@ -374,6 +374,7 @@ namespace ReactiveDemo.UserControls.MainWindow
                 PopupBoldCheckbox.IsChecked = false;
                 PopupItalicCheckbox.IsChecked = false;
                 PopupColorPalette.SelectedItem = null;
+                PopupFontSizeComboBox.SelectedItem = null;
             }
         }
 
