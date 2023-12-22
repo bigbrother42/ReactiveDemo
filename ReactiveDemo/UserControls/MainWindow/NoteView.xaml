@@ -229,6 +229,28 @@
             <ControlTemplate x:Key="FontStyle.Checked.Template">
                 <Border BorderBrush="Black" BorderThickness="2"/>
             </ControlTemplate>
+
+            <ControlTemplate x:Key="Checkbox.Template" TargetType="CheckBox">
+                <Border x:Name="Border"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Button.Border}"
+                        BorderThickness="1">
+                    <Label Content="{TemplateBinding Content}"
+                           Width="{TemplateBinding Width}"
+                           FontSize="{TemplateBinding FontSize}"
+                           FontWeight="{TemplateBinding FontWeight}"
+                           FontStyle="{TemplateBinding FontStyle}"
+                           HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Center"/>
+                </Border>
+
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter TargetName="Border" Property="common:AdornerEffect.Template" Value="{StaticResource FontStyle.Checked.Template}"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -346,61 +368,25 @@
                       Margin="10,0,0,0"
                       Width="40"
                       Height="40"
+                      FontSize="22"
+                      FontWeight="Bold"
+                      Content="B"
                       Checked="BoldCheckBox_Checked"
-                      Unchecked="BoldCheckBox_Unchecked">
-                <CheckBox.Template>
-                    <ControlTemplate TargetType="CheckBox">
-                        <Border x:Name="Border"
-                                Width="{TemplateBinding Width}"
-                                Height="{TemplateBinding Height}"
-                                BorderBrush="{DynamicResource MahApps.Brushes.Button.Border}"
-                                BorderThickness="1">
-                            <Label Content="B"
-                                   Width="{TemplateBinding Width}"
-                                   FontSize="22"
-                                   FontWeight="Bold"
-                                   HorizontalContentAlignment="Center"
-                                   VerticalContentAlignment="Center"/>
-                        </Border>
+                      Unchecked="BoldCheckBox_Unchecked"
+                      Template="{StaticResource Checkbox.Template}"/>
 
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="Border" Property="common:AdornerEffect.Template" Value="{StaticResource FontStyle.Checked.Template}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </CheckBox.Template>
-            </CheckBox>
 
             <CheckBox x:Name="ItelicCheckBox"
                       Margin="10,0,0,0"
                       Width="40"
                       Height="40"
+                      FontSize="22"
+                      FontStyle="Italic"
+                      Content="I"
                       Checked="ItelicCheckBox_Checked"
-                      Unchecked="ItelicCheckBox_Unchecked">
-                <CheckBox.Template>
-                    <ControlTemplate TargetType="CheckBox">
-                        <Border x:Name="Border"
-                                Width="{TemplateBinding Width}"
-                                Height="{TemplateBinding Height}"
-                                BorderBrush="{DynamicResource MahApps.Brushes.Button.Border}"
-                                BorderThickness="1">
-                            <Label Content="I"
-                                   Width="{TemplateBinding Width}"
-                                   FontSize="22"
-                                   FontStyle="Italic"
-                                   HorizontalContentAlignment="Center"
-                                   VerticalContentAlignment="Center"/>
-                        </Border>
+                      Unchecked="ItelicCheckBox_Unchecked"
+                      Template="{StaticResource Checkbox.Template}"/>
 
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="Border" Property="common:AdornerEffect.Template" Value="{StaticResource FontStyle.Checked.Template}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </CheckBox.Template>
-            </CheckBox>
 
             <!--<Button x:Name="UnderlineButton"
                     Margin="10,0,0,0"
@@ -570,6 +556,8 @@
                                          VerticalScrollBarVisibility="Auto"
                                          HorizontalScrollBarVisibility="Disabled"
                                          LostFocus="NoteContentRichTextBox_LostFocus"
+                                         SelectionChanged="NoteContentRichTextBox_SelectionChanged"
+                                         PreviewMouseLeftButtonUp="NoteContentRichTextBox_PreviewMouseLeftButtonUp"
                                          helpers:RichTextBoxHelper.DocumentXaml="{Binding Content}">
                                 
                             </RichTextBox>
@@ -659,5 +647,56 @@
                     Content="save"
                     Command="{Binding SaveContentCommand}"/>
         </Grid>
+
+        <Popup x:Name="RichTextBoxColorPickerPopup"
+               IsOpen="False"
+               AllowsTransparency="True"
+               PopupAnimation="Fade"
+               StaysOpen="True"
+               Placement="MousePoint"
+               VerticalOffset="12"
+               Opened="RichTextBoxColorPickerPopup_Opened">
+            <Grid Width="400"
+                  Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        BorderThickness="1,1,1,0"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Accent}">
+                    <WrapPanel Grid.Row="0" Margin="0,3,0,3">
+                        <CheckBox x:Name="PopupBoldCheckbox"
+                                  Margin="3,0,0,0"
+                                  Width="30"
+                                  Height="30"
+                                  FontSize="14"
+                                  FontWeight="Bold"
+                                  Content="B"
+                                  Checked="BoldCheckBox_Checked"
+                                  Unchecked="BoldCheckBox_Unchecked"
+                                  Template="{StaticResource Checkbox.Template}"/>
+
+                        <CheckBox x:Name="PopupItalicCheckbox"
+                                  Margin="3,0,0,0"
+                                  Width="30"
+                                  Height="30"
+                                  FontSize="14"
+                                  FontStyle="Italic"
+                                  Content="I"
+                                  Checked="ItelicCheckBox_Checked"
+                                  Unchecked="ItelicCheckBox_Unchecked"
+                                  Template="{StaticResource Checkbox.Template}"/>
+                    </WrapPanel>
+                </Border>
+
+                <mah:ColorPalette x:Name="PopupColorPalette"
+                                  Grid.Row="1"
+                                  Header="Content Palette" 
+                                  ItemsSource="{x:Static mah:BuildInColorPalettes.WpfColorsPalette}"
+                                  SelectionChanged="ColorPalette_SelectionChanged"/>
+            </Grid>
+        </Popup>
     </Grid>
 </UserControl>

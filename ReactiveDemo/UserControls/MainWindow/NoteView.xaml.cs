@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -336,6 +337,54 @@ namespace ReactiveDemo.UserControls.MainWindow
             if (sender is RichTextBox richTextBox)
             {
                 RichTextBoxHelper.SetDocumentXaml(richTextBox, XamlWriter.Save(richTextBox.Document));
+
+                //RichTextBoxColorPickerPopUp.IsOpen = false;
+            }
+        }
+
+        private void NoteContentRichTextBox_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is RichTextBox richTextBox)
+            {
+                if (richTextBox.Selection.Text.IsNullOrEmpty()) {
+                    //RichTextBoxColorPickerPopUp.IsOpen = false;
+
+                    return;
+                }
+
+                RichTextBoxColorPickerPopup.IsOpen = true;
+            }
+        }
+
+        private void NoteContentRichTextBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (sender is RichTextBox richTextBox)
+            {
+                if (richTextBox.Selection.Text.IsNullOrEmpty())
+                {
+                    RichTextBoxColorPickerPopup.IsOpen = false;
+                }
+            }
+        }
+
+        private void RichTextBoxColorPickerPopup_Opened(object sender, EventArgs e)
+        {
+            if (sender is Popup popup)
+            {
+                PopupBoldCheckbox.IsChecked = false;
+                PopupItalicCheckbox.IsChecked = false;
+                PopupColorPalette.SelectedItem = null;
+            }
+        }
+
+        private void ColorPalette_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PopupColorPalette.SelectedItem is Color selectedItem)
+            {
+                //var brusher = new SolidColorBrush((Color)ColorConverter.ConvertFromString(selectedColor));
+                var brusher = new SolidColorBrush(selectedItem);
+                var richTextBox = GetSelectedTabItemRichTextBox();
+                richTextBox?.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, brusher);
             }
         }
     }
