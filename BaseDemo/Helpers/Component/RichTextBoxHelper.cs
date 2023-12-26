@@ -53,7 +53,7 @@ namespace BaseDemo.Helpers.Component
                             var xaml = GetDocumentXaml(richTextBox);
 
                             var newXaml = xaml;
-                            if (!GetLocalImagePath(richTextBox).IsNullOrEmpty() && xaml.Contains("<Image"))
+                            if (!xaml.IsNullOrEmpty() && !GetLocalImagePath(richTextBox).IsNullOrEmpty() && xaml.Contains("<Image"))
                             {
                                 Regex regex = new Regex(@"<Image Source[\S]*/image/note");
                                 newXaml = regex.Replace(xaml, "<Image Source=\"file:///" + GetLocalImagePath(richTextBox));

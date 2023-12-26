@@ -15,7 +15,6 @@
     <i:Interaction.Triggers>
         <interactionRequest:InteractionRequestTrigger SourceObject="{Binding AccountViewRequest}">
             <actionBase:AlertWindowAction
-                Owner="{Binding ElementName=MainWindowView}"
                 WindowName="ReactiveDemo.Views.Setting.AccountView" />
         </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>

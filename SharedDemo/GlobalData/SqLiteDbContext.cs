@@ -48,7 +48,7 @@ namespace SharedDemo.GlobalData
             if (dbConnection == null || dbConnection.DataSource.IsNullOrEmpty())
                 dbConnection = InitializeSqliteConnection($@"{SqliteExtensions.DbPath}\{SqliteExtensions.SQLiteName}");
 
-            optionsBuilder.UseLoggerFactory(SqliteExtensions.SqliteLoggerFactory);
+            //optionsBuilder.UseLoggerFactory(SqliteExtensions.SqliteLoggerFactory);
             optionsBuilder.EnableDetailedErrors();
             optionsBuilder.UseSqlite(dbConnection);
         }

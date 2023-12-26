@@ -14,13 +14,11 @@
     <i:Interaction.Triggers>
         <interactionRequest:InteractionRequestTrigger SourceObject="{Binding ReactiveDemoRequest}">
             <actionBase:AlertWindowAction
-                Owner="{Binding ElementName=MainWindowView}"
                 WindowName="ReactiveDemo.Views.ReactiveDemoView" />
         </interactionRequest:InteractionRequestTrigger>
 
         <interactionRequest:InteractionRequestTrigger SourceObject="{Binding OpenViewport3DViewRequest}">
             <actionBase:AlertWindowAction
-                Owner="{Binding ElementName=MainWindowView}"
                 WindowName="ReactiveDemo.Views.MainWindow._3DGraphics.Viewport3DView" />
         </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>
