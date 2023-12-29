@@ -42,7 +42,10 @@ namespace ReactiveDemo.UserControls.MainWindow
             {
                 this.DataContext = new NoteViewModel();
 
-                QuickSearch.Focus();
+                QuickSearch.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    QuickSearch.Focus();
+                }), System.Windows.Threading.DispatcherPriority.Background);
             }
 
             DataObject.AddPastingHandler(this, OnPaste);
