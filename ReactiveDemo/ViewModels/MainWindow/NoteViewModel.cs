@@ -50,6 +50,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public ReactiveCommand ConfigTypeCommand { get; set; }
 
+        public AsyncReactiveCommand QuickSearchCommand { get; set; }
+
         #endregion
 
         #region ReactiveProperty
@@ -63,6 +65,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
         public ReactiveProperty<bool> IsBoldChecked { get; set; }
 
         public ReactiveProperty<bool> IsProgress { get; set; }
+
+        public ReactiveProperty<string> QuickSearchKeyWord { get; set; }
 
         #endregion
 
@@ -121,6 +125,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
             IsBoldChecked = new ReactiveProperty<bool>().AddTo(DisposablePool);
             IsProgress = new ReactiveProperty<bool>().AddTo(DisposablePool);
+            QuickSearchKeyWord = new ReactiveProperty<string>(string.Empty).AddTo(DisposablePool);
         }
 
         protected override void RegisterCommands()
@@ -144,6 +149,9 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
             ConfigTypeCommand = new ReactiveCommand().AddTo(DisposablePool);
             ConfigTypeCommand.Subscribe(ConfigType).AddTo(DisposablePool);
+
+            QuickSearchCommand = new AsyncReactiveCommand().AddTo(DisposablePool);
+            QuickSearchCommand.Subscribe(QuickSearch).AddTo(DisposablePool);
         }
 
         protected override void RegisterPubEvents()
@@ -154,6 +162,19 @@ namespace ReactiveDemo.ViewModels.MainWindow
         #endregion
 
         #region Method
+
+        private async Task QuickSearch()
+        {
+            var resultList = await _noteModel.SelectQuickSearchMatchedList(QuickSearchKeyWord.Value ?? string.Empty);
+
+            var searchResultCollection = new ObservableCollection<NoteSearchUiModel>(resultList.OrderBy(o => o.TypeId).ThenBy(o => o.CategoryId));
+            var searchRes = searchResultCollection.FirstOrDefault();
+            if (searchRes != null)
+            {
+                SelectedNoteType.Value = NoteTypeCollection.FirstOrDefault(o => o.TypeId == searchRes.TypeId);
+                SelectedNoteCategory.Value = SelectedNoteType.Value.CategoryList.FirstOrDefault(o => o.CategorySeq == searchRes.CategoryId);
+            }
+        }
 
         private async Task AddNoteCategory()
         {

@@ -41,6 +41,8 @@ namespace ReactiveDemo.UserControls.MainWindow
             if (this.DataContext == null)
             {
                 this.DataContext = new NoteViewModel();
+
+                QuickSearch.Focus();
             }
 
             DataObject.AddPastingHandler(this, OnPaste);

@@ -484,6 +484,21 @@ namespace ReactiveDemo.Models.MainWindow
             }).ToList();
         }
 
+        public async Task<List<NoteSearchUiModel>> SelectQuickSearchMatchedList(string keyWord)
+        {
+            var resultWebDtoList = await _noteService.SelectQuickSearchMatchedListAsync(keyWord);
+
+            return resultWebDtoList.Select(o => new NoteSearchUiModel
+            {
+                UserId = o.UserId,
+                TypeId = o.TypeId,
+                TypeName = o.TypeName,
+                TypeDescription = o.TypeDescription,
+                CategoryId = o.CategoryId,
+                CategoryName = o.CategoryName
+            }).ToList();
+        }
+
         public async Task ResetNoteApplication()
         {
             await _noteService.ResetNoteApplicationAsync();

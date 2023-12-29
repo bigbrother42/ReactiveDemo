@@ -274,9 +274,19 @@
                           IsActive="{Binding IsProgress.Value}"
                           Visibility="{Binding IsProgress.Value, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
-        <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                   VerticalAlignment="Center">
-            <TextBlock Margin="10,0,0,0"
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+              VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Margin="10,0,0,0" Grid.Column="0"
                        Text="Color: "
                        FontSize="16"
                        VerticalAlignment="Center"/>
@@ -290,7 +300,7 @@
                              mah:TextBoxHelper.Watermark="Select a color"
                              AddToRecentColorsTrigger="SelectedColorChanged"
                              SelectedColorChanged="ColorPicker_SelectedColorChanged"/>-->
-            <Grid Margin="10,2,0,0">
+            <Grid Margin="10,2,0,0"  Grid.Column="1">
                 <Button Width="40" Height="40" Margin="0,0,0,0"
                         HorizontalAlignment="Left"
                         Background="{Binding ElementName=ColorPiker, Path=SelectedColor, Converter={x:Static mah:ColorToSolidColorBrushConverter.DefaultInstance}}"
@@ -328,12 +338,12 @@
             </Grid>
 
 
-            <TextBlock Margin="10,0,0,0"
+            <TextBlock Margin="10,0,0,0"  Grid.Column="2"
                        Text="Font Size: "
                        FontSize="16"
                        VerticalAlignment="Center"/>
 
-            <Grid Margin="10,1,0,0">
+            <Grid Margin="10,1,0,0" Grid.Column="3">
                 <Button x:Name="FontSizeButton"
                         Width="40" Height="40" Margin="0,0,0,0"
                         HorizontalAlignment="Left"
@@ -363,7 +373,7 @@
                 </ComboBox>
             </Grid>
 
-            <CheckBox x:Name="BoldCheckBox"
+            <CheckBox x:Name="BoldCheckBox" Grid.Column="4"
                       Margin="10,0,0,0"
                       Width="40"
                       Height="40"
@@ -375,7 +385,7 @@
                       Template="{StaticResource Checkbox.Template}"/>
 
 
-            <CheckBox x:Name="ItelicCheckBox"
+            <CheckBox x:Name="ItelicCheckBox" Grid.Column="5"
                       Margin="10,0,0,0"
                       Width="40"
                       Height="40"
@@ -397,7 +407,36 @@
                 <TextBlock TextDecorations="Underline" Text="U"/>
             </Button>-->
 
-        </WrapPanel>
+            <Grid Margin="0,0,0,0" HorizontalAlignment="Right"  Grid.Column="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" Margin="10,0,10,0"
+                         Height="40"
+                         Width="200"
+                         x:Name="QuickSearch"
+                         FontSize="18"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding QuickSearchKeyWord.Value, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding QuickSearchCommand}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+
+                <Button Grid.Column="1"
+                        x:Name="QuickSearchButton"
+                        Width="80"
+                        Height="40"
+                        Margin="0,0,100,0"
+                        HorizontalAlignment="Right"
+                        FontSize="16"
+                        Content="Search"
+                        Command="{Binding QuickSearchCommand}"/>
+            </Grid>
+            
+        </Grid>
 
         <TabControl x:Name="NoteCategoryTabControl"
                     Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
@@ -637,12 +676,12 @@
                     Command="{Binding ConfigTypeCommand}"/>
             
             <Button x:Name="SearchButton"
-                    Width="80"
+                    Width="150"
                     Height="40"
                     Margin="0,0,100,0"
                     HorizontalAlignment="Right"
                     FontSize="16"
-                    Content="Search"
+                    Content="Search Detail"
                     Command="{Binding SearchContentCommand}"/>
             
             <Button x:Name="SaveButton"
