@@ -236,15 +236,19 @@ namespace ReactiveDemo.UserControls.MainWindow
 
         private void NoteContentRichTextBox_KeyUp(object sender, KeyEventArgs e)
         {
-            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            if (DataContext is NoteViewModel vm && sender is RichTextBox richTextBox)
             {
-                if (Keyboard.IsKeyUp(Key.S))
+                if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
                 {
-                    if (DataContext is NoteViewModel vm && sender is RichTextBox richTextBox)
+                    if (e.Key == Key.S)
                     {
                         RichTextBoxHelper.SetDocumentXaml(richTextBox, XamlWriter.Save(richTextBox.Document));
 
                         vm.SaveContentCommand.Execute();
+                    }
+                    else if (e.Key == Key.V)
+                    {
+                        richTextBox.Selection.Select(richTextBox.Selection.End, richTextBox.Selection.End);
                     }
                 }
             }

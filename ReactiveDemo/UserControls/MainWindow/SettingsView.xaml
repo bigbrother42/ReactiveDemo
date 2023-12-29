@@ -77,20 +77,37 @@
                            VerticalAlignment="Top"/>
 
                 <StackPanel>
-                    <Controls:Tile Title="Export"
-                                   Margin="0,3,3,3"
-                                   Width="100"
-                                   Height="100"
-                                   HorizontalAlignment="Left"
-                                   Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
-                                   Background="Teal"
-                                   HorizontalTitleAlignment="Right"
-                                   Command="{Binding ExportCommand}">
-                        <iconPacks:PackIconModern Width="40"
+                    <WrapPanel>
+                        <Controls:Tile Title="Export"
+                                       Margin="0,3,3,3"
+                                       Width="100"
+                                       Height="100"
+                                       HorizontalAlignment="Left"
+                                       Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+                                       Background="Teal"
+                                       HorizontalTitleAlignment="Right"
+                                       Command="{Binding ExportCommand}">
+                            <iconPacks:PackIconModern Width="40"
                                                   Height="40"
                                                   Kind="ImageExport"/>
 
-                    </Controls:Tile>
+                        </Controls:Tile>
+
+                        <Controls:Tile Title="Reset"
+                                       Margin="0,3,3,3"
+                                       Width="100"
+                                       Height="100"
+                                       HorizontalAlignment="Left"
+                                       Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+                                       Background="Red"
+                                       HorizontalTitleAlignment="Right"
+                                       Command="{Binding ResetCommand}">
+                            <iconPacks:PackIconModern Width="40"
+                                                      Height="40"
+                                                      Kind="Reset"/>
+
+                        </Controls:Tile>
+                    </WrapPanel>
 
                     <Border Margin="0,13,3,3"
                             Width="400"

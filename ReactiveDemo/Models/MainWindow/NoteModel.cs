@@ -483,5 +483,10 @@ namespace ReactiveDemo.Models.MainWindow
                 CategoryName = o.CategoryName
             }).ToList();
         }
+
+        public async Task ResetNoteApplication()
+        {
+            await _noteService.ResetNoteApplicationAsync();
+        }
     }
 }

@@ -345,5 +345,14 @@ namespace ServiceDemo.Common.SQLite
 
             return noteCategoryList;
         }
+
+        public async Task ResetNoteApplicationAsync()
+        {
+            SqLiteDbContext.NoteType.RemoveRange(SqLiteDbContext.NoteType);
+            SqLiteDbContext.NoteCategory.RemoveRange(SqLiteDbContext.NoteCategory);
+            SqLiteDbContext.NoteContent.RemoveRange(SqLiteDbContext.NoteContent);
+
+            await SqLiteDbContext.SaveChangesAsync();
+        }
     }
 }

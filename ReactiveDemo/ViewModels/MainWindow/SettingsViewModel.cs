@@ -43,6 +43,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public AsyncReactiveCommand ImportCommand { get; set; }
 
+        public AsyncReactiveCommand ResetCommand { get; set; }
+
         #endregion
 
         #region ReactiveProperty
@@ -89,6 +91,9 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
             ImportCommand = new AsyncReactiveCommand().AddTo(DisposablePool);
             ImportCommand.Subscribe(Import).AddTo(DisposablePool);
+
+            ResetCommand = new AsyncReactiveCommand().AddTo(DisposablePool);
+            ResetCommand.Subscribe(Reset).AddTo(DisposablePool);
         }
 
         protected override void RegisterPubEvents()
@@ -103,6 +108,15 @@ namespace ReactiveDemo.ViewModels.MainWindow
         private void AccountView()
         {
             AccountViewRequest.Raise(new Notification(), notification => { });
+        }
+
+        private async Task Reset()
+        {
+            var res = System.Windows.MessageBox.Show(MessageBoxConstant.RESET_NOTE_APPLICATION_CONFIRM_MESSAGE, MessageBoxConstant.TITLE_WARNING, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (res == MessageBoxResult.Yes)
+            {
+                await _noteModel.ResetNoteApplication();
+            }
         }
 
         private async Task Export()

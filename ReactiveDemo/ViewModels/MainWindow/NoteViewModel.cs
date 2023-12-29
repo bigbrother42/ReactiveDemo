@@ -1,4 +1,5 @@
-﻿using BaseDemo.Util.Extensions;
+﻿using BaseDemo.Helpers.Component;
+using BaseDemo.Util.Extensions;
 using GongSolutions.Wpf.DragDrop;
 using Prism.Interactivity.InteractionRequest;
 using Reactive.Bindings;
@@ -15,7 +16,9 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Markup;
 
 namespace ReactiveDemo.ViewModels.MainWindow
 {

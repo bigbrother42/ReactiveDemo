@@ -7,6 +7,63 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0">
+            <Label FontWeight="Bold" FontSize="40" Content="Note"/>
+
+            <Label FontWeight="Bold" FontSize="20" Content="・Create Note Type"/>
+            <TextBlock FontSize="16" Text="　The note type is the tab list that vertically shown in the left of [Note] tag."/>
+            <TextBlock FontSize="16" Text="　You can click the button [CONFIG] to edit note type in the [Note] tag."/>
+            <TextBlock FontSize="16" Text="　In the [CONFIG NOTE TYPE] window, here will show all of your note types."/>
+            <TextBlock FontSize="16" Text="　You can click the button [SAVE] to store the not type that you edited."/>
+            <TextBlock FontSize="16" Text="　When you click the button [SAVE] the window [CONFIG NOTE TYPE] will be closed,"/>
+            <TextBlock FontSize="16" Text="　and the latest note types will be shown in the main window."/>
+
+            <Label Margin="0,10,0,0" FontWeight="Bold" FontSize="20" Content="・Create Note Category"/>
+            <TextBlock FontSize="16" Text="　The note category is the tab list that horizontal display in the top of [Note] tag."/>
+            <TextBlock FontSize="16" Text="　You can click the button [+] to create a category, but in sure that one note type is selected."/>
+
+            <Label Margin="0,10,0,0" FontWeight="Bold" FontSize="20" Content="・Edit Note Content"/>
+            <TextBlock FontSize="16" Text="　In the center area of [Note] tag, you can input any you want, and if you want to add image,"/>
+            <TextBlock FontSize="16" Text="　at present, app just support [Ctrl + V]."/>
+            <TextBlock FontSize="16" Text="　In the input area, you also can change the selection's font size, color, font style."/>
+            <TextBlock FontSize="16" Text="　If you want to save the content, you can click the button [SAVE] or press [Ctrl + S]."/>
+
+            <Label Margin="0,10,0,0" FontWeight="Bold" FontSize="20" Content="・Extra Functions"/>
+            <Grid Margin="15,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" FontSize="16" Text="Change app's theme:"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" FontSize="16" Text=" In the [Settings] tag, you can change the app's theme by changing the selected item of comboBox."/>
+                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="16" Text=" But this changes will be rollbacked when you restart the app."/>
+                <TextBlock Grid.Row="2" Grid.Column="0" FontWeight="Bold" FontSize="16" Text="Export:"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" FontSize="16" Text=" In the [Settings] tag, you can click the button [Export] to export the note data for backup."/>
+                <TextBlock Grid.Row="4" Grid.Column="1" FontSize="16" Text=" Detail operations of Export:"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" FontSize="16" Text=" 1. click the [Export] button in [Settings] tag, it will generate a zip, this zip contains database and image"/>
+                <TextBlock Grid.Row="6" Grid.Column="1" FontSize="16" Text=" 2. put the database file into app's database location to replace it"/>
+                <TextBlock Grid.Row="7" Grid.Column="1" FontSize="16" Text=" 3. put the image files into app's image location to replace it"/>
+                <TextBlock Grid.Row="8" Grid.Column="0" FontWeight="Bold" FontSize="16" Text="Reset:"/>
+                <TextBlock Grid.Row="8" Grid.Column="1" FontSize="16" Text=" In the [Settings] tag, you can click the button [Reset] to reset the app's user data,"/>
+                <TextBlock Grid.Row="9" Grid.Column="1" FontSize="16" Text=" the deleted data will not be restore, so make sure that you have backuped."/>
+            </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -468,7 +468,7 @@
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter TargetName="DisplayTextBlock" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}"/>
                                         <Setter TargetName="DisplayTextBlock" Property="FontWeight" Value="Bold"/>
-                                        <Setter TargetName="DisplayTextBlock" Property="FontSize" Value="20"/>
+                                        <Setter TargetName="DisplayTextBlock" Property="FontSize" Value="24"/>
                                     </Trigger>
 
                                     <MultiTrigger>
@@ -559,7 +559,14 @@
                                          PreviewMouseLeftButtonUp="NoteContentRichTextBox_PreviewMouseLeftButtonUp"
                                          helpers:RichTextBoxHelper.DocumentXaml="{Binding Content}"
                                          helpers:RichTextBoxHelper.LocalImagePath="{x:Static data:GlobalData.IMAGE_PATH}">
-                                
+                                <!--<RichTextBox.InputBindings>
+                                    <KeyBinding Key="S" Modifiers="Ctrl"
+                                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1,AncestorType=local:NoteView}, Path=DataContext.CtrlSCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1, AncestorType=RichTextBox}}"/>
+                                    <KeyBinding Key="V" Modifiers="Ctrl"
+                                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1,AncestorType=local:NoteView}, Path=DataContext.CtrlVCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1, AncestorType=RichTextBox}}"/>
+                                </RichTextBox.InputBindings>-->
                             </RichTextBox>
                         </Grid>
                     </Border>
