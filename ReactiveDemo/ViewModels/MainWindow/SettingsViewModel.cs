@@ -116,6 +116,9 @@ namespace ReactiveDemo.ViewModels.MainWindow
             if (res == MessageBoxResult.Yes)
             {
                 await _noteModel.ResetNoteApplication();
+
+                // need to restart application
+                RestartApplication();
             }
         }
 
