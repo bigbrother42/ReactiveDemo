@@ -20,6 +20,9 @@ namespace DataDemo.WebDto.Custom
         [JsonProperty("TypeName")]
         public string TypeName { get; set; }
 
+        [JsonProperty("TypeDisplayOrder")]
+        public int TypeDisplayOrder { get; set; }
+
         [JsonProperty("TypeDescription")]
         public string TypeDescription { get; set; }
 

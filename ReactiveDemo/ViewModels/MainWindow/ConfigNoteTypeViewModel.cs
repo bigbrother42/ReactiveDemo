@@ -1,4 +1,5 @@
 ﻿using BaseDemo.Util.Extensions;
+using GongSolutions.Wpf.DragDrop;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactiveDemo.Constants;
@@ -14,13 +15,18 @@ using System.Windows;
 
 namespace ReactiveDemo.ViewModels.MainWindow
 {
-    public class ConfigNoteTypeViewModel : ViewModelBase
+    public class ConfigNoteTypeViewModel : ViewModelBase, IDropTarget
     {
         #region Field
 
         public ObservableCollection<NoteCategoryTypeUiModel> _originalNoteTypeCollection { get; set; } = new ObservableCollection<NoteCategoryTypeUiModel>();
 
-        public ObservableCollection<NoteCategoryTypeUiModel> NoteTypeCollection { get; set; } = new ObservableCollection<NoteCategoryTypeUiModel>();
+        private ObservableCollection<NoteCategoryTypeUiModel> _noteTypeCollection = new ObservableCollection<NoteCategoryTypeUiModel>();
+        public ObservableCollection<NoteCategoryTypeUiModel> NoteTypeCollection
+        {
+            get => _noteTypeCollection;
+            set => SetProperty(ref _noteTypeCollection, value);
+        }
 
         #endregion
 
@@ -122,6 +128,34 @@ namespace ReactiveDemo.ViewModels.MainWindow
             if (result == MessageBoxResult.Yes)
             {
                 NoteTypeCollection.Remove(deleteItem);
+            }
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            dropInfo.Effects = DragDropEffects.Move;
+            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            var dragItem = dropInfo.Data as NoteCategoryTypeUiModel;
+            var targetItem = dropInfo.TargetItem as NoteCategoryTypeUiModel;
+
+            if (dragItem != null && targetItem != null)
+            {
+                if (dragItem.TypeId == targetItem.TypeId) return;
+
+                var sourceIndex = NoteTypeCollection.IndexOf(dragItem);
+                var targetIndex = NoteTypeCollection.IndexOf(targetItem);
+
+                NoteTypeCollection.Move(sourceIndex, targetIndex);
+
+                var displayOrder = 1;
+                foreach (var type in NoteTypeCollection)
+                {
+                    type.DisplayOrder = displayOrder++;
+                }
             }
         }
 

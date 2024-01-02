@@ -263,7 +263,11 @@ namespace ReactiveDemo.ViewModels.MainWindow
                         NoteTypeCollection.AddRange(needAddTypeList);
                     }
 
-                    var needUpdateTypeList = typeUiModelList.Where(o => NoteTypeCollection.Any(x => o.TypeId == x.TypeId && !string.Equals(o.TypeName, x.TypeName))).ToList();
+                    var needUpdateTypeList = typeUiModelList
+                        .Where(o => NoteTypeCollection.Any(x => o.TypeId == x.TypeId
+                            && (!string.Equals(o.TypeName, x.TypeName)
+                                || o.DisplayOrder != x.DisplayOrder)))
+                        .ToList();
                     if (!needUpdateTypeList.IsNullOrEmpty())
                     {
                         foreach (var needUpdateType in needUpdateTypeList)
@@ -272,6 +276,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
                             if (screenItem != null)
                             {
                                 screenItem.TypeName = needUpdateType.TypeName;
+                                screenItem.DisplayOrder = needUpdateType.DisplayOrder;
                             }
                         }
                     }
@@ -281,6 +286,14 @@ namespace ReactiveDemo.ViewModels.MainWindow
                     {
                         NoteTypeCollection.ExRemoveAll(o => needADeleteTypeList.Any(x => x.TypeId == o.TypeId));
                     }
+
+                    var sortedList = NoteTypeCollection.OrderBy(o => o.DisplayOrder).ToList();
+                    var originalSelectedTypeItem = SelectedNoteType.Value;
+                    var originalSelectedCategoryItem = SelectedNoteCategory.Value;
+                    NoteTypeCollection.Clear();
+                    NoteTypeCollection.AddRange(sortedList);
+                    SelectedNoteType.Value = originalSelectedTypeItem;
+                    SelectedNoteCategory.Value = originalSelectedCategoryItem;
                 }
             });
         }

@@ -24,6 +24,13 @@ namespace ReactiveDemo.Models.UiModel
             set => SetProperty(ref _typeName, value);
         }
 
+        private int _displayOrder;
+        public int DisplayOrder
+        {
+            get => _displayOrder;
+            set => SetProperty(ref _displayOrder, value);
+        }
+
         private string _description = string.Empty;
         public string Description
         {

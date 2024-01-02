@@ -78,6 +78,7 @@ namespace ServiceDemo.Common.SQLite
                 {
                     // update
                     existContent.TypeName = param.TypeName;
+                    existContent.DisplayOrder = param.DisplayOrder;
                     existContent.Description = param.Description;
                 }
             }
@@ -136,6 +137,7 @@ namespace ServiceDemo.Common.SQLite
                              nt.UserId,
                              nt.TypeId,
                              nt.TypeName,
+                             nt.DisplayOrder AS TypeDisplayOrder,
                              nc.CategoryId,
                              nc.CategoryName, 
                              nc.DisplayOrder AS CategoryDisplayOrder,
@@ -180,7 +182,8 @@ namespace ServiceDemo.Common.SQLite
                 var sql = @"SELECT 
                              nt.UserId,
                              nt.TypeId,
-                             nt.TypeName, 
+                             nt.TypeName,
+                             nt.DisplayOrder,
                              nt.Description,
                              nt.CreateBy,
                              nt.CreateAt,
@@ -296,6 +299,7 @@ namespace ServiceDemo.Common.SQLite
                              nt.UserId,
                              nt.TypeId,
                              nt.TypeName,
+                             nt.DisplayOrder,
                              nc.CategoryId,
                              nc.CategoryName, 
                              nc.DisplayOrder AS CategoryDisplayOrder,

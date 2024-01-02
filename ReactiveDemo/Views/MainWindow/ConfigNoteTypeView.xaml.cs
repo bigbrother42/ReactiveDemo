@@ -56,6 +56,7 @@ namespace ReactiveDemo.Views.MainWindow
                     if (string.IsNullOrEmpty(uiModel.TypeName))
                     {
                         uiModel.TypeId = vm.NoteTypeCollection.Count() == 0 ? 1 : vm.NoteTypeCollection.Max(o => o.TypeId) + 1;
+                        uiModel.DisplayOrder = vm.NoteTypeCollection.Count() == 0 ? 1 : vm.NoteTypeCollection.Max(o => o.DisplayOrder) + 1;
                     }
                 }
             }

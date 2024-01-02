@@ -6,6 +6,7 @@
                  xmlns:local="clr-namespace:ReactiveDemo.Views.MainWindow"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:mvvm="http://prismlibrary.com/"
+                 xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
                  mc:Ignorable="d"
                  mvvm:ViewModelLocator.AutoWireViewModel="True"
                  WindowStartupLocation="CenterScreen"
@@ -45,6 +46,11 @@
                   Style="{DynamicResource MahApps.Styles.DataGrid.Azure}"
                   AutoGenerateColumns="False"
                   ItemsSource="{Binding NoteTypeCollection}"
+                  SelectionMode="Single"
+                  AllowDrop="True"
+                  dd:DragDrop.IsDragSource="True"
+                  dd:DragDrop.IsDropTarget="True"
+                  dd:DragDrop.DropHandler="{Binding}"
                   RenderOptions.ClearTypeHint="Enabled"
                   TextOptions.TextFormattingMode="Display"
                   BeginningEdit="AccountDataGrid_BeginningEdit"
@@ -58,6 +64,8 @@
                             </ContextMenu>
                         </Setter.Value>
                     </Setter>
+
+                    <Setter Property="AllowDrop" Value="True"/>
                 </Style>
             </DataGrid.RowStyle>
             

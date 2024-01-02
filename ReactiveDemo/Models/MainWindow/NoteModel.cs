@@ -83,13 +83,14 @@ namespace ReactiveDemo.Models.MainWindow
             var customTypeList = new List<NoteCategoryTypeUiModel>();
             if (!noteCustomerWebDtoList.IsNullOrEmpty())
             {
-                var typeGroup = noteCustomerWebDtoList.GroupBy(o => new { o.TypeId, o.TypeName });
+                var typeGroup = noteCustomerWebDtoList.GroupBy(o => new { o.TypeId, o.TypeName, o.TypeDisplayOrder });
 
                 foreach (var type in typeGroup)
                 {
                     var typeUiModel = new NoteCategoryTypeUiModel
                     {
                         TypeId = type.Key.TypeId,
+                        DisplayOrder = type.Key.TypeDisplayOrder,
                         TypeName = type.Key.TypeName
                     };
 
@@ -115,7 +116,7 @@ namespace ReactiveDemo.Models.MainWindow
                 }
             }
 
-            return customTypeList;
+            return customTypeList.OrderBy(o => o.DisplayOrder).ToList();
         }
 
         public async Task InsertOrUpdateNoteContent(NoteCategoryUiModel noteCategoryUiModel)
@@ -149,6 +150,7 @@ namespace ReactiveDemo.Models.MainWindow
                     {
                         TypeId = webDto.TypeId,
                         TypeName = webDto.TypeName,
+                        DisplayOrder = webDto.DisplayOrder,
                         Description = webDto.Description,
                         CreateAt = $"{webDto.CreateAt:yyyy-MM-dd HH:mm:ss}",
                         CreateBy = webDto.CreateBy,
@@ -158,7 +160,7 @@ namespace ReactiveDemo.Models.MainWindow
                 }
             }
 
-            return resultList;
+            return resultList.OrderBy(o => o.DisplayOrder).ToList();
         }
 
         public async Task<int> InsertOrUpdateNoteTypeList(List<NoteCategoryTypeUiModel> screenModelList)
@@ -172,6 +174,7 @@ namespace ReactiveDemo.Models.MainWindow
                 {
                     TypeId = screenModel.TypeId,
                     TypeName = screenModel.TypeName,
+                    DisplayOrder = screenModel.DisplayOrder,
                     Description = screenModel.Description,
                     CreateAt = DateTime.Now,
                     UpdateAt = DateTime.Now,

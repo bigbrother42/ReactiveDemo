@@ -18,7 +18,10 @@ namespace ReactiveDemo.Models.Csv
         [CsvInfo(Index = 3, TitleName = "type_name", ColumnName = "", ColumnWidth = "80")]
         public string TypeName { get; set; }
 
-        [CsvInfo(Index = 4, TitleName = "description", ColumnName = "", ColumnWidth = "80")]
+        [CsvInfo(Index = 4, TitleName = "display_order", ColumnName = "", ColumnWidth = "80")]
+        public string DisplayOrder { get; set; }
+
+        [CsvInfo(Index = 5, TitleName = "description", ColumnName = "", ColumnWidth = "80")]
         public string Description { get; set; }
     }
 }
