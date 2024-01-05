@@ -481,6 +481,7 @@
                                                    Visibility="{Binding IsEdit, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource ReverseBoolToVisibilityConverter}}"/>
 
                                         <TextBox x:Name="EditTextBox"
+                                                 MinWidth="100"
                                                  VerticalContentAlignment="Center"
                                                  FontSize="{TemplateBinding FontSize}"
                                                  Visibility="{Binding IsEdit, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}}"
