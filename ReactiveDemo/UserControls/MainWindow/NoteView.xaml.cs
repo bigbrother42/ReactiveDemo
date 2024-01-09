@@ -115,15 +115,15 @@ namespace ReactiveDemo.UserControls.MainWindow
 
                             break;
                         case "System.String":
-                            data = e.DataObject.GetData(DataFormats.StringFormat);
-                            richTextBox.Selection.Text = data?.ToString();
-                            e.CancelCommand();
+                            data = e.DataObject.GetData(DataFormats.Text);
+                            //richTextBox.Selection.Text = GetStringByEncoding(data?.ToString());
+                            //e.CancelCommand();
 
                             break;
                         case "Text":
-                            data = e.DataObject.GetData(DataFormats.StringFormat);
-                            richTextBox.Selection.Text = data?.ToString();
-                            e.CancelCommand();
+                            data = e.DataObject.GetData(DataFormats.Text);
+                            //richTextBox.Selection.Text = GetStringByEncoding(data?.ToString());
+                            //e.CancelCommand();
 
                             break;
                     }
