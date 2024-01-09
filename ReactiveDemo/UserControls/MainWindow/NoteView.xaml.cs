@@ -397,5 +397,10 @@ namespace ReactiveDemo.UserControls.MainWindow
                 richTextBox?.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, brusher);
             }
         }
+
+        private void RichTextBoxColorPickerPopupCloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            RichTextBoxColorPickerPopup.IsOpen = false;
+        }
     }
 }

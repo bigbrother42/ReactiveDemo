@@ -753,6 +753,13 @@
                     </WrapPanel>
                 </Border>
 
+                <Button x:Name="RichTextBoxColorPickerPopupCloseButton"
+                        Margin="0,0,0,0" Height="30"
+                        Content="✖"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Click="RichTextBoxColorPickerPopupCloseButton_Click"/>
+
                 <mah:ColorPalette x:Name="PopupColorPalette"
                                   Grid.Row="1"
                                   Header="Content Palette" 
