@@ -251,10 +251,10 @@ namespace ReactiveDemo.UserControls.MainWindow
 
                         vm.SaveContentCommand.Execute();
                     }
-                    else if (e.Key == Key.V)
-                    {
-                        richTextBox.Selection.Select(richTextBox.Selection.End, richTextBox.Selection.End);
-                    }
+                    //else if (e.Key == Key.V)
+                    //{
+                    //    richTextBox.Selection.Select(richTextBox.Selection.End, richTextBox.Selection.End);
+                    //}
                 }
             }
         }
@@ -442,6 +442,27 @@ namespace ReactiveDemo.UserControls.MainWindow
             richTextBox?.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Normal);
             richTextBox?.Selection.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Normal);
             richTextBox?.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, 16.0);
+        }
+
+        private void NoteContentRichTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (DataContext is NoteViewModel vm && sender is RichTextBox richTextBox)
+            {
+                if (e.Key == Key.Tab)
+                {
+                    e.Handled = true;
+
+                    TextPointer caretPosition = richTextBox.CaretPosition;
+                    if (caretPosition != null)
+                    {
+                        string spaces = new string(' ', 4);
+                        TextRange textRange = new TextRange(caretPosition, caretPosition.GetPositionAtOffset(0));
+                        textRange.Text = spaces;
+
+                        richTextBox.CaretPosition = caretPosition;
+                    }
+                }
+            }
         }
     }
 }

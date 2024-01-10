@@ -635,6 +635,7 @@
                                          FontSize="16"
                                          IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1,AncestorType=local:NoteView}, Path=DataContext.IsTextBoxEnable.Value}"
                                          KeyUp="NoteContentRichTextBox_KeyUp"
+                                         PreviewKeyDown="NoteContentRichTextBox_PreviewKeyDown"
                                          VerticalScrollBarVisibility="Auto"
                                          HorizontalScrollBarVisibility="Disabled"
                                          LostFocus="NoteContentRichTextBox_LostFocus"
