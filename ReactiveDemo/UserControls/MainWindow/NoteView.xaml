@@ -283,11 +283,13 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
             <TextBlock Margin="10,0,0,0" Grid.Column="0"
-                       Text="Color: "
+                       Text="Font Color: "
                        FontSize="16"
                        VerticalAlignment="Center"/>
 
@@ -337,13 +339,54 @@
                 </mah:ColorPicker>
             </Grid>
 
+            <TextBlock Margin="10,0,0,0" Grid.Column="2"
+                       Text="Background Color: "
+                       FontSize="16"
+                       VerticalAlignment="Center"/>
 
-            <TextBlock Margin="10,0,0,0"  Grid.Column="2"
+            <Grid Margin="10,2,0,0"  Grid.Column="3">
+                <Button Width="40" Height="40" Margin="0,0,0,0"
+                        HorizontalAlignment="Left"
+                        Background="{Binding ElementName=ColorPiker, Path=SelectedColor, Converter={x:Static mah:ColorToSolidColorBrushConverter.DefaultInstance}}"
+                        Panel.ZIndex="1"
+                        Click="BackgroundColorButton_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
+                                    Background="{TemplateBinding Background}"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <mah:ColorPicker x:Name="BackgroundColorPiker"
+                                 Width="64" Height="40"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 AddToRecentColorsTrigger="SelectedColorChanged"
+                                 SelectedColorChanged="BackgroundColorPicker_SelectedColorChanged">
+                    <mah:ColorPicker.SelectedColorTemplate>
+                        <DataTemplate>
+                            <Grid x:Name="RootGrid" Width="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                                    <Setter TargetName="RootGrid" Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </mah:ColorPicker.SelectedColorTemplate>
+                </mah:ColorPicker>
+            </Grid>
+
+            <TextBlock Margin="10,0,0,0"  Grid.Column="4"
                        Text="Font Size: "
                        FontSize="16"
                        VerticalAlignment="Center"/>
 
-            <Grid Margin="10,1,0,0" Grid.Column="3">
+            <Grid Margin="10,1,0,0" Grid.Column="5">
                 <Button x:Name="FontSizeButton"
                         Width="40" Height="40" Margin="0,0,0,0"
                         HorizontalAlignment="Left"
@@ -373,7 +416,7 @@
                 </ComboBox>
             </Grid>
 
-            <CheckBox x:Name="BoldCheckBox" Grid.Column="4"
+            <CheckBox x:Name="BoldCheckBox" Grid.Column="6"
                       Margin="10,0,0,0"
                       Width="40"
                       Height="40"
@@ -385,7 +428,7 @@
                       Template="{StaticResource Checkbox.Template}"/>
 
 
-            <CheckBox x:Name="ItelicCheckBox" Grid.Column="5"
+            <CheckBox x:Name="ItelicCheckBox" Grid.Column="7"
                       Margin="10,0,0,0"
                       Width="40"
                       Height="40"
@@ -407,7 +450,7 @@
                 <TextBlock TextDecorations="Underline" Text="U"/>
             </Button>-->
 
-            <Grid Margin="0,0,0,0" HorizontalAlignment="Right"  Grid.Column="6">
+            <Grid Margin="0,0,0,0" HorizontalAlignment="Right"  Grid.Column="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -714,6 +757,16 @@
                         BorderThickness="1,1,1,0"
                         BorderBrush="{DynamicResource MahApps.Brushes.Accent}">
                     <WrapPanel Grid.Row="0" Margin="0,3,0,3">
+                        <RadioButton x:Name="FontColorRadioButton"
+                                     Margin="5,0,0,0"
+                                     GroupName="ColorGroup"
+                                     IsChecked="True"
+                                     Content="Font"/>
+                        <RadioButton x:Name="BackgroundColorRadioButton"
+                                     Margin="5,0,3,0"
+                                     GroupName="ColorGroup"
+                                     Content="Background"/>
+
                         <CheckBox x:Name="PopupBoldCheckbox"
                                   Margin="3,0,0,0"
                                   Width="30"
@@ -750,6 +803,11 @@
                             <ComboBoxItem Content="20" FontSize="20"/>
                             <ComboBoxItem Content="22" FontSize="22"/>
                         </ComboBox>
+
+                        <Button x:Name="ClearStyleButton"
+                                Margin="3,0,0,0"
+                                Content="Clear"
+                                Click="ClearStyleButton_Click"/>
                     </WrapPanel>
                 </Border>
 

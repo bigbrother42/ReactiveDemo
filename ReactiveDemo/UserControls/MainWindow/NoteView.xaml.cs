@@ -284,6 +284,26 @@ namespace ReactiveDemo.UserControls.MainWindow
             }
         }
 
+        private void BackgroundColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ColorPiker.SelectedColor != null)
+            {
+                var brusher = new SolidColorBrush((Color)ColorPiker.SelectedColor);
+                var richTextBox = GetSelectedTabItemRichTextBox();
+                richTextBox?.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, brusher);
+            }
+        }
+
+        private void BackgroundColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (e.NewValue != null)
+            {
+                var brusher = new SolidColorBrush(e.NewValue.Value);
+                var richTextBox = GetSelectedTabItemRichTextBox();
+                richTextBox?.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, brusher);
+            }
+        }
+
         private void FontSizeButton_Click(object sender, RoutedEventArgs e)
         {
             if (FontSizeComboBox.SelectedItem is ComboBoxItem comboBoxItem)
@@ -380,6 +400,8 @@ namespace ReactiveDemo.UserControls.MainWindow
         {
             if (sender is Popup popup)
             {
+                FontColorRadioButton.IsChecked = true;
+                BackgroundColorRadioButton.IsChecked = false;
                 PopupBoldCheckbox.IsChecked = false;
                 PopupItalicCheckbox.IsChecked = false;
                 PopupColorPalette.SelectedItem = null;
@@ -394,13 +416,32 @@ namespace ReactiveDemo.UserControls.MainWindow
                 //var brusher = new SolidColorBrush((Color)ColorConverter.ConvertFromString(selectedColor));
                 var brusher = new SolidColorBrush(selectedItem);
                 var richTextBox = GetSelectedTabItemRichTextBox();
-                richTextBox?.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, brusher);
+
+                if (FontColorRadioButton?.IsChecked ?? false)
+                {
+                    richTextBox?.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, brusher);
+                }
+                else if (BackgroundColorRadioButton?.IsChecked ?? false)
+                {
+                    richTextBox?.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, brusher);
+                }
             }
         }
 
         private void RichTextBoxColorPickerPopupCloseButton_Click(object sender, RoutedEventArgs e)
         {
             RichTextBoxColorPickerPopup.IsOpen = false;
+        }
+
+        private void ClearStyleButton_Click(object sender, RoutedEventArgs e)
+        {
+            var richTextBox = GetSelectedTabItemRichTextBox();
+            richTextBox?.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Black));
+            richTextBox?.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(Colors.White));
+            richTextBox?.Selection.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Normal);
+            richTextBox?.Selection.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Normal);
+            richTextBox?.Selection.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Normal);
+            richTextBox?.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, 16.0);
         }
     }
 }
