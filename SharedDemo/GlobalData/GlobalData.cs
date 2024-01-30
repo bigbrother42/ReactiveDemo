@@ -11,7 +11,7 @@ namespace SharedDemo.GlobalData
     {
         public static SqliteConnection DbConnection { get; set; }
 
-        public static string SystemTheme { get; set; } = "Light.Olive";
+        public static string SystemTheme { get; set; } = "Light.Purple";
 
         public static readonly string CSV_PATH = $@"{System.Windows.Forms.Application.StartupPath}\..\data\csv\note";
 

@@ -459,7 +459,7 @@ namespace ReactiveDemo.UserControls.MainWindow
                         TextRange textRange = new TextRange(caretPosition, caretPosition.GetPositionAtOffset(0));
                         textRange.Text = spaces;
 
-                        richTextBox.CaretPosition = caretPosition;
+                        //richTextBox.CaretPosition = caretPosition;
                     }
                 }
             }
