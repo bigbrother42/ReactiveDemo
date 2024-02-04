@@ -1,4 +1,5 @@
 ﻿using BaseDemo.Util;
+using ControlzEx.Theming;
 using DataDemo.WebDto;
 using GongSolutions.Wpf.DragDrop;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
@@ -14,8 +15,10 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace ReactiveDemo.ViewModels.MainWindow
@@ -33,6 +36,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         private NoteModel _noteModel = new NoteModel();
 
+        private SystemSettingModel _systemSettingModel = new SystemSettingModel();
+
         #endregion
 
         #region ReactiveCommand
@@ -45,11 +50,15 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public AsyncReactiveCommand ResetCommand { get; set; }
 
+        public AsyncReactiveCommand<Theme> ChangeSystemColorCommand { get; set; }
+
         #endregion
 
         #region ReactiveProperty
 
         public ReactiveProperty<bool> IsProgress { get; set; }
+
+        public ReactiveProperty<Theme> SelectedTheme { get; set; }
 
         #endregion
 
@@ -70,6 +79,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
         protected override void InitData()
         {
             base.InitData();
+
+            SelectedTheme.Value = ThemeManager.Current.GetTheme(GlobalData.SystemTheme);
         }
 
         protected override void RegisterProperties()
@@ -77,6 +88,7 @@ namespace ReactiveDemo.ViewModels.MainWindow
             base.RegisterProperties();
 
             IsProgress = new ReactiveProperty<bool>().AddTo(DisposablePool);
+            SelectedTheme = new ReactiveProperty<Theme>().AddTo(DisposablePool);
         }
 
         protected override void RegisterCommands()
@@ -94,6 +106,9 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
             ResetCommand = new AsyncReactiveCommand().AddTo(DisposablePool);
             ResetCommand.Subscribe(Reset).AddTo(DisposablePool);
+
+            ChangeSystemColorCommand = new AsyncReactiveCommand<Theme>().AddTo(DisposablePool);
+            ChangeSystemColorCommand.Subscribe(ChangeSystemColor).AddTo(DisposablePool);
         }
 
         protected override void RegisterPubEvents()
@@ -104,6 +119,16 @@ namespace ReactiveDemo.ViewModels.MainWindow
         #endregion
 
         #region Method
+
+        private async Task ChangeSystemColor(Theme selectedTheme)
+        {
+            if (selectedTheme != null)
+            {
+                ThemeManager.Current.ChangeTheme(System.Windows.Application.Current, selectedTheme);
+
+                await _systemSettingModel.SaveSystemColor(selectedTheme.Name);
+            }
+        }
 
         private void AccountView()
         {

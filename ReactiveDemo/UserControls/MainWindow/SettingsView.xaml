@@ -10,6 +10,7 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:converters="clr-namespace:InfrastructureDemo.Converters;assembly=InfrastructureDemo"
              RenderOptions.ClearTypeHint="Enabled"
              TextOptions.TextFormattingMode="Display"
@@ -62,9 +63,16 @@
                       FontSize="14"
                       HorizontalAlignment="Left"
                       IsSynchronizedWithCurrentItem="False"
-                      SelectionChanged="AccentSelectionChanged"
                       DisplayMemberPath="Name"
-                      ItemsSource="{Binding Source={StaticResource Themes}}"/>
+                      SelectedItem="{Binding SelectedTheme.Value}"
+                      ItemsSource="{Binding Source={StaticResource Themes}}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding ChangeSystemColorCommand}"
+                                               CommandParameter="{Binding RelativeSource={RelativeSource AncestorLevel=1, Mode=FindAncestor, AncestorType=ComboBox}, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
         </Grid>
 
         <Border x:Name="FunctionArea" Grid.Row="1"

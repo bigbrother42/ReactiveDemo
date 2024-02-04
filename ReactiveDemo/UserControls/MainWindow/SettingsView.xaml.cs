@@ -38,15 +38,6 @@ namespace ReactiveDemo.UserControls.MainWindow
             ThemeComboBox.SelectedValue = ThemeManager.Current.GetTheme(GlobalData.SystemTheme); ;
         }
 
-        private void AccentSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedTheme = e.AddedItems.OfType<Theme>().FirstOrDefault();
-            if (selectedTheme != null)
-            {
-                ThemeManager.Current.ChangeTheme(Application.Current, selectedTheme);
-            }
-        }
-
         private void ImportTile_Click(object sender, RoutedEventArgs e)
         {
             using (var fbd = new System.Windows.Forms.FolderBrowserDialog())

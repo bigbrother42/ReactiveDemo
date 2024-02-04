@@ -140,6 +140,8 @@ namespace ReactiveDemo.ViewModels.Login
                 return;
             }
 
+            _loginModel.SetSystemTheme();
+
             MainWindowRequest.Raise(new Notification(), notification => { });
         }
 

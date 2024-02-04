@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Base\ClientApiService.cs" />
     <Compile Include="Common\SQLite\NoteService.cs" />
+    <Compile Include="Common\SQLite\SystemConfigService.cs" />
     <Compile Include="Common\SQLite\UserBasicInfoService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -455,6 +455,7 @@
     <Compile Include="Models\Csv\NoteTypeCsvModel.cs" />
     <Compile Include="Models\Login\LoginModel.cs" />
     <Compile Include="Models\MainWindow\NoteModel.cs" />
+    <Compile Include="Models\MainWindow\SystemSettingModel.cs" />
     <Compile Include="Models\UiModel\AccountUiModel.cs" />
     <Compile Include="Models\ReactiveDemoModel.cs" />
     <Compile Include="Models\TestMapperModel.cs" />

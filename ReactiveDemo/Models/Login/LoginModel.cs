@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 using BaseDemo.Util.Extensions;
 using BaseDemo.Util;
 using ReactiveDemo.Util.Login;
+using ControlzEx.Theming;
 
 namespace ReactiveDemo.Models.Login
 {
     public class LoginModel
     {
         private UserBasicInfoService _userBasicInfoService = new UserBasicInfoService();
+
+        private SystemConfigService _systemConfigService = new SystemConfigService();
 
         public async Task<bool> LoginAsync(UserBasicInfoWebDto userBasicInfoWebDto)
         {
@@ -43,6 +46,18 @@ namespace ReactiveDemo.Models.Login
 
 
             return true;
+        }
+
+        public void SetSystemTheme()
+        {
+            var theme = _systemConfigService.GetSystemConfigContent(new SystemConfigWebDto
+            { 
+                UserId = LoginInfo.UserBasicInfo.UserId,
+                FunctionNo = "LN010001",
+                ItemNo = "SystemColor",
+            });
+            ThemeManager.Current.ChangeTheme(System.Windows.Application.Current, ThemeManager.Current.GetTheme(theme));
+            GlobalData.SystemTheme = theme;
         }
     }
 }

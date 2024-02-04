@@ -22,6 +22,8 @@ namespace SharedDemo.GlobalData
 
         public DbSet<NoteTypeWebDto> NoteType { get; set; }
 
+        public DbSet<SystemConfigWebDto> SystemConfig { get; set; }
+
         public SqLiteDbContext()
         {
 
@@ -97,7 +99,18 @@ namespace SharedDemo.GlobalData
                 e.Property(o => o.Description).IsRequired();
             });
 
-           // modelBuilder.SetDefaultValueSql(GetType().GetAllSetProperties(), "CURRENT_TIMESTAMP", "CreatedAt", "UpdatedAt");
+            modelBuilder.Entity<SystemConfigWebDto>().HasKey(o => new { o.Id});
+            modelBuilder.Entity<SystemConfigWebDto>(e =>
+            {
+                e.Property(o => o.Id).IsRequired();
+                e.Property(o => o.UserId).IsRequired();
+                e.Property(o => o.FunctionNo).IsRequired();
+                e.Property(o => o.ItemNo).IsRequired();
+                e.Property(o => o.ItemName).IsRequired();
+                e.Property(o => o.ConfigContent).IsRequired();
+            });
+
+            // modelBuilder.SetDefaultValueSql(GetType().GetAllSetProperties(), "CURRENT_TIMESTAMP", "CreatedAt", "UpdatedAt");
         }
 
         private static SqliteConnection InitializeSqliteConnection(string dbFilePath)
