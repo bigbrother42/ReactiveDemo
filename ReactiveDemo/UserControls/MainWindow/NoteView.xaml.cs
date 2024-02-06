@@ -49,6 +49,9 @@ namespace ReactiveDemo.UserControls.MainWindow
             }
 
             DataObject.AddPastingHandler(this, OnPaste);
+
+            ColorPiker.SelectedColor = Colors.Black;
+            BackgroundColorPiker.SelectedColor = Colors.Transparent;
         }
 
         private void OnPaste(object sender, DataObjectPastingEventArgs e)
@@ -288,7 +291,7 @@ namespace ReactiveDemo.UserControls.MainWindow
         {
             if (ColorPiker.SelectedColor != null)
             {
-                var brusher = new SolidColorBrush((Color)ColorPiker.SelectedColor);
+                var brusher = new SolidColorBrush((Color)BackgroundColorPiker.SelectedColor);
                 var richTextBox = GetSelectedTabItemRichTextBox();
                 richTextBox?.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, brusher);
             }
@@ -367,7 +370,7 @@ namespace ReactiveDemo.UserControls.MainWindow
             {
                 RichTextBoxHelper.SetDocumentXaml(richTextBox, XamlWriter.Save(richTextBox.Document));
 
-                //RichTextBoxColorPickerPopUp.IsOpen = false;
+                RichTextBoxColorPickerPopup.IsOpen = false;
             }
         }
 
@@ -381,7 +384,7 @@ namespace ReactiveDemo.UserControls.MainWindow
                     return;
                 }
 
-                RichTextBoxColorPickerPopup.IsOpen = true;
+                //RichTextBoxColorPickerPopup.IsOpen = true;
             }
         }
 
@@ -463,6 +466,11 @@ namespace ReactiveDemo.UserControls.MainWindow
                     }
                 }
             }
+        }
+
+        private void NoteCategoryTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RichTextBoxColorPickerPopup.IsOpen = false;
         }
     }
 }

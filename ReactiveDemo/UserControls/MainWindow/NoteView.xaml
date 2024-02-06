@@ -289,7 +289,7 @@
             </Grid.ColumnDefinitions>
             
             <TextBlock Margin="10,0,0,0" Grid.Column="0"
-                       Text="Font Color: "
+                       Text="Font: "
                        FontSize="16"
                        VerticalAlignment="Center"/>
 
@@ -303,7 +303,7 @@
                              AddToRecentColorsTrigger="SelectedColorChanged"
                              SelectedColorChanged="ColorPicker_SelectedColorChanged"/>-->
             <Grid Margin="10,2,0,0"  Grid.Column="1">
-                <Button Width="40" Height="40" Margin="0,0,0,0"
+                <Button Width="40" Height="30" Margin="0,0,0,0"
                         HorizontalAlignment="Left"
                         Background="{Binding ElementName=ColorPiker, Path=SelectedColor, Converter={x:Static mah:ColorToSolidColorBrushConverter.DefaultInstance}}"
                         Panel.ZIndex="1"
@@ -316,7 +316,7 @@
                     </Button.Template>
                 </Button>
                 <mah:ColorPicker x:Name="ColorPiker"
-                                 Width="64" Height="40"
+                                 Width="64" Height="30"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  AddToRecentColorsTrigger="SelectedColorChanged"
@@ -340,12 +340,12 @@
             </Grid>
 
             <TextBlock Margin="10,0,0,0" Grid.Column="2"
-                       Text="Background Color: "
+                       Text="Background: "
                        FontSize="16"
                        VerticalAlignment="Center"/>
 
             <Grid Margin="10,2,0,0"  Grid.Column="3">
-                <Button Width="40" Height="40" Margin="0,0,0,0"
+                <Button Width="40" Height="30" Margin="0,0,0,0"
                         HorizontalAlignment="Left"
                         Background="{Binding ElementName=BackgroundColorPiker, Path=SelectedColor, Converter={x:Static mah:ColorToSolidColorBrushConverter.DefaultInstance}}"
                         Panel.ZIndex="1"
@@ -358,7 +358,7 @@
                     </Button.Template>
                 </Button>
                 <mah:ColorPicker x:Name="BackgroundColorPiker"
-                                 Width="64" Height="40"
+                                 Width="64" Height="30"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  AddToRecentColorsTrigger="SelectedColorChanged"
@@ -486,6 +486,7 @@
                     Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}"
                     ItemsSource="{Binding SelectedNoteType.Value.CategoryList}"
                     SelectedItem="{Binding SelectedNoteCategory.Value}"
+                    SelectionChanged="NoteCategoryTabControl_SelectionChanged"
                     dd:DragDrop.IsDragSource="True"
                     dd:DragDrop.IsDropTarget="True"
                     dd:DragDrop.DropHandler="{Binding}">

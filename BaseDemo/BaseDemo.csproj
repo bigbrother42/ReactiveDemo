@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientBase\ApiServiceBase.cs" />
+    <Compile Include="ClientBase\ISystemConfig.cs" />
+    <Compile Include="ClientBase\SystemConfigAbstract.cs" />
     <Compile Include="Data\AppErrorInfo.cs" />
     <Compile Include="Data\Constants\Constants.cs" />
     <Compile Include="Data\Constants\EnumExtension.cs" />

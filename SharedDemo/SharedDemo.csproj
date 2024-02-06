@@ -46,6 +46,7 @@
     <Compile Include="GlobalData\GlobalData.cs" />
     <Compile Include="GlobalData\LoginInfo.cs" />
     <Compile Include="GlobalData\SqLiteDbContext.cs" />
+    <Compile Include="SystemConfig\SC_SystemTheme.cs" />
     <Compile Include="Util\Extensions\SqliteExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
