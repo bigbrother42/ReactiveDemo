@@ -42,5 +42,16 @@ namespace BaseDemo.Util
 
             return index;
         }
+
+        public static bool IsZipFile(string filePath)
+        {
+            var extension = Path.GetExtension(filePath);
+
+            return extension.Equals(".zip", StringComparison.OrdinalIgnoreCase)
+                    || extension.Equals(".rar", StringComparison.OrdinalIgnoreCase)
+                    || extension.Equals(".7z", StringComparison.OrdinalIgnoreCase)
+                    || extension.Equals(".tar", StringComparison.OrdinalIgnoreCase)
+                    || extension.Equals(".gz", StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

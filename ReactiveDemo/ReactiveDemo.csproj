@@ -500,6 +500,7 @@
     <Compile Include="ViewModels\MainWindow\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\NoteViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\PrivateViewModel.cs" />
+    <Compile Include="ViewModels\MainWindow\SearchFileKeyWord\SearchFileKeyWordViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\SearchNoteViewModel.cs" />
     <Compile Include="ViewModels\MainWindow\SettingsViewModel.cs" />
     <Compile Include="ViewModels\Observer\ObserverViewModel.cs" />
@@ -529,6 +530,9 @@
     </Compile>
     <Compile Include="Views\MainWindow\ConfigNoteTypeView.xaml.cs">
       <DependentUpon>ConfigNoteTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindow\SearchFileKeyWord\SearchFileKeyWordView.xaml.cs">
+      <DependentUpon>SearchFileKeyWordView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow\SearchNoteView.xaml.cs">
       <DependentUpon>SearchNoteView.xaml</DependentUpon>
@@ -640,6 +644,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow\ConfigNoteTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow\SearchFileKeyWord\SearchFileKeyWordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

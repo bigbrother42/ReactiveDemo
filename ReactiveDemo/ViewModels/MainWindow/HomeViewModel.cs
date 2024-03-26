@@ -29,6 +29,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public ReactiveCommand OpenViewport3DViewCommand { get; set; }
 
+        public ReactiveCommand OpenSearchFileByKeyWordCommand { get; set; }
+
         #endregion
 
         #region ReactiveProperty
@@ -42,6 +44,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
         public InteractionRequest<Notification> ReactiveDemoRequest { get; set; } = new InteractionRequest<Notification>();
 
         public InteractionRequest<Notification> OpenViewport3DViewRequest { get; set; } = new InteractionRequest<Notification>();
+
+        public InteractionRequest<Notification> OpenSearchFileByKeyWordRequest { get; set; } = new InteractionRequest<Notification>();
 
         #endregion
 
@@ -73,6 +77,9 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
             OpenViewport3DViewCommand = new ReactiveCommand().AddTo(DisposablePool);
             OpenViewport3DViewCommand.Subscribe(OpenViewport3DView).AddTo(DisposablePool);
+
+            OpenSearchFileByKeyWordCommand = new ReactiveCommand().AddTo(DisposablePool);
+            OpenSearchFileByKeyWordCommand.Subscribe(OpenSearchFileByKeyWord).AddTo(DisposablePool);
         }
 
         protected override void RegisterPubEvents()
@@ -92,6 +99,11 @@ namespace ReactiveDemo.ViewModels.MainWindow
         private void OpenViewport3DView()
         {
             OpenViewport3DViewRequest.Raise(new Notification(), notification => { });
+        }
+
+        private void OpenSearchFileByKeyWord()
+        {
+            OpenSearchFileByKeyWordRequest.Raise(new Notification(), notification => { });
         }
 
         #endregion
