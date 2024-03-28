@@ -38,6 +38,14 @@
             set => SetValue(WindowNameProperty, value);
         }
 
+        public static readonly DependencyProperty IsShowDialogProperty = DependencyProperty.Register(
+            "IsShowDialog", typeof(bool), typeof(AlertWindowAction), new PropertyMetadata(true));
+        public bool IsShowDialog
+        {
+            get => (bool)GetValue(IsShowDialogProperty);
+            set => SetValue(IsShowDialogProperty, value);
+        }
+
         protected override void Invoke(object parameter)
         {
             INotification notification = null;
@@ -81,7 +89,15 @@
 
                     win.WindowState = WindowState.Normal;
                     win.Activate();
-                    win.ShowDialog();
+
+                    if (IsShowDialog)
+                    {
+                        win.ShowDialog();
+                    }
+                    else
+                    {
+                        win.Show();
+                    }
                 }
             }
         }

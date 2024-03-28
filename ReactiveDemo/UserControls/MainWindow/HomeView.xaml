@@ -24,7 +24,8 @@
 
         <interactionRequest:InteractionRequestTrigger SourceObject="{Binding OpenSearchFileByKeyWordRequest}">
             <actionBase:AlertWindowAction
-                WindowName="ReactiveDemo.Views.MainWindow.SearchFileKeyWord.SearchFileKeyWordView" />
+                WindowName="ReactiveDemo.Views.MainWindow.SearchFileKeyWord.SearchFileKeyWordView"
+                IsShowDialog="False"/>
         </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
