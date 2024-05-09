@@ -12,10 +12,11 @@
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:buttonbehavior="clr-namespace:ReactiveDemo.Behavior.ButtonBehavior"
              xmlns:actionBase11="clr-namespace:ReactiveDemo.Base.ActionBase;assembly=InfrastructureDemo"
+             xmlns:action="clr-namespace:InfrastructureDemo.ActionBase;assembly=InfrastructureDemo"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              WindowStartupLocation="CenterScreen"
              Title="ReactiveDemo"
-             Height="450"
+             Height="500"
              Width="800">
 
     <i:Interaction.Triggers>
@@ -38,6 +39,7 @@
 
     <Grid Margin="20,20,0,0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -101,6 +103,18 @@
                     <buttonbehavior:TestButtonBehavior/>
                 </i:Interaction.Behaviors>
             </component:CustomerButton>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="5" Margin="0,20,0,0">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                    <action:ExtendInvokeCommandAction Command="{Binding PreviewMouseLeftButtonDownCommand}">
+                    </action:ExtendInvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <Button Width="150" Height="30"
+                    Content="InvokeCommandAction"/>
         </WrapPanel>
     </Grid>
 </mah:MetroWindow>

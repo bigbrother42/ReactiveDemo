@@ -10,6 +10,7 @@ using ReactiveDemo.Base.ActionBase;
 using ReactiveDemo.Util;
 using Prism.Interactivity.InteractionRequest;
 using ReactiveDemo.Events;
+using InfrastructureDemo.ActionBase.Parameters;
 
 namespace ReactiveDemo.ViewModels
 {
@@ -30,6 +31,8 @@ namespace ReactiveDemo.ViewModels
         public ReactiveCommand TestMethodRequestCommand { get; set; }
 
         public ReactiveCommand TestMapperCommand { get; set; }
+
+        public ReactiveCommand<ExtendCommandParameter> PreviewMouseLeftButtonDownCommand { get; set; }
 
         #endregion
 
@@ -117,6 +120,12 @@ namespace ReactiveDemo.ViewModels
                 var mappedModel = Mapper.Map<TestMapperModel>(sourceModel);
 
                 LogUtil.Instance.Info(mappedModel.ToString());
+            }).AddTo(DisposablePool);
+
+            PreviewMouseLeftButtonDownCommand = new ReactiveCommand<ExtendCommandParameter>().AddTo(DisposablePool);
+            PreviewMouseLeftButtonDownCommand.Subscribe(o =>
+            { 
+                
             }).AddTo(DisposablePool);
         }
 

@@ -44,7 +44,6 @@
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Content="Reactive&#xa;  Demo"
-                    Visibility="Collapsed"
                     Command="{Binding ReactiveDemoCommand}"/>
 
             <Button x:Name="Viewport3DButton"

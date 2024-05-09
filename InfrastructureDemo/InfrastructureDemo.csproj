@@ -63,8 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionBase\AlertWindowAction.cs" />
+    <Compile Include="ActionBase\ExtendInvokeCommandAction.cs" />
     <Compile Include="ActionBase\InvokeMethodAction.cs" />
     <Compile Include="ActionBase\MethodNotification.cs" />
+    <Compile Include="ActionBase\Parameters\ExtendCommandParameter.cs" />
     <Compile Include="Common\AdornerEffect.cs" />
     <Compile Include="Constans\Constants.cs" />
     <Compile Include="Constans\Enum\ComboBoxSourceItem.cs" />

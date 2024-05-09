@@ -30,7 +30,7 @@ namespace ReactiveDemo.Views
         private void HamburgerMenuControl_OnItemClick(object sender, ItemClickEventArgs e)
         {
             this.HamburgerMenuControl.SetCurrentValue(ContentProperty, e.ClickedItem);
-            //this.HamburgerMenuControl.SetCurrentValue(HamburgerMenu.IsPaneOpenProperty, false);
+            this.HamburgerMenuControl.SetCurrentValue(HamburgerMenu.IsPaneOpenProperty, false);
         }
     }
 }
