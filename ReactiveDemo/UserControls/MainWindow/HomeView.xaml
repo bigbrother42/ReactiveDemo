@@ -27,6 +27,12 @@
                 WindowName="ReactiveDemo.Views.MainWindow.SearchFileKeyWord.SearchFileKeyWordView"
                 IsShowDialog="False"/>
         </interactionRequest:InteractionRequestTrigger>
+
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding OpenDeepSeekDemoRequest}">
+            <actionBase:AlertWindowAction
+                WindowName="ReactiveDemo.Views.MainWindow.DeepSeek.DeepSeekDemoView"
+                IsShowDialog="True"/>
+        </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
     <Grid>
@@ -67,6 +73,17 @@
                     VerticalContentAlignment="Center"
                     Content="Find Key Word"
                     Command="{Binding OpenSearchFileByKeyWordCommand}"/>
+
+            <Button x:Name="DeepSeekDemoButton"
+                    Margin="10,0,0,0"
+                    Width="150"
+                    Height="150"
+                    FontSize="16"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Content="DeepSeek Demo"
+                    Command="{Binding DeepSeekDemoCommand}"/>
         </WrapPanel>
     </Grid>
 </UserControl>

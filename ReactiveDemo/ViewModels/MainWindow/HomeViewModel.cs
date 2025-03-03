@@ -31,6 +31,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public ReactiveCommand OpenSearchFileByKeyWordCommand { get; set; }
 
+        public ReactiveCommand DeepSeekDemoCommand { get; set; }
+
         #endregion
 
         #region ReactiveProperty
@@ -46,6 +48,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
         public InteractionRequest<Notification> OpenViewport3DViewRequest { get; set; } = new InteractionRequest<Notification>();
 
         public InteractionRequest<Notification> OpenSearchFileByKeyWordRequest { get; set; } = new InteractionRequest<Notification>();
+
+        public InteractionRequest<Notification> OpenDeepSeekDemoRequest { get; set; } = new InteractionRequest<Notification>();
 
         #endregion
 
@@ -80,6 +84,9 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
             OpenSearchFileByKeyWordCommand = new ReactiveCommand().AddTo(DisposablePool);
             OpenSearchFileByKeyWordCommand.Subscribe(OpenSearchFileByKeyWord).AddTo(DisposablePool);
+
+            DeepSeekDemoCommand = new ReactiveCommand().AddTo(DisposablePool);
+            DeepSeekDemoCommand.Subscribe(DeepSeekDemo).AddTo(DisposablePool);
         }
 
         protected override void RegisterPubEvents()
@@ -104,6 +111,11 @@ namespace ReactiveDemo.ViewModels.MainWindow
         private void OpenSearchFileByKeyWord()
         {
             OpenSearchFileByKeyWordRequest.Raise(new Notification(), notification => { });
+        }
+
+        private void DeepSeekDemo()
+        {
+            OpenDeepSeekDemoRequest.Raise(new Notification(), notification => { });
         }
 
         #endregion
