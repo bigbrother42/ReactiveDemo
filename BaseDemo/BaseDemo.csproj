@@ -55,6 +55,7 @@
     <Compile Include="Models\Singleton\SingletonBase.cs" />
     <Compile Include="Util\Attribute\CsvInfoAttribute.cs" />
     <Compile Include="Util\CsvFileUtil.cs" />
+    <Compile Include="Util\ExpressionBuilderUtility.cs" />
     <Compile Include="Util\Extensions\CollectionExtensions.cs" />
     <Compile Include="Util\EncryptionUtility.cs" />
     <Compile Include="Util\ExceptionUtil.cs" />
