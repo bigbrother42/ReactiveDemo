@@ -5,4 +5,6 @@
     <ImageSource x:Key="NoteLogo">pack://application:,,,/ReactiveDemo;component/Assets/Images/note-logo.png</ImageSource>
 
     <ImageSource x:Key="NoteLogo2">pack://application:,,,/ReactiveDemo;component/Assets/Images/note-logo-2.png</ImageSource>
+
+    <ImageSource x:Key="OpenCVSample03">pack://application:,,,/ReactiveDemo;component/Assets/Images/pic3.png</ImageSource>
 </ResourceDictionary>

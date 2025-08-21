@@ -33,6 +33,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
         public ReactiveCommand DeepSeekDemoCommand { get; set; }
 
+        public ReactiveCommand OpenCVCommand { get; set; }
+
         #endregion
 
         #region ReactiveProperty
@@ -50,6 +52,8 @@ namespace ReactiveDemo.ViewModels.MainWindow
         public InteractionRequest<Notification> OpenSearchFileByKeyWordRequest { get; set; } = new InteractionRequest<Notification>();
 
         public InteractionRequest<Notification> OpenDeepSeekDemoRequest { get; set; } = new InteractionRequest<Notification>();
+
+        public InteractionRequest<Notification> ShowOpenCVDemoRequest { get; set; } = new InteractionRequest<Notification>();
 
         #endregion
 
@@ -87,6 +91,9 @@ namespace ReactiveDemo.ViewModels.MainWindow
 
             DeepSeekDemoCommand = new ReactiveCommand().AddTo(DisposablePool);
             DeepSeekDemoCommand.Subscribe(DeepSeekDemo).AddTo(DisposablePool);
+
+            OpenCVCommand = new ReactiveCommand().AddTo(DisposablePool);
+            OpenCVCommand.Subscribe(OpenCVDemo).AddTo(DisposablePool);
         }
 
         protected override void RegisterPubEvents()
@@ -116,6 +123,11 @@ namespace ReactiveDemo.ViewModels.MainWindow
         private void DeepSeekDemo()
         {
             OpenDeepSeekDemoRequest.Raise(new Notification(), notification => { });
+        }
+
+        private void OpenCVDemo()
+        {
+            ShowOpenCVDemoRequest.Raise(new Notification(), notifiction => { });
         }
 
         #endregion

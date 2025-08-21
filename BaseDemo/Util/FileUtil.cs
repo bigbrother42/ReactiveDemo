@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace BaseDemo.Util
 {
@@ -15,6 +16,47 @@ namespace BaseDemo.Util
         public static readonly string FILE_EXTENSION = ".csv";
         public static readonly string ENGLISH_COMMA = ",";
         public static readonly string HALF_BLANK = " ";
+
+        private static readonly HashSet<string> ImageExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ".jpg", ".jpeg", ".jfif", ".pjpeg", ".pjp",
+            ".png", ".gif", ".bmp", ".tiff", ".tif",
+            ".webp", ".ico", ".svg", ".heic", ".heif",
+            ".raw", ".cr2", ".nef", ".arw", ".dng",
+        };
+
+        public static bool IsImageFile(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath)) return false;
+
+            if (!File.Exists(filePath)) return false;
+
+            var extension = Path.GetExtension(filePath);
+            return ImageExtensions.Contains(extension);
+        }
+
+        public static BitmapSource FilePath2BitmapSource(string filePath, int width)
+        {
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return null;
+
+            try
+            {
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.UriSource = new Uri(filePath, UriKind.RelativeOrAbsolute);
+                bitmapImage.DecodePixelWidth = width;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze();
+
+                return bitmapImage;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
         public static DataTable ConvertCsvToDataTable(string filePath)
         {

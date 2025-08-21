@@ -33,6 +33,12 @@
                 WindowName="ReactiveDemo.Views.MainWindow.DeepSeek.DeepSeekDemoView"
                 IsShowDialog="True"/>
         </interactionRequest:InteractionRequestTrigger>
+
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding ShowOpenCVDemoRequest}">
+            <actionBase:AlertWindowAction
+                WindowName="ReactiveDemo.Views.ComputerVision.OpenCVView"
+                IsShowDialog="True"/>
+        </interactionRequest:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
     <Grid>
@@ -84,6 +90,17 @@
                     VerticalContentAlignment="Center"
                     Content="DeepSeek Demo"
                     Command="{Binding DeepSeekDemoCommand}"/>
+
+            <Button x:Name="OpenCVButton"
+                    Margin="10,0,0,0"
+                    Width="150"
+                    Height="150"
+                    FontSize="16"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Content="OpenCV Demo"
+                    Command="{Binding OpenCVCommand}"/>
         </WrapPanel>
     </Grid>
 </UserControl>

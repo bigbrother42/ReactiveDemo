@@ -18,7 +18,7 @@
                 <component:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <component:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <!-- Theme setting -->
-                <component:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                <component:SharedResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Purple.xaml" />
                 
                 <component:SharedResourceDictionary Source="pack://application:,,,/ReactiveDemo;component/Themes/Generic.xaml"/>
 
