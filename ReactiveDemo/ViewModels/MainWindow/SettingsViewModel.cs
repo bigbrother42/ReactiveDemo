@@ -2,7 +2,7 @@
 using ControlzEx.Theming;
 using DataDemo.WebDto;
 using GongSolutions.Wpf.DragDrop;
-using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+using Prism.Interactivity.InteractionRequest;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactiveDemo.Constants;
